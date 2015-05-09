@@ -1,0 +1,33 @@
+{
+  "name": "home",
+  "description": "Structure of my home",
+  "meta": {},
+  "ttl": 30,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/home/myCat.py"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+  ]
+}

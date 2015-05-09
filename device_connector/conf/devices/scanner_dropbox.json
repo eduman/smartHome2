@@ -1,0 +1,82 @@
+{
+  "name": "scanner",
+  "description": "Configuration for the scanner",
+  "meta": {},
+  "ttl": 60,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/scanner/getConfiguration.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "scan",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/scanner/scan.sh /home/pi/device_connector/agent-examples/scanner/images"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "dropbox",
+      "meta": {},
+      "agent": {
+	"type": "timer",
+	"interval": 5,
+        "dir": null,
+        "exec": "python agent-examples/dropbox/mydropbox.py -l /home/pi/device_connector/agent-examples/scanner/images -r /scanner"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+  ]
+}

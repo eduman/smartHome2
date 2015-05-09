@@ -1,0 +1,273 @@
+{
+  "name": "macosx",
+  "description": "Configuration for raspberry pi",
+  "meta": {},
+  "ttl": 30,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/getConfiguration.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "brightnessdown",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/brightnessDown.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "brightnessup",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/brightnessUp.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "playernext",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/playerNext.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "playerplaypause",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/playerPlayPause.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "playerprevious",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/playerPrevious.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "playerstop",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/playerStop.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "volumedown",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/volumeDown.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "volumeup",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/volumeUp.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "volumemutedfalse",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/volumemutedFalse.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "volumemutedtrue",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "agent-examples/macosx/volumemutedTrue.sh"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+  ]
+}

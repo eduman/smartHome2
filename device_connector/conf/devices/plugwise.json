@@ -1,0 +1,81 @@
+{
+  "name": "plugwise",
+  "description": "Configuration for plugwise connector",
+  "meta": {},
+  "ttl": 30,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "000d6f0000998ab5/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000998ab5/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000998ab5/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "host": "message-broker.local",
+  "name": "MqttBroker",
+  "description": "Demo MQTT Broker",
+  "meta": {
+    "serviceType": "_mqtt._tcp",
+    "apiVersion": "3.1.1"
+  },
+  "ttl": 120,
+  "protocols": [
+    {
+      "type": "MQTT",
+      "endpoint": {
+        "url": "tcp://mqtt-broker.local:1883"
+      },
+      "methods": [
+        "PUB",
+        "SUB"
+      ],
+      "content-types": []
+    }
+  ],
+  "representation": {}
+}

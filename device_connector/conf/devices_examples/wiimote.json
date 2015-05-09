@@ -1,0 +1,33 @@
+{
+  "name": "Wiimote",
+  "description": "Wiimote python script",
+  "meta": {},
+  "ttl": 30,
+  "resources": [
+    {
+      "type": "Resource",
+      "name": "start",
+      "meta": {},
+      "agent": {
+        "type": "service",
+        "dir": null,
+        "exec": "/usr/bin/python agent-examples/wiimote/wiimote.py"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+  ]
+}

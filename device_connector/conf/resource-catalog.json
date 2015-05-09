@@ -1,0 +1,19 @@
+{
+  "description": "Standalone Device/Resource Catalog",
+  "dnssdEnabled": true,
+  "publicAddr": "fqdn-of-the-host",
+  "bindAddr": "0.0.0.0",
+  "bindPort": 8081,
+  "apiLocation": "/rc",
+  "staticDir": "./static",
+  "storage": {
+    "type": "memory"
+  },
+  "serviceCatalog": [
+    {
+      "discover": false,
+      "endpoint": "http://remotehost:8081/sc"
+      "ttl": 120
+    }
+  ]
+}

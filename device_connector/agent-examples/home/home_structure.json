@@ -1,0 +1,86 @@
+{
+	"homeID":"1",
+	"description":"my home",
+	"floor":"2",
+	"landlord":"my landlord",
+	"buildingID":"1",
+	"rooms": [
+		{
+			"roomID":"1",
+			"description":"living room",
+			"devices": [
+				{
+					"deviceID":"id",
+					"description":"arduino subufer",
+					"isActive":true,
+					"type":"Arduino",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.2:8082/?getConfiguration"
+						}
+					]
+				},{
+					"deviceID":"id",
+					"description":"arduino shelf",
+					"isActive":true,
+					"type":"Arduino",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.3:8082/?getConfiguration"
+						}
+					]
+				},{
+					"deviceID":"id",
+					"description":"arduino television",
+					"isActive":true,
+					"type":"Arduino",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.4:8082/?getConfiguration"
+						}
+					]
+				}
+
+			]
+		},{
+			"roomID":"2",
+			"description":"guest room",
+			"devices": [
+				{
+					"deviceID":"id",
+					"description":"scanner",
+					"isActive":true,
+					"type":"scanner",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.5:8080/rest/scanner/configuration"
+						}
+					]
+				},{
+					"deviceID":"id",
+					"description":"raspberry pi",
+					"isActive":true,
+					"type":"raspberry",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.5:8080/rest/raspberry/configuration"
+						}
+					]
+				}
+
+			]
+		}
+
+	]
+
+}
