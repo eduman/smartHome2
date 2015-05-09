@@ -76,6 +76,593 @@
           ]
         }
       ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }, 
+
+
+
+
+
+    {
+      "type": "Resource",
+      "name": "000d6f0000af5093/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    }
+
+
+
+
+    {
+      "type": "Resource",
+      "name": "000d6f0000af5093/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5093/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000d362b0/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000d362b0/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000d362b0/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000b1d4ec/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000b1d4ec/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000b1d4ec/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5096/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5096/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5096/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af4e16/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af4e16/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af4e16/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5094/on",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -s on"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5094/off",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -s off"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
+    },{
+      "type": "Resource",
+      "name": "000d6f0000af5094/configuration",
+      "meta": {},
+      "agent": {
+        "type": "task",
+        "dir": null,
+        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -i"
+      },
+      "representation": {
+        "application/json": {
+        }
+      },
+      "protocols": [
+        {
+          "type": "REST",
+          "methods": [
+            "GET"
+          ],
+          "content-types": [
+            "application/json"
+          ]
+        }
+      ]
     }
   ]
 }
