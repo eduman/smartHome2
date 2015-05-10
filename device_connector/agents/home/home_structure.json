@@ -76,8 +76,38 @@
 							"uri":"http://192.168.1.5:8080/rest/raspberry/configuration"
 						}
 					]
+				},{
+					"deviceID":"000d6f0000998ab5",
+					"description":"modem",
+					"isActive":true,
+					"type":"plugwise",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.5:8080/rest/plugwise/000d6f0000998ab5/configuration"
+						}
+					]
 				}
+			]
+		},{
+			"roomID":"3",
+			"description":"kitchen",
+			"devices": [
 
+				{
+					"deviceID":"000d6f0000af5093",
+					"description":"washing machine",
+					"isActive":true,
+					"type":"plugwise",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.5:8080/rest/plugwise/000d6f0000af5093/configuration"
+						}
+					]
+				}
 			]
 		}
 

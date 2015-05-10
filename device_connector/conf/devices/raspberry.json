@@ -11,7 +11,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/raspberry/getConfiguration.sh"
+        "exec": "agents/raspberry/getConfiguration.sh"
       },
       "representation": {
         "application/json": {
@@ -35,7 +35,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/raspberry/getTemperature.sh"
+        "exec": "agents/raspberry/getTemperature.sh"
       },
       "representation": {
         "application/json": {

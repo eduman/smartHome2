@@ -11,7 +11,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/home/myCat.py"
+        "exec": "python agents/home/myCat.py"
       },
       "representation": {
         "application/json": {

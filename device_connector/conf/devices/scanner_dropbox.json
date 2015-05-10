@@ -11,7 +11,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/scanner/getConfiguration.sh"
+        "exec": "agents/scanner/getConfiguration.sh"
       },
       "representation": {
         "application/json": {
@@ -35,7 +35,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/scanner/scan.sh /home/pi/device_connector/agent-examples/scanner/images"
+        "exec": "agents/scanner/scan.sh /home/pi/device_connector/agents/scanner/images"
       },
       "representation": {
         "application/json": {
@@ -60,7 +60,7 @@
 	"type": "timer",
 	"interval": 5,
         "dir": null,
-        "exec": "python agent-examples/dropbox/mydropbox.py -l /home/pi/device_connector/agent-examples/scanner/images -r /scanner"
+        "exec": "python agents/dropbox/mydropbox.py -l /home/pi/device_connector/agents/scanner/images -r /scanner"
       },
       "representation": {
         "application/json": {

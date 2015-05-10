@@ -11,7 +11,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/getConfiguration.sh"
+        "exec": "agents/macosx/getConfiguration.sh"
       },
       "representation": {
         "application/json": {
@@ -35,7 +35,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/brightnessDown.sh"
+        "exec": "agents/macosx/brightnessDown.sh"
       },
       "representation": {
         "application/json": {
@@ -59,7 +59,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/brightnessUp.sh"
+        "exec": "agents/macosx/brightnessUp.sh"
       },
       "representation": {
         "application/json": {
@@ -83,7 +83,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/playerNext.sh"
+        "exec": "agents/macosx/playerNext.sh"
       },
       "representation": {
         "application/json": {
@@ -107,7 +107,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/playerPlayPause.sh"
+        "exec": "agents/macosx/playerPlayPause.sh"
       },
       "representation": {
         "application/json": {
@@ -131,7 +131,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/playerPrevious.sh"
+        "exec": "agents/macosx/playerPrevious.sh"
       },
       "representation": {
         "application/json": {
@@ -155,7 +155,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/playerStop.sh"
+        "exec": "agents/macosx/playerStop.sh"
       },
       "representation": {
         "application/json": {
@@ -179,7 +179,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/volumeDown.sh"
+        "exec": "agents/macosx/volumeDown.sh"
       },
       "representation": {
         "application/json": {
@@ -203,7 +203,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/volumeUp.sh"
+        "exec": "agents/macosx/volumeUp.sh"
       },
       "representation": {
         "application/json": {
@@ -227,7 +227,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/volumemutedFalse.sh"
+        "exec": "agents/macosx/volumemutedFalse.sh"
       },
       "representation": {
         "application/json": {
@@ -251,7 +251,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agent-examples/macosx/volumemutedTrue.sh"
+        "exec": "agents/macosx/volumemutedTrue.sh"
       },
       "representation": {
         "application/json": {

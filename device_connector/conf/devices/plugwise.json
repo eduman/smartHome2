@@ -11,7 +11,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -s on"
       },
       "representation": {
         "application/json": {
@@ -35,7 +35,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -s off"
       },
       "representation": {
         "application/json": {
@@ -59,7 +59,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000998AB5 -i"
       },
       "representation": {
         "application/json": {
@@ -83,7 +83,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
       },
       "representation": {
         "application/json": {
@@ -107,7 +107,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
       },
       "representation": {
         "application/json": {
@@ -131,7 +131,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
       },
       "representation": {
         "application/json": {
@@ -148,20 +148,14 @@
           ]
         }
       ]
-    }, 
-
-
-
-
-
-    {
+    },{
       "type": "Resource",
       "name": "000d6f0000af5093/on",
       "meta": {},
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
       },
       "representation": {
         "application/json": {
@@ -185,7 +179,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
       },
       "representation": {
         "application/json": {
@@ -209,7 +203,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
       },
       "representation": {
         "application/json": {
@@ -226,19 +220,14 @@
           ]
         }
       ]
-    }
-
-
-
-
-    {
+    },{
       "type": "Resource",
       "name": "000d6f0000af5093/on",
       "meta": {},
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s on"
       },
       "representation": {
         "application/json": {
@@ -262,7 +251,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -s off"
       },
       "representation": {
         "application/json": {
@@ -286,7 +275,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5093 -i"
       },
       "representation": {
         "application/json": {
@@ -310,7 +299,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -s on"
       },
       "representation": {
         "application/json": {
@@ -334,7 +323,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -s off"
       },
       "representation": {
         "application/json": {
@@ -358,7 +347,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000D362B0 -i"
       },
       "representation": {
         "application/json": {
@@ -382,7 +371,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -s on"
       },
       "representation": {
         "application/json": {
@@ -406,7 +395,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -s off"
       },
       "representation": {
         "application/json": {
@@ -430,7 +419,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000B1D4EC -i"
       },
       "representation": {
         "application/json": {
@@ -454,7 +443,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -s on"
       },
       "representation": {
         "application/json": {
@@ -478,7 +467,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -s off"
       },
       "representation": {
         "application/json": {
@@ -502,7 +491,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5096 -i"
       },
       "representation": {
         "application/json": {
@@ -526,7 +515,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -s on"
       },
       "representation": {
         "application/json": {
@@ -550,7 +539,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -s off"
       },
       "representation": {
         "application/json": {
@@ -574,7 +563,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF4E16 -i"
       },
       "representation": {
         "application/json": {
@@ -598,7 +587,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -s on"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -s on"
       },
       "representation": {
         "application/json": {
@@ -622,7 +611,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -s off"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -s off"
       },
       "representation": {
         "application/json": {
@@ -646,7 +635,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "python agent-examples/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -i"
+        "exec": "python agents/plugwise/my_plugwise_util.py -m 000D6F0000AF5094 -i"
       },
       "representation": {
         "application/json": {
