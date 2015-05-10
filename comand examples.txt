@@ -1,0 +1,44 @@
+MQTT presence 
+
+mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest -m '{"topic":"BEHAVIOURS/PROXIMITY/guest", "value":"False", "event":"Proximity", "device":"guest", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+MQTT generic sensor
+
+mosquitto_pub -t BEHAVIOURS/MOTION/sensor2 -m '{"topic":"BEHAVIOURS/MOTION/sensor2", "value":"True", "event":"MOTION", "device":"sensor2", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+
+MQTT PLUGWISE 000d6f0000998ab5
+
+mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"switchOn", "event":"switchOn", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"switchOff", "event":"switchOff", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"configuration", "event":"NONE", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+
+MQTT PLUGWISE 000d6f0000af5093
+
+mosquitto_pub -t ACTION/ACTUATOR/000d6f0000af5093 -m '{"topic":"ACTION/ACTUATOR/000d6f0000af5093", "value":"switchOn", "event":"switchOn", "device":"000d6f0000af5093", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t ACTION/ACTUATOR/000d6f0000af5093 -m '{"topic":"ACTION/ACTUATOR/000d6f0000af5093", "value":"switchOff", "event":"switchOff", "device":"000d6f0000af5093", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+
+
+
+WEB SERVICES:
+
+RASPBERRY
+curl -X GET localhost:8080/rest/raspberry/configuration -H "Content-Type:application/json"
+curl -X GET localhost:8080/rest/raspberry/temperature -H "Content-Type:application/json"
+
+SCANNER
+curl -X GET localhost:8080/rest/scanner/configuration -H "Content-Type:application/json"
+curl -X GET localhost:8080/rest/scanner/scan -H "Content-Type:application/json"
+
+PLUGWISE
+curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/configuration -H "Content-Type:application/json"
+curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/on -H "Content-Type:application/json"
+curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/off -H "Content-Type:application/json"
+
+HOME
+curl -X GET localhost:8080/rest/home/configuration -H "Content-Type:application/json"
