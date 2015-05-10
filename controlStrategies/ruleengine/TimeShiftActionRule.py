@@ -114,7 +114,8 @@ class TimeShiftActionRule(AbstractActionRule):
 					self.isOffState = False
 					self.isOnState = True
 					self.sendCommands(ActuationCommands.getSwitchOn())
-			else:
+			
+			elif self.isOnState == False:
 				# by default the device are on
 				self.logger.debug("TimeShiftActionRule.action(): Default ON Status, switching on the appliances")
 				self.isOffState = False
