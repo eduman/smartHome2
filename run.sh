@@ -4,6 +4,7 @@ cd '/home/pi/smartHome2/'
 
 #run the device connector 
 cd './device_connector'
+echo "running device_connector..."
 screen -d -m ./device-gateway
 
 #run the subscribers

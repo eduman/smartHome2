@@ -23,7 +23,11 @@ mosquitto_pub -t ACTION/ACTUATOR/000d6f0000af5093 -m '{"topic":"ACTION/ACTUATOR/
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000af5093 -m '{"topic":"ACTION/ACTUATOR/000d6f0000af5093", "value":"switchOff", "event":"switchOff", "device":"000d6f0000af5093", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
 
+MQTT Arduino 192.168.1.3_7
 
+mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192.168.1.3_7", "value":"switchOn", "event":"switchOn", "device":"192.168.1.3_7", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192.168.1.3_7", "value":"switchOff", "event":"switchOff", "device":"192.168.1.3_7", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
 WEB SERVICES:
 

@@ -41,6 +41,10 @@ class AbstractSubscriber(object):
 		self.logger.addHandler(consoleHandler)
 
 
+		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
+			signal.signal(sig, self.signal_handler)
+
+
 	def signal_handler(self, signal, frame):
 		self.stop()
 
