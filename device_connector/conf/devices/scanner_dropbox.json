@@ -35,7 +35,7 @@
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "agents/scanner/scan.sh /home/pi/device_connector/agents/scanner/images"
+        "exec": "agents/scanner/scan.sh /home/pi/smartHome2/device_connector/agents/scanner/images"
       },
       "representation": {
         "application/json": {
@@ -60,7 +60,7 @@
 	"type": "timer",
 	"interval": 5,
         "dir": null,
-        "exec": "python agents/dropbox/mydropbox.py -l /home/pi/device_connector/agents/scanner/images -r /scanner"
+        "exec": "python agents/dropbox/mydropbox.py -l /home/pi/smartHome2/device_connector/agents/scanner/images -r /scanner"
       },
       "representation": {
         "application/json": {

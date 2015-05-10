@@ -130,7 +130,7 @@ class TimeShiftActionRule(AbstractActionRule):
 			tokens =  ''.join(fullActuatorList.split()).split(';')
 			for tok in tokens:
 				if tok:
-					eventTopic = self.makeActionEvent(EventTopics.getActuatorAction(), tok, ActuationCommands.getSwitchOff())
+					eventTopic = self.makeActionEvent(EventTopics.getActuatorAction(), tok, action)
 					self.publishEvent(eventTopic, tok, action, action)
 					try:
 						time.sleep(0.01)

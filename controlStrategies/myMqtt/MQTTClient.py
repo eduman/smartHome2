@@ -56,15 +56,16 @@ class MyMQTTClass:
             self.logger.error("Erron on mqttDisconnect() %s", e)
 
     def subscribeEvent(self, fullString, topic):
-        tokens =  ''.join(fullString.split()).split(';')
-        for tok in tokens:
-            if tok:
-                event = topic + "/" + tok.lower() + "/#"
-                try: 
-                    self._mqttc.subscribe(event)
-                    self.logger.debug("Subscribed for the event: %s " % event)
-                except Exception, e:
-                    self.logger.error("Error on subscribeEvent() %s", e)
+        if fullString:
+            tokens =  ''.join(fullString.split()).split(';')
+            for tok in tokens:
+                if tok:
+                    event = topic + "/" + tok.lower() + "/#"
+                    try: 
+                        self._mqttc.subscribe(event)
+                        self.logger.debug("Subscribed for the event: %s " % event)
+                    except Exception, e:
+                        self.logger.error("Error on subscribeEvent() %s", e)
 
     def publish(self, eventTopic, payload, qos=2):
         self._mqttc.publish(eventTopic, payload, qos)
