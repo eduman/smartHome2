@@ -14,14 +14,12 @@ from smartHomeDevice import ActuationCommands
 
 
 
-#brokerUri = "localhost"
-brokerUri = "192.168.1.5"
+brokerUri = "localhost"
 brokerPort = "1883"
 subscriberName = "PlugwiseSubscriber"
 actuators = "000d6f0000998ab5;000d6f0000af5093;000d6f0000d362b0;000d6f0000b1d4ec;000d6f0000af5096;000d6f0000af4e16;000d6f0000af5094"
 
-#connectorURI = "http://localhost:8080"
-connectorURI = "http://192.168.1.5:8080"
+connectorURI = "http://localhost:8080"
 configuration = connectorURI + "/rest/plugwise/%s/configuration"
 switchon = connectorURI + "/rest/plugwise/%s/on"
 switchoff = connectorURI + "/rest/plugwise/%s/off"
