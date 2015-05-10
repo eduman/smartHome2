@@ -1,0 +1,468 @@
+2015-05-09 11:16:44,905 [MainThread  ] [ERROR]  Control strategy "TimeShiftControlStrategy" is already running with pid /tmp/TimeShiftControlStrategy.pid, exiting
+2015-05-09 11:20:34,202 [MainThread  ] [ERROR]  Erron on registerMQTT() [Errno 61] Connection refused
+2015-05-09 11:20:34,202 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:20:41,970 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:20:41,970 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:20:41,973 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:20:41,975 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:20:41,975 [MainThread  ] [ERROR]  Erron on mqttDisconnect() MyMQTTClass instance has no attribute 'timer'
+2015-05-09 11:20:41,975 [MainThread  ] [ERROR]  Error on stop(): [Errno 2] No such file or directory: '/tmp/TimeShiftControlStrategy.pid'
+2015-05-09 11:21:16,030 [MainThread  ] [ERROR]  Erron on registerMQTT() [Errno 61] Connection refused
+2015-05-09 11:21:16,030 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:21:19,896 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:21:19,896 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:21:19,896 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:21:19,900 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:21:19,901 [MainThread  ] [ERROR]  Erron on mqttDisconnect() MyMQTTClass instance has no attribute 'timer'
+2015-05-09 11:24:11,840 [MainThread  ] [ERROR]  Erron on registerMQTT() [Errno 61] Connection refused
+2015-05-09 11:24:11,840 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:24:17,401 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:24:17,401 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:24:17,401 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:24:17,402 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:24:17,402 [MainThread  ] [ERROR]  Erron on mqttDisconnect() MyMQTTClass instance has no attribute 'timer'
+2015-05-09 11:24:54,117 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:24:54,119 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 11:25:05,167 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:25:05,167 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:25:05,168 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:25:05,168 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:28:39,030 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:28:39,031 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 11:28:44,615 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:28:44,615 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:28:44,615 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:28:44,618 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:29:36,890 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:29:36,891 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 11:30:01,492 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:30:01,493 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:30:01,493 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:30:01,493 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:37:46,917 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:37:46,918 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 11:38:28,170 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:38:28,170 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:38:28,170 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:38:28,171 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 11:38:47,176 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 11:38:47,181 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 11:38:47,182 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 11:38:47,185 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 11:38:54,736 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 11:38:54,737 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 11:38:54,741 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 11:38:54,741 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:12:41,550 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 17:12:41,592 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:12:41,595 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 17:12:41,600 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:13:06,735 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:13:06,735 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:13:06,735 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:13:06,735 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:15:31,448 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 17:15:31,457 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:15:31,458 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:15:31,461 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 17:15:36,791 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:15:36,791 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:15:36,792 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:15:36,792 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:16:28,691 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 17:16:28,772 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:16:28,775 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:16:28,776 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): No section: 'Sunday_off'
+2015-05-09 17:16:32,659 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:16:32,660 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:16:32,663 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:16:32,664 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:19:33,646 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:19:33,647 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:19:36,878 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:19:36,879 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:19:36,879 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:19:36,879 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:19:41,166 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:19:41,175 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:19:44,476 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:19:44,478 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:19:44,478 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:19:44,478 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:34:26,251 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:34:26,253 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:34:40,352 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:34:40,352 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:34:40,353 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:34:40,353 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:35:05,612 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:35:05,613 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:35:05,614 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 17:35:05,614 [MainThread  ] [ERROR]  Error on RuleEngine.process(): 'TimeShiftActionRule' object has no attribute 'actionaction'
+2015-05-09 17:35:13,591 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:35:13,591 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:35:13,591 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:35:13,593 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:35:37,793 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:35:37,793 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:35:37,794 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 17:35:43,926 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:35:43,926 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:35:43,926 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:35:43,929 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 17:46:17,783 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 17:46:17,784 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 17:46:17,784 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 17:46:40,380 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 17:46:40,380 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 17:46:40,383 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 17:46:40,383 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:08:47,639 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:08:47,640 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:08:47,648 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:08:47,648 [MainThread  ] [ERROR]  Error on TimeShiftActionRule.action(): 'TimeShiftActionRule' object has no attribute 'sendCommand'.
+2015-05-09 18:08:58,936 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:08:58,936 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:08:58,936 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:08:58,937 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:09:14,038 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:09:14,039 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:09:14,040 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:09:14,040 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOff", "event":"switchOff", "device":"actuator1", "timestamp":"2015-05-09 18:09:14"}
+2015-05-09 18:09:14,046 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 18:09:14,053 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOff", "event":"switchOff", "device":"actuator2", "timestamp":"2015-05-09 18:09:14"}
+2015-05-09 18:09:14,057 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 18:14:14,065 [Thread-3    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 18:14:14,126 [Thread-3    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:14:14,127 [Thread-3    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:14:15,049 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:16:25,975 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:16:25,992 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:16:25,993 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:16:25,993 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:16:28,728 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:16:28,740 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:16:28,743 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:16:28,743 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): OFF Status, switching off the appliances
+2015-05-09 18:16:28,744 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOff", "event":"switchOff", "device":"actuator1", "timestamp":"2015-05-09 18:16:28"}
+2015-05-09 18:16:28,747 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 18:16:28,755 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOff", "event":"switchOff", "device":"actuator2", "timestamp":"2015-05-09 18:16:28"}
+2015-05-09 18:16:28,759 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 18:16:50,397 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:16:50,398 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:16:50,398 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:16:50,398 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:17:08,421 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:17:08,422 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:17:08,423 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:17:18,420 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:17:18,421 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:17:18,424 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:17:18,424 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:19:03,799 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:19:03,800 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:19:03,801 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:19:20,824 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:19:20,824 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:19:20,824 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:19:20,825 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:19:22,869 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:19:22,870 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:19:22,870 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:19:50,351 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:19:50,352 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:19:50,352 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:19:50,352 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:19:52,395 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:19:52,396 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:19:52,397 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:20:19,605 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:20:19,605 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:20:19,605 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:20:19,606 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:20:22,002 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:20:22,002 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:20:22,003 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:21:07,603 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:21:07,603 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:21:07,603 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:21:07,604 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 18:21:09,436 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:21:09,437 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:21:09,438 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:21:09,438 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 18:21:09,438 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 18:21:09"}
+2015-05-09 18:21:09,442 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 18:21:09,452 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 18:21:09"}
+2015-05-09 18:21:09,456 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 18:26:09,468 [Thread-3    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 18:26:09,468 [Thread-3    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:26:09,469 [Thread-3    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:26:10,446 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:31:09,470 [Thread-5    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 18:31:09,470 [Thread-5    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 18:31:09,471 [Thread-5    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 18:31:10,454 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 18:36:00,121 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 18:36:00,121 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 18:36:00,122 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 18:36:00,122 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:18:53,369 [MainThread  ] [ERROR]  Error on DefaultTimeShiftRule.process(): Context instance has no attribute 'logger'
+2015-05-09 20:18:53,403 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:18:53,432 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:27:15,983 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:27:15,989 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:27:15,996 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:27:15,997 [MainThread  ] [ERROR]  Error on RuleEngine.process(): 'function' object has no attribute 'lower'
+2015-05-09 20:27:27,189 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:27:27,190 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:27:27,190 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:27:27,190 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:31:08,777 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:31:08,778 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:31:08,778 [MainThread  ] [ERROR]  Error on RuleEngine.process(): 'function' object has no attribute 'lower'
+2015-05-09 20:31:09,485 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:31:23,588 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:31:23,589 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:31:23,589 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:31:23,589 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:31:44,623 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:31:44,624 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:31:44,624 [MainThread  ] [ERROR]  Erroron RuleEngine.update(): 'function' object has no attribute 'lower'
+2015-05-09 20:31:44,626 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:32:14,586 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:32:14,586 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:32:14,587 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:32:20,678 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:32:20,679 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:32:20,684 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:34:51,375 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:34:51,376 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:34:51,378 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:34:51,378 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:34:51"}
+2015-05-09 20:34:51,379 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:34:51,383 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 20:34:51,392 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:34:51"}
+2015-05-09 20:34:51,403 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 20:35:52,698 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:35:52,698 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:35:52,699 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:35:52,699 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:35:55,804 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:35:55,805 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:35:55,806 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:35:55,806 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:35:55,807 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:35:55"}
+2015-05-09 20:35:55,810 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 20:35:55,818 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:35:55"}
+2015-05-09 20:35:55,825 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 20:40:55,830 [Thread-3    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 20:40:55,831 [Thread-3    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:40:55,831 [Thread-3    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:40:55,831 [Thread-3    ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:40:55,832 [Thread-3    ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:40:55"}
+2015-05-09 20:40:55,845 [Thread-3    ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:40:55"}
+2015-05-09 20:40:56,821 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:40:56,834 [Thread-1    ] [DEBUG]  mid: 3
+2015-05-09 20:40:56,837 [Thread-1    ] [DEBUG]  mid: 4
+2015-05-09 20:45:55,857 [Thread-5    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 20:45:55,858 [Thread-5    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:45:55,858 [Thread-5    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:45:55,858 [Thread-5    ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:45:55,859 [Thread-5    ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:45:55"}
+2015-05-09 20:45:55,872 [Thread-5    ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:45:55"}
+2015-05-09 20:45:56,829 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:45:56,843 [Thread-1    ] [DEBUG]  mid: 5
+2015-05-09 20:45:56,849 [Thread-1    ] [DEBUG]  mid: 6
+2015-05-09 20:46:31,682 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:46:31,682 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:46:31,682 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:46:31,682 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:47:19,420 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:47:19,422 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:47:19,422 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:47:19,422 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:47:19,422 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:47:19"}
+2015-05-09 20:47:19,427 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 20:47:19,438 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:47:19"}
+2015-05-09 20:47:19,444 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 20:48:24,685 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:48:24,685 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:48:24,685 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:48:24,685 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:48:26,498 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:48:26,499 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:48:26,500 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:48:26,500 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:48:26,501 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:48:26"}
+2015-05-09 20:48:26,509 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 20:48:26,511 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:48:26"}
+2015-05-09 20:48:26,521 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 20:48:30,797 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:48:30,797 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:48:30,798 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:48:30,798 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:48:46,815 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:48:46,815 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:48:46,817 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:48:46,817 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:48:46,817 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:48:46"}
+2015-05-09 20:48:46,821 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 20:48:46,828 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:48:46"}
+2015-05-09 20:48:46,832 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 20:53:46,845 [Thread-3    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 20:53:46,928 [Thread-3    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:53:46,928 [Thread-3    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:53:47,830 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:57:02,065 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 20:57:02,066 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 20:57:02,066 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 20:57:02,066 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 20:57:14,037 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 20:57:14,038 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 20:57:14,038 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 20:57:14,038 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 20:57:14"}
+2015-05-09 20:57:14,039 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 20:57:14,043 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 20:57:14,050 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 20:57:14"}
+2015-05-09 20:57:14,054 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 21:02:14,063 [Thread-3    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:02:14,065 [Thread-3    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:02:14,065 [Thread-3    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:02:15,044 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:07:14,069 [Thread-5    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:07:14,143 [Thread-5    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:07:14,143 [Thread-5    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:07:15,060 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:12:14,145 [Thread-7    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:12:14,181 [Thread-7    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:12:14,181 [Thread-7    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:12:15,072 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:17:14,185 [Thread-9    ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:17:14,185 [Thread-9    ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:17:14,186 [Thread-9    ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:17:15,084 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:22:14,186 [Thread-11   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:22:14,187 [Thread-11   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:22:14,187 [Thread-11   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:22:15,092 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:27:14,189 [Thread-13   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:27:14,189 [Thread-13   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:27:14,189 [Thread-13   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:27:15,101 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:33:37,227 [Thread-14   ] [ERROR]  Erron on mqttReconnect() [Errno 50] Network is down
+2015-05-09 21:33:37,238 [Thread-15   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:33:37,238 [Thread-15   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:33:37,239 [Thread-15   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:36:03,220 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 21:38:37,266 [Thread-16   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:38:37,267 [Thread-16   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:38:37,267 [Thread-16   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:43:37,270 [Thread-17   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:43:37,270 [Thread-17   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:43:37,271 [Thread-17   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 21:48:37,276 [Thread-18   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 21:48:37,277 [Thread-18   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 21:48:37,277 [Thread-18   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:04:39,025 [Thread-19   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 22:04:39,026 [Thread-19   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:04:39,026 [Thread-19   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:04:43,183 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 22:09:39,043 [Thread-20   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 22:09:39,044 [Thread-20   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:09:39,044 [Thread-20   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:14:39,045 [Thread-21   ] [INFO ]  RuleUpdater.run(): Periodic rule engine update.
+2015-05-09 22:14:39,045 [Thread-21   ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:14:39,045 [Thread-21   ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:19:08,707 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 22:19:08,707 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 22:19:08,707 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 22:19:08,708 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 22:19:10,989 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:19:10,990 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 22:19:10,991 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:19:10,991 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 22:19:10,991 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 22:19:10"}
+2015-05-09 22:19:10,995 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 22:19:11,003 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 22:19:11"}
+2015-05-09 22:19:11,009 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 22:19:12,691 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 22:19:12,691 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 22:19:12,691 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 22:19:12,692 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 22:37:28,712 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:37:28,714 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 22:37:28,736 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:37:28,736 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 22:37:28,736 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 22:37:28"}
+2015-05-09 22:37:28,740 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 22:37:28,748 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 22:37:28"}
+2015-05-09 22:37:28,754 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 22:37:35,408 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 22:37:35,408 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 22:37:35,411 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 22:37:35,411 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 22:39:09,311 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:39:09,312 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:39:09,312 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 22:39:09,312 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 22:39:09"}
+2015-05-09 22:39:09,313 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 22:39:09,319 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 22:39:09,326 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 22:39:09"}
+2015-05-09 22:39:09,330 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 22:39:45,331 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 22:39:45,331 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 22:39:45,332 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 22:39:45,332 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 22:42:05,903 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:42:05,904 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:42:05,905 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 22:42:05,905 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 22:42:05"}
+2015-05-09 22:42:05,906 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 22:42:05,909 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 22:42:05,917 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 22:42:05"}
+2015-05-09 22:42:05,922 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 22:42:29,165 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 22:42:29,165 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 22:42:29,165 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 22:42:29,165 [MainThread  ] [DEBUG]  Disconnecting from message broker
+2015-05-09 22:46:37,566 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+2015-05-09 22:46:37,568 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+2015-05-09 22:46:37,568 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+2015-05-09 22:46:37,568 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+2015-05-09 22:46:37,569 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 22:46:37"}
+2015-05-09 22:46:37,572 [Thread-1    ] [DEBUG]  mid: 1
+2015-05-09 22:46:37,584 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 22:46:37"}
+2015-05-09 22:46:37,616 [Thread-1    ] [DEBUG]  mid: 2
+2015-05-09 22:46:53,618 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+2015-05-09 22:46:53,618 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+2015-05-09 22:46:53,618 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+2015-05-09 22:46:53,618 [MainThread  ] [DEBUG]  Disconnecting from message broker
+TimeShiftControlStrategy: 2015-05-09 23:24:01,990 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+TimeShiftControlStrategy: 2015-05-09 23:24:01,993 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+TimeShiftControlStrategy: 2015-05-09 23:24:02,010 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+TimeShiftControlStrategy: 2015-05-09 23:24:02,010 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+TimeShiftControlStrategy: 2015-05-09 23:24:02,011 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 23:24:02"}
+TimeShiftControlStrategy: 2015-05-09 23:24:02,019 [Thread-1    ] [DEBUG]  mid: 1
+TimeShiftControlStrategy: 2015-05-09 23:24:02,024 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 23:24:02"}
+TimeShiftControlStrategy: 2015-05-09 23:24:02,029 [Thread-1    ] [DEBUG]  mid: 2
+TimeShiftControlStrategy: 2015-05-09 23:24:22,898 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+TimeShiftControlStrategy: 2015-05-09 23:24:22,898 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+TimeShiftControlStrategy: 2015-05-09 23:24:22,898 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+TimeShiftControlStrategy: 2015-05-09 23:24:22,898 [MainThread  ] [DEBUG]  Disconnecting from message broker
+TimeShiftControlStrategy: 2015-05-09 23:33:44,087 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+TimeShiftControlStrategy: 2015-05-09 23:33:50,219 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+TimeShiftControlStrategy: 2015-05-09 23:33:50,220 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+TimeShiftControlStrategy: 2015-05-09 23:33:50,224 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+TimeShiftControlStrategy: 2015-05-09 23:34:10,179 [MainThread  ] [INFO ]  RuleEngine: Processing rules...
+TimeShiftControlStrategy: 2015-05-09 23:34:10,180 [Thread-1    ] [DEBUG]  Connected to message broker with result code: 0
+TimeShiftControlStrategy: 2015-05-09 23:34:10,456 [MainThread  ] [DEBUG]  Processing TimeShiftActionRule...
+TimeShiftControlStrategy: 2015-05-09 23:34:10,457 [MainThread  ] [DEBUG]  TimeShiftActionRule.action(): ON Status, switching on the appliances
+TimeShiftControlStrategy: 2015-05-09 23:34:10,457 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator1/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator1", "timestamp":"2015-05-09 23:34:10"}
+TimeShiftControlStrategy: 2015-05-09 23:34:10,465 [Thread-1    ] [DEBUG]  mid: 1
+TimeShiftControlStrategy: 2015-05-09 23:34:10,470 [MainThread  ] [DEBUG]  publishing: {"topic":"ACTION/ACTUATOR/actuator2/switchOff", "value":"switchOn", "event":"switchOn", "device":"actuator2", "timestamp":"2015-05-09 23:34:10"}
+TimeShiftControlStrategy: 2015-05-09 23:34:10,477 [Thread-1    ] [DEBUG]  mid: 2
+TimeShiftControlStrategy: 2015-05-09 23:34:13,467 [MainThread  ] [INFO ]  Stopping TimeShiftControlStrategy
+TimeShiftControlStrategy: 2015-05-09 23:34:13,467 [MainThread  ] [INFO ]  RuleUpdater.stop(): Stopping rule update scheduler.
+TimeShiftControlStrategy: 2015-05-09 23:34:13,467 [MainThread  ] [INFO ]  RuleEngine: Stopping rules.
+TimeShiftControlStrategy: 2015-05-09 23:34:13,468 [MainThread  ] [DEBUG]  Disconnecting from message broker
