@@ -109,7 +109,7 @@ class TimeShiftActionRule(AbstractActionRule):
 					self.sendCommands(ActuationCommands.getSwitchOff())
 					
 				#elif now < start and now >= end and self.isOnState == False:
-				elif self.isOnState == False:
+				elif now >= end and self.isOnState == False:
 					self.logger.debug("TimeShiftActionRule.action(): ON Status, switching on the appliances")
 					self.isOffState = False
 					self.isOnState = True
