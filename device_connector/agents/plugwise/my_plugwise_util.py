@@ -8,14 +8,20 @@ import optparse
 import logging
 from serial.serialutil import SerialException
 import ConfigParser
+import socket
+import fcntl
+import struct
 
 from plugwise import *
 import plugwise.util
 
 DEFAULT_SERIAL_PORT = "/dev/ttyUSB0"
+PORT_WS="8080"
+ETHERNET="eth0"
 
-jsonMsg = '{"configured":true,"ip":"%s","subnet":"","gateway":"","isError":false,"pins":[%s]}'
-pin = '{"pin":%s,"type":"%s","configuredAs":"%s","status":"%s","unit":"%s"}'
+wsBase = "http://%s:%s/rest/plugwise/%s/%s"
+jsonMsg = '{"configured":true,"ip":"%s","subnet":"","gateway":"","port":"","isError":false,"functions":[%s]}'
+function = '{"pin":%s,"type":"%s","configuredAs":"%s","status":"%s","unit":"%s","rest": "GET","ws":"%s"}'
 appliance = "N/A appliance"
 
 logger = logging.getLogger('plugwise')
@@ -67,10 +73,19 @@ def getConfig (c):
 
     values = ""
     status = str(c.get_info())[146:147]
-    values += pin % (1, appliance, "switch", status, "") + ","
-    values += pin % (2, "Power", "sensor", power, "W") 
+    ip=get_ip_address(ETHERNET)
+    plugwiseID = options.mac.lower()
 
-    msg = jsonMsg % (options.mac, values)
+    if status == "1":
+        switchWS = wsBase % (ip, PORT_WS, plugwiseID, "off")
+    else:
+        switchWS = wsBase % (ip, PORT_WS, plugwiseID, "on")
+    
+    infoWS= wsBase % (ip, PORT_WS, plugwiseID, "configuration")
+    values += function % (1, appliance, "switch", status, "", switchWS) + ","
+    values += function % (2, "Power", "sensor", power, "W", infoWS) 
+
+    msg = jsonMsg % (plugwiseID, values)
     print (msg)
 
 def setConfig():
@@ -81,6 +96,14 @@ def setConfig():
         appliance = Config.get("circles", options.mac)
     except Exception as e:
         logger.error("Error on reading config file: %s" % (e))
+
+def get_ip_address(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15])
+    )[20:24])
 
 def main():
     setConfig()
