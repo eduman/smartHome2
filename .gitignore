@@ -12,7 +12,7 @@
 *.pyc
 
 #log file
-*.pyc
+*.log
 
 # generated files
 bin/
@@ -25,4 +25,3 @@ gen/
 #.classpath
 #.project
 
-*.log
