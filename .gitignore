@@ -11,6 +11,9 @@
 #python compiled
 *.pyc
 
+#log file
+*.pyc
+
 # generated files
 bin/
 gen/
