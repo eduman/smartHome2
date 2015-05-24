@@ -53,8 +53,12 @@ char subnetStr[] = "255.255.255.0";
 //String gatewayStr = String (gateway[0]) + "." + String (gateway[1]) + "." + String (gateway[2]) + "." + String (gateway[3]);
 //String subnetStr = String (subnet[0]) + "." + String (subnet[1]) + "." + String (subnet[2]) + "." + String (subnet[3]);
 
+char portStr[] = "8082";
+
 EthernetServer server(8082); 
 IPAddress remoteServer(192,168,1,254); 
+
+char descriptionStr [] = "Arduino device";
 
 int adc_key_in;
 int key=-1;
@@ -195,16 +199,16 @@ void loop(){
           }
           //getPinConfiguration
           else if (readString.indexOf(getPinConfigurationStr)> 0){
-            getPinConfiguration(&client, true);
+            getPinConfiguration(&client, false);
             //Serial.println("getPinConfiguration");
           }
           //getNetConfiguration
           else if (readString.indexOf(getNetConfigurationStr)> 0){
-            getPinConfiguration(&client, true);
+            getPinConfiguration(&client, false);
             //getNetConfiguration(&client);
             //Serial.println("getNetConfiguration");
           } else {
-            getPinConfiguration(&client, false);
+            getPinConfiguration(&client, true);
           }
           readString="";
         } 
@@ -280,6 +284,16 @@ void getPinConfiguration(EthernetClient *client, boolean isError){
   (*client).print("\"gateway\":\"");
   (*client).print(gatewayStr);
   (*client).print("\",");
+
+  //Printing the port
+  (*client).print("\"port\":\"");
+  (*client).print(portStr);
+  (*client).print("\",");
+  
+  //Printing the description
+  (*client).print("\"description\":\"");
+  (*client).print(descriptionStr);
+  (*client).print("\",");
   
   //(*client).print("\"isError\":" + String (isError) + ",");
   if (!isError)
@@ -287,15 +301,15 @@ void getPinConfiguration(EthernetClient *client, boolean isError){
   else 
     (*client).print("\"isError\":false,");
     
-  (*client).print("\"pins\":[");
+  (*client).print("\"functions\":[");
   
   deviceToString(&relay1, client);
   (*client).print(",");
   deviceToString(&relay2, client);
   (*client).print(",");
-  deviceToString(&keyboard, client);
+  deviceToStringNoWS(&keyboard, client);
   (*client).print(",");
-  deviceToString(&motion, client);
+  deviceToStringNoWS(&motion, client);
   (*client).print(",");
   sensorToString(&temp, client);
   (*client).print(",");
@@ -311,7 +325,25 @@ void deviceToString (struct Device *device, EthernetClient *client){
   (*client).print("\"type\":\"" + (*device).type  + "\",");
   (*client).print("\"configuredAs\":\"" +  (*device).configuredAs  + "\",");
   (*client).print("\"status\":\"" +  String ((*device).boolStatus)  + "\",");
-  (*client).print("\"unit\":\"" +  (*device).unit  + "\"}");
+  (*client).print("\"unit\":\"" +  (*device).unit  + "\",");
+  (*client).print("\"rest\":\"GET\",");
+  (*client).print("\"ws\":\"http://"); 
+  (*client).print(ipStr);
+  (*client).print(":");
+  (*client).print(portStr); 
+  (*client).print("/set&relay=" + String ((*device).pin) + "&value=" + String (!(*device).boolStatus)+"\"}");
+  return;
+  return;
+}
+
+void deviceToStringNoWS (struct Device *device, EthernetClient *client){
+  (*client).print("{\"pin\":" + String ((*device).pin) + ","); 
+  (*client).print("\"type\":\"" + (*device).type  + "\",");
+  (*client).print("\"configuredAs\":\"" +  (*device).configuredAs  + "\",");
+  (*client).print("\"status\":\"" +  String ((*device).boolStatus)  + "\",");
+  (*client).print("\"unit\":\"" +  (*device).unit  + "\",");
+  (*client).print("\"rest\":\"\",");
+  (*client).print("\"ws\":\"\"}");
   return;
 }
 
@@ -320,7 +352,13 @@ void sensorToString (struct Sensor *sensor, EthernetClient *client){
   (*client).print("\"type\":\"" + (*sensor).type  + "\",");
   (*client).print("\"configuredAs\":\"" +  (*sensor).configuredAs  + "\",");
   (*client).print("\"status\":\"" +  floatToString((*sensor).valueStatus, 2) + "\",");
-  (*client).print("\"unit\":\"" +  (*sensor).unit  + "\"}");
+  (*client).print("\"unit\":\"" +  (*sensor).unit  + "\",");
+  (*client).print("\"rest\":\"GET\",");
+  (*client).print("\"ws\":\"http://");
+  (*client).print(ipStr); 
+  (*client).print(":");
+  (*client).print(portStr);
+  (*client).print("/getconfiguration\"}");
   return;
 }
 
@@ -382,7 +420,7 @@ void updateDHTInfo() {
 void changeRelayStatus(struct Device *device, EthernetClient *client) {
   //changeRelayStatus ( (*device).pin, !((*device).boolStatus), &((*device).boolStatus), client);
   relayActuation( (*device).pin, !((*device).boolStatus), &((*device).boolStatus));
-  getPinConfiguration(client, true);
+  getPinConfiguration(client, false);
   return;
 }
 
@@ -394,7 +432,7 @@ void changeRelayStatus(struct Device *device) {
 
 void changeRelayStatus(int pinOut, boolean value, boolean* state, EthernetClient *client){
   relayActuation(pinOut, value, state);
-  getPinConfiguration(client, true);
+  getPinConfiguration(client, false);
   return;
 }
 
