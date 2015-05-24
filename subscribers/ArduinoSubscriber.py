@@ -12,7 +12,8 @@ from smartHomeDevice import ActuationCommands
 #import ConfigParser
 #import inspect
 
-brokerUri = "localhost"
+brokerUri = "192.168.1.5"
+#brokerUri = "localhost"
 brokerPort = "1883"
 subscriberName = "ArduinoSubscriber"
 

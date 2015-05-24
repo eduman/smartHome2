@@ -67,16 +67,20 @@ class AbstractSubscriber(object):
 			req = urllib2.Request(uri)
 			req.add_header('Content-Type', 'application/json')
 			resp = urllib2.urlopen(req).read()
-			return resp
+			return resp, True
 
 		except urllib2.HTTPError, e:
 		    self.logger.error('HTTPError = %s.' % e )
+		    return "HTTPError", False
 		except urllib2.URLError, e:
 		    self.logger.error('URLError = %s.' % e )
+		    return "URLError", False
 		except httplib.HTTPException, e:
 		    self.logger.error('HTTPException = %s.' % e)
+		    return "HTTPException", False
 		except Exception, e:
 			self.logger.error('generic exception: %s.' % e )
+			return "generic exception", False
 
 	def notifyJsonEvent(self, topic, jsonEventString):
 		raise NotImplementedError('subclasses must override notifyJsonEvent(topic, jsonEventString)!')

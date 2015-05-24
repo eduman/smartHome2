@@ -17,14 +17,14 @@ brokerUri = "192.168.1.5"
 #brokerUri = "localhost"
 brokerPort = "1883"
 subscriberName = "PlugwiseSubscriber"
-actuators = "000d6f0000998ab5;000d6f0000af5093;000d6f0000d362b0;000d6f0000b1d4ec;000d6f0000af5096;000d6f0000af4e16;000d6f0000af5094"
+#actuators = "000d6f0000998ab5;000d6f0000af5093;000d6f0000d362b0;000d6f0000b1d4ec;000d6f0000af5096;000d6f0000af4e16;000d6f0000af5094"
 
+homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
 connectorURI = "http://192.168.1.5:8080"
 #connectorURI = "http://localhost:8080"
 configuration = connectorURI + "/rest/plugwise/%s/configuration"
 switchon = connectorURI + "/rest/plugwise/%s/on"
 switchoff = connectorURI + "/rest/plugwise/%s/off"
-#plugwiseConfigPath = 'conf/agents/plugwise_circles.conf'
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
@@ -36,22 +36,19 @@ class PlugwiseSubscriber (AbstractSubscriber):
 #		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
 #			signal.signal(sig, self.signal_handler)
 
-
-		self.mqttc = MyMQTTClass(subscriberName, self.logger, self)
-		self.mqttc.connect(brokerUri, brokerPort)
-		self.mqttc.subscribeEvent(actuators.lower(), EventTopics.getActuatorAction())
-
-		#getting from configuration file
-#		try:
-#			config = ConfigParser.SafeConfigParser()
-#			if os.path.exists(plugwiseConfigPath):
-#				config.read(plugwiseConfigPath)
-#				for key, value in config.items("circles"):
-#					self.mqttc.subscribeEvent(key.lower(), EventTopics.getActuatorAction())
-#		except Exception, e:
-#			self.logger.error ("Error on PlugwiseSubscriber.__init__(): %s" % (e))
-		
-
+		resp, isOk = self.invokeWebService(homeWSUri)
+		if isOk:
+			myhome = json.loads(resp)
+			actuators = ""
+			for i, room in enumerate(myhome['rooms']):				
+				for i, device in enumerate(room['devices']):
+					if device['type'].lower() == "plugwise":
+						actuators += str (device['deviceID'].lower()) + ";"
+			actuators = actuators[:-1]
+			self.mqttc = MyMQTTClass(subscriberName, self.logger, self)
+			self.mqttc.connect(brokerUri, brokerPort)
+			self.mqttc.subscribeEvent(actuators.lower(), EventTopics.getActuatorAction())
+	
 		self.loop()
 
 	def notifyJsonEvent(self, topic, jsonEventString):
