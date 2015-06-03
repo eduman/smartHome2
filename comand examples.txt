@@ -46,3 +46,10 @@ curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/off -H "Content-Type:a
 
 HOME
 curl -X GET localhost:8080/rest/home/configuration -H "Content-Type:application/json"
+
+
+VIDEO
+raspivid  -o - --timeout 9999999 --rotation 270 --height 240 --width 320   | cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8090}' :demux=h264
+
+IMAGE
+raspistill --output /home/pi/image.jpg --timeout 300 --rotation 270

@@ -72,13 +72,20 @@ def getConfig (c):
 
 
     values = ""
-    status = str(c.get_info())[146:147]
+    #print c.get_info()
+    status = str(c.get_info())[144:145]
+    #print status
     ip=get_ip_address(ETHERNET)
     plugwiseID = options.mac.lower()
 
+#    s = "\'relay_state\': 1" 
+    #if "'relay_state': 1" in c.get_info():
+ #   response = str(c.get_info())
     if status == "1":
+        status = "1"
         switchWS = wsBase % (ip, PORT_WS, plugwiseID, "off")
     else:
+        status = "0"
         switchWS = wsBase % (ip, PORT_WS, plugwiseID, "on")
     
     infoWS= wsBase % (ip, PORT_WS, plugwiseID, "configuration")
