@@ -109,6 +109,36 @@
 					]
 				}
 			]
+		},{
+			"roomID":"4",
+			"description":"entrance",
+			"devices": [
+				{
+					"deviceID":"192.168.1.6",
+					"description":"vlc",
+					"isActive":true,
+					"type":"vlc",
+					"protocol": [
+						{	
+							"ws":"vlc",
+							"type":"STREAM",
+							"uri":"http://192.168.1.6:8090"
+						}
+					]
+				},{
+					"deviceID":"192.168.1.6",
+					"description":"raspberry pi",
+					"isActive":true,
+					"type":"raspberry",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.6:8080/rest/raspberry/configuration"
+						}
+					]
+				}
+			]
 		}
 
 	]
