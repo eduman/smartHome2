@@ -59,6 +59,9 @@ def getIsRuleEnabled():
 def getPresenceTimer():
 	return "presencetimer"
 
+def getIsLooked():
+	return "isLooked"
+
 def getAbsenceTimer():
 	return "absencetimer"
 

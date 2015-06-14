@@ -29,6 +29,14 @@ mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192
 
 mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192.168.1.3_7", "value":"switchOff", "event":"switchOff", "device":"192.168.1.3_7", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
+MQTT videosurveillance
+
+mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6", "value":"true", "event":"look", "device":"192.168.1.6", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6", "value":"false", "event":"look", "device":"192.168.1.6", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+
+
 WEB SERVICES:
 
 RASPBERRY
@@ -43,6 +51,10 @@ PLUGWISE
 curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/configuration -H "Content-Type:application/json"
 curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/on -H "Content-Type:application/json"
 curl -X GET localhost:8080/rest/plugwise/000d6f0000998ab5/off -H "Content-Type:application/json"
+
+curl -X GET localhost:8080/rest/plugwise/000d6f0000af5093/configuration -H "Content-Type:application/json"
+curl -X GET localhost:8080/rest/plugwise/000d6f0000af5093/on -H "Content-Type:application/json"
+curl -X GET localhost:8080/rest/plugwise/000d6f0000af5093/off -H "Content-Type:application/json"
 
 HOME
 curl -X GET localhost:8080/rest/home/configuration -H "Content-Type:application/json"

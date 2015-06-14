@@ -8,6 +8,9 @@ def getSensorMeasurementEvent():
 def getActuatorAction():
 	return "ACTION/ACTUATOR"
 
+def getLookAction():
+	return "ACTION/LOOK"
+
 def getSystemNotificationMessage():
 	return "SYSTEM/NOTIFICATION"
 	
