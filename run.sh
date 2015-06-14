@@ -1,5 +1,11 @@
 #! /bin/bash
 
+if [ -z "$1" ]; then
+	sleep 10
+else
+	sleep $1
+fi
+
 cd '/home/pi/smartHome2/'
 
 #run the device connector 
