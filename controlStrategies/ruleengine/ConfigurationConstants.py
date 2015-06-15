@@ -31,7 +31,7 @@ def getSundayOff():
 	return "Sunday_off"
 
 def getRuleSettingsKeywords():
-	return []
+	return [getIsLooked()]
 
 def getGeneralSettingsKeywords():
 	return [getRuleSID(), getRuleDescription(), getRoomID(), getIsRuleEnabled(), getPresenceTimer(), getAbsenceTimer(), getFullUserList(), getFullSensorList(), getFullActuatorList(), getFullButtonList(),

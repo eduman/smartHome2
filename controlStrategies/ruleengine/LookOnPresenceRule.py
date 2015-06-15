@@ -60,17 +60,22 @@ class LookOnPresenceRule(AbstractActionRule):
 							self.logger.error("Error on LookOnPresenceRule.process(): Malformed boolean exception for user = %s. %s." % (user, e))
 
 			if (presence):
-				eventTopic = self.makeActionEvent(EventTopics.getLookAction(), None, ActuationCommands.getLook())
-				self.publishEvent(eventTopic, "no_device", ActuationCommands.getLook(), False)
-			else:		
-				eventTopic = self.makeActionEvent(EventTopics.getLookAction(), None, ActuationCommands.getLook())
-				self.publishEvent(eventTopic, "no_device", ActuationCommands.getLook(), True)
+				self.publishUnlook()
+			else:
+				self.publishLook()
+
 
 
 	def stop(self):
 		pass
 
+	def publishLook(self):
+		eventTopic = self.makeActionEvent(EventTopics.getLookAction(), None, ActuationCommands.getLook())
+		self.publishEvent(eventTopic, None, ActuationCommands.getLook(), True)
 
+	def publishUnlook(self):
+		eventTopic = self.makeActionEvent(EventTopics.getLookAction(), None, ActuationCommands.getLook())
+		self.publishEvent(eventTopic, None, ActuationCommands.getLook(), False)
 	
 
 

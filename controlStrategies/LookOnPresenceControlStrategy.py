@@ -12,7 +12,7 @@ from ruleengine.SaveStatusRule import SaveStatusRule
 from ruleengine import ConfigurationConstants
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
-import ruleengine.ConfigurationConstants
+import ActuationCommands
 import logging
 import os
 import signal
@@ -27,7 +27,6 @@ def createLookOnPresenceContext (id):
 	ctx = Context(id)
 	#default values
 	ctx.updateProperty(ConfigurationConstants.getPresence(), getDefaultPresenceValue())
-			
 	return ctx
 
 
