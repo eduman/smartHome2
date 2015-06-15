@@ -16,6 +16,9 @@ def getRestartPeriodicSync():
 def getScan():
 	return "Scan"
 
+def getLook():
+	return "look"
+
 def getNetConfiguration():
 	return "getNetConfiguration"
 

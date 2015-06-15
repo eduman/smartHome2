@@ -22,8 +22,11 @@ class AbstractActionRule(object):
 		self.mqttc.publish(topic, payload, 2)
 
 	def makeActionEvent(self, controlEventTopic, deviceId, function):
-		return controlEventTopic + "/" + deviceId + "/" + function
-
+		if (deviceId == None or deviceId == ""):
+			topic = controlEventTopic + "/" + function
+		else:
+			topic = controlEventTopic + "/" + deviceId + "/" + function
+		return topic
 
 	def getEventMqttClient(self):
 		return self.mqttc

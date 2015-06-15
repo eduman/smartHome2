@@ -1,6 +1,7 @@
 MQTT presence 
-
 mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest -m '{"topic":"BEHAVIOURS/PROXIMITY/guest", "value":"False", "event":"Proximity", "device":"guest", "timestamp":"2015-05-05 14:44:28"}' -q 2
+mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest -m '{"topic":"BEHAVIOURS/PROXIMITY/guest", "value":"True", "event":"Proximity", "device":"guest", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
 
 MQTT generic sensor
 
@@ -10,31 +11,29 @@ mosquitto_pub -t BEHAVIOURS/MOTION/sensor2 -m '{"topic":"BEHAVIOURS/MOTION/senso
 MQTT PLUGWISE 000d6f0000998ab5
 
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"switchOn", "event":"switchOn", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
-
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"switchOff", "event":"switchOff", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
-
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"configuration", "event":"NONE", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
 
 MQTT PLUGWISE 000d6f0000af5093
 
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000af5093 -m '{"topic":"ACTION/ACTUATOR/000d6f0000af5093", "value":"switchOn", "event":"switchOn", "device":"000d6f0000af5093", "timestamp":"2015-05-05 14:44:28"}' -q 2
-
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000af5093 -m '{"topic":"ACTION/ACTUATOR/000d6f0000af5093", "value":"switchOff", "event":"switchOff", "device":"000d6f0000af5093", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
 
 MQTT Arduino 192.168.1.3_7
 
 mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192.168.1.3_7", "value":"switchOn", "event":"switchOn", "device":"192.168.1.3_7", "timestamp":"2015-05-05 14:44:28"}' -q 2
-
 mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192.168.1.3_7", "value":"switchOff", "event":"switchOff", "device":"192.168.1.3_7", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
 MQTT videosurveillance
 
 mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6", "value":"true", "event":"look", "device":"192.168.1.6", "timestamp":"2015-05-05 14:44:28"}' -q 2
-
 mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6", "value":"false", "event":"look", "device":"192.168.1.6", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
+MQTT look
+mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest/  -m '{"topic":"ACTION/LOOK/look", "value":"True", "event":"look", "device":"no_device", "timestamp":"2015-06-15 15:48:15"}' -q 2
+mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest/  -m '{"topic":"ACTION/LOOK/look", "value":"False", "event":"look", "device":"no_device", "timestamp":"2015-06-15 15:48:15"}' -q 2
 
 
 WEB SERVICES:
