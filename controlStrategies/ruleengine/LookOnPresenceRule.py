@@ -70,12 +70,12 @@ class LookOnPresenceRule(AbstractActionRule):
 		pass
 
 	def publishLook(self):
-		eventTopic = self.makeActionEvent(EventTopics.getLookAction(), None, ActuationCommands.getLook())
-		self.publishEvent(eventTopic, None, ActuationCommands.getLook(), True)
+		eventTopic = self.makeActionEvent(EventTopics.getLookAction(), "alldevices", ActuationCommands.getLook())
+		self.publishEvent(eventTopic, "alldevices", ActuationCommands.getLook(), True)
 
 	def publishUnlook(self):
-		eventTopic = self.makeActionEvent(EventTopics.getLookAction(), None, ActuationCommands.getLook())
-		self.publishEvent(eventTopic, None, ActuationCommands.getLook(), False)
+		eventTopic = self.makeActionEvent(EventTopics.getLookAction(), "alldevices", ActuationCommands.getLook())
+		self.publishEvent(eventTopic, "alldevices", ActuationCommands.getLook(), False)
 	
 
 

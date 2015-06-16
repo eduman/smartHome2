@@ -63,7 +63,7 @@ class VideoSurveillanceControlStrategy(AbstractControlStategy):
 				
 				self.setRuleEngine()
 				self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullActuatorList()), EventTopics.getLookAction())
-				self.mqtt.subscribeEvent(ActuationCommands.getLook(), EventTopics.getLookAction())
+				self.mqtt.subscribeEvent("alldevices/" + ActuationCommands.getLook(), EventTopics.getLookAction())
 				self.loop()
 		except KeyboardInterrupt, e:
 			self.exit()
