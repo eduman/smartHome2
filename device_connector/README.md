@@ -1,4 +1,4 @@
-# SmartHome LocalConnect version
+# LocalConnect for SmartHome vs
 
 Version of SmartHome compatible with the LinkSmartLocalConnect (https://linksmart.eu/redmine/projects/linksmart-local-connect), which is a new component of the LinkSmart middleware version 2.2
 It includes the following proxies (ported form the java version compatible with LinkSmart middleware 1.3)
