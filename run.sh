@@ -22,6 +22,14 @@ for f in *.py; do
 	screen -d -m python "$f"; 
 done
 
+
+#run the publishers
+cd ..
+cd './publisher'
+echo "running mainPublisher.py..."
+screen -d -m python mainPublisher.py; 
+
+
 #run the control strategies
 cd ..
 cd './controlStrategies'
