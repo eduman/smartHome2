@@ -1,6 +1,7 @@
 # SmartHome v2
 
-SmartHome version 2 is compatible with the LinkSmart LocalConnect (https://linksmart.eu/redmine/projects/linksmart-local-connect)
+SmartHome version 2 is compatible with the LinkSmart LocalConnect (https://linksmart.eu/redmine/projects/linksmart-local-connect).
+
 It includes:
 - agents and example of configuration files for the linksmart device connector, which is part of the LinkSmart LocalConnect 
 - control strategies
