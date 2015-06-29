@@ -10,9 +10,15 @@ from ruleengine.RestoreStatusRule import RestoreStatusRule
 from ruleengine.LookOnPresenceRule import LookOnPresenceRule
 from ruleengine.SaveStatusRule import SaveStatusRule
 from ruleengine import ConfigurationConstants
+
+import os, sys
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+#import myMqtt
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
-import ActuationCommands
+from smartHomeDevice import ActuationCommands
+
 import logging
 import os
 import signal

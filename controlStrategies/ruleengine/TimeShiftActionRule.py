@@ -9,18 +9,11 @@ import logging
 import datetime
 #from DefaultTimerRule import DefaultTimerRule
 import os, sys
-
-lib_path = os.path.abspath(os.path.join('.', 'myMqtt'))
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
-import EventTopics
-
-lib_path = os.path.abspath(os.path.join('.', 'smartHomeDevice'))
-sys.path.append(lib_path)
-import ActuationCommands
-
-lib_path = os.path.abspath(os.path.join('.', 'utitlityLib'))
-sys.path.append(lib_path)
-import Utilities
+from myMqtt import EventTopics
+from smartHomeDevice import ActuationCommands
+from utitlityLib import Utilities
 
 
 class TimeShiftActionRule(AbstractActionRule):

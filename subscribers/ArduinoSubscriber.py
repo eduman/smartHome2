@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+import os, sys
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+
 from abstractSubscriber.AbstractSubscriber import AbstractSubscriber
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass

@@ -7,7 +7,13 @@ import sys
 import inspect
 import threading
 import time
-import myMqtt 
+
+import os, sys
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import EventTopics
+from smartHomeDevice import ActuationCommands
+from utitlityLib import Utilities
 
 
 

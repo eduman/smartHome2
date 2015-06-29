@@ -8,12 +8,16 @@ from ruleengine.InititializationRule import InititializationRule
 from ruleengine.RestoreStatusRule import RestoreStatusRule
 from ruleengine.SaveStatusRule import SaveStatusRule
 from ruleengine import ConfigurationConstants
+
+import os, sys
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
+from smartHomeDevice import ActuationCommands
+
 from ruleengine.DefaultVideoSurveillanceRule import DefaultVideoSurveillanceRule
 from ruleengine.VideoSurveillanceRule import VideoSurveillanceRule
-import ActuationCommands
-
 
 import logging
 import os

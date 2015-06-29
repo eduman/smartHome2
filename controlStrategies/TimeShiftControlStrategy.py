@@ -10,6 +10,10 @@ from ruleengine.RestoreStatusRule import RestoreStatusRule
 from ruleengine.TimeShiftActionRule import TimeShiftActionRule
 from ruleengine.SaveStatusRule import SaveStatusRule
 from ruleengine import ConfigurationConstants
+
+import os, sys
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
 import ruleengine.ConfigurationConstants

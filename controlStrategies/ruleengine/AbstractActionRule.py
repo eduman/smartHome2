@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 import os, sys
-lib_path = os.path.abspath(os.path.join('.', 'myMqtt'))
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
-import MQTTPayload
+
+from myMqtt import MQTTPayload
 import datetime
 import time
 
