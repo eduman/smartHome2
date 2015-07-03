@@ -33,17 +33,20 @@ class ArduinoPublisher(AbstractPublisher):
 			if measureType.lower() == "motion":
 				if measureValue.lower() == "false" or measureValue.lower() == "true":
 					topic = self.makeActionEvent(EventTopics.getBehaviourMotion(), deviceID, "")
-					payload = self.publishEvent(topic, deviceID, EventTopics.getBehaviourMotion(), measureValue)
+					payload = self.publishEvent(topic, deviceID, measureType, measureValue)
 					msg = ("event %s sent with topic %s" % (payload, topic))
 				else:
 					self.logger.error ("404 Not found: Unaspected value for measureValue")
 					raise cherrypy.HTTPError("404 Not found", "Unaspected value for measureValue")
 			else:
-				self.logger.error ("404 Not found: Unaspected value for measureType")
-				raise cherrypy.HTTPError("404 Not found", "Unaspected value for measureType")
+				#sending generic measurement
+				topic = self.makeActionEvent(EventTopics.getSensorMeasurementEvent(), deviceID, "")
+				payload = self.publishEvent(topic, deviceID, measureType, measureValue)
+				msg = ("event %s sent with topic %s" % (payload, topic))
+				
 		else:
-			self.logger.error ("400 Bad Request: Unaspected parameters")
-			raise cherrypy.HTTPError("400 Bad Request", "Unaspected parameters ")
+			self.logger.error ("400 Bad Request: Unaspected parameters: %s", params)
+			raise cherrypy.HTTPError("400 Bad Request", "Unaspected parameters: %s", params)
 
 		return msg
 
