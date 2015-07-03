@@ -57,7 +57,7 @@ class MyMQTTClass:
 
     def subscribeEvent(self, fullString, topic):
         if fullString:
-            tokens =  ''.join(fullString.split()).split(';')
+            tokens =  ''.join(str(fullString).split()).split(';')
             for tok in tokens:
                 if tok:
                     event = topic + "/" + tok.lower() + "/#"
@@ -72,7 +72,7 @@ class MyMQTTClass:
 
     def connect(self, uri="localhost", port=1883, userdata=60):
         try:
-            self._mqttc.connect(uri, port, userdata)
+            self._mqttc.connect(str(uri), str(port), userdata)
             t1 = threading.Thread(target=self.loop)
             t1.start()
             self.timer = threading.Timer(300.0, self.mqttReconnect)

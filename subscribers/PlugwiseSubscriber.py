@@ -13,19 +13,17 @@ import signal
 import sys
 import json
 from smartHomeDevice import ActuationCommands
-#import ConfigParser
-#import inspect
 
 
-brokerUri = "192.168.1.5"
-#brokerUri = "localhost"
-brokerPort = "1883"
+
+
 subscriberName = "PlugwiseSubscriber"
-#actuators = "000d6f0000998ab5;000d6f0000af5093;000d6f0000d362b0;000d6f0000b1d4ec;000d6f0000af5096;000d6f0000af4e16;000d6f0000af5094"
+deviceType = "plugwise"
 
+#homeWSUri = "http://localhost:8080/rest/home/configuration"
 homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+
 connectorURI = "http://192.168.1.5:8080"
-#connectorURI = "http://localhost:8080"
 configuration = connectorURI + "/rest/plugwise/%s/configuration"
 switchon = connectorURI + "/rest/plugwise/%s/on"
 switchoff = connectorURI + "/rest/plugwise/%s/off"
@@ -35,25 +33,8 @@ logLevel = logging.DEBUG
 
 class PlugwiseSubscriber (AbstractSubscriber):
 	def __init__ (self):
-		super(PlugwiseSubscriber, self).__init__(subscriberName, logLevel)
+		super(PlugwiseSubscriber, self).__init__(subscriberName, homeWSUri, deviceType, logLevel)
 
-#		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
-#			signal.signal(sig, self.signal_handler)
-
-		resp, isOk = self.invokeWebService(homeWSUri)
-		if isOk:
-			myhome = json.loads(resp)
-			actuators = ""
-			for i, room in enumerate(myhome['rooms']):				
-				for i, device in enumerate(room['devices']):
-					if device['type'].lower() == "plugwise":
-						actuators += str (device['deviceID'].lower()) + ";"
-			actuators = actuators[:-1]
-			self.mqttc = MyMQTTClass(subscriberName, self.logger, self)
-			self.mqttc.connect(brokerUri, brokerPort)
-			self.mqttc.subscribeEvent(actuators.lower(), EventTopics.getActuatorAction())
-	
-		self.loop()
 
 	def notifyJsonEvent(self, topic, jsonEventString):
 		self.logger.debug ("received topic: \"%s\" with msg: \"%s\"" % (topic, jsonEventString))
@@ -80,3 +61,4 @@ class PlugwiseSubscriber (AbstractSubscriber):
 
 if __name__ == "__main__":
 	ps = PlugwiseSubscriber()
+	ps.start()
