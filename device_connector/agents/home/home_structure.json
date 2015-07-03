@@ -4,6 +4,14 @@
 	"floor":"2",
 	"landlord":"my landlord",
 	"buildingID":"1",
+	"homeMessageBroker":{
+		"address":"home.message.broker.address",
+		"port" : "1883"
+	},
+	"externalMessageBroker": {
+		"address":"external.message.broker.address",
+		"port" : "1883"
+	},
 	"rooms": [
 		{
 			"roomID":"1",
@@ -11,7 +19,7 @@
 			"devices": [
 				{
 					"deviceID":"192.168.1.2",
-					"description":"arduino subufer",
+					"description":"arduino device description",
 					"isActive":true,
 					"type":"arduino",
 					"protocol": [
@@ -23,7 +31,7 @@
 					]
 				},{
 					"deviceID":"192.168.1.3",
-					"description":"arduino shelf",
+					"description":"arduino device description",
 					"isActive":true,
 					"type":"arduino",
 					"protocol": [
@@ -33,27 +41,15 @@
 							"uri":"http://192.168.1.3:8082/?getConfiguration"
 						}
 					]
-				},{
-					"deviceID":"192.168.1.4",
-					"description":"arduino television",
-					"isActive":true,
-					"type":"arduino",
-					"protocol": [
-						{	
-							"ws":"rest",
-							"type":"GET",
-							"uri":"http://192.168.1.4:8082/?getConfiguration"
-						}
-					]
 				}
 
-			]
+			] 
 		},{
 			"roomID":"2",
 			"description":"guest room",
 			"devices": [
 				{
-					"deviceID":"192.168.1.5",
+					"deviceID":"192.168.1.4",
 					"description":"scanner",
 					"isActive":true,
 					"type":"scanner",
@@ -61,11 +57,11 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.5:8080/rest/scanner/configuration"
+							"uri":"http://192.168.1.4:8080/rest/scanner/configuration"
 						}
 					]
 				},{
-					"deviceID":"192.168.1.5",
+					"deviceID":"192.168.1.4",
 					"description":"raspberry pi",
 					"isActive":true,
 					"type":"raspberry",
@@ -73,19 +69,7 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.5:8080/rest/raspberry/configuration"
-						}
-					]
-				},{
-					"deviceID":"000d6f0000998ab5",
-					"description":"modem",
-					"isActive":true,
-					"type":"plugwise",
-					"protocol": [
-						{	
-							"ws":"rest",
-							"type":"GET",
-							"uri":"http://192.168.1.5:8080/rest/plugwise/000d6f0000998ab5/configuration"
+							"uri":"http://192.168.1.4:8080/rest/raspberry/configuration"
 						}
 					]
 				}
@@ -104,7 +88,7 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.5:8080/rest/plugwise/000d6f0000af5093/configuration"
+							"uri":"http://192.168.1.4:8080/rest/plugwise/000d6f0000af5093/configuration"
 						}
 					]
 				}
@@ -114,7 +98,7 @@
 			"description":"entrance",
 			"devices": [
 				{
-					"deviceID":"192.168.1.6",
+					"deviceID":"192.168.1.5",
 					"description":"vlc",
 					"isActive":true,
 					"type":"vlc",
@@ -122,11 +106,11 @@
 						{	
 							"ws":"vlc",
 							"type":"STREAM",
-							"uri":"http://192.168.1.6:8090"
+							"uri":"http://192.168.1.5:8090"
 						}
 					]
 				},{
-					"deviceID":"192.168.1.6",
+					"deviceID":"192.168.1.5",
 					"description":"raspberry pi",
 					"isActive":true,
 					"type":"raspberry",
@@ -134,13 +118,114 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.6:8080/rest/raspberry/configuration"
+							"uri":"http://192.168.1.5:8080/rest/raspberry/configuration"
 						}
 					]
 				}
 			]
 		}
 
+	], 
+	"rules" : [
+		{
+			"ruleSID": "TimerControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "TimerControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "1",
+			"presencetimer": 5,
+			"absencetimer": 10,
+			"actuatorList":[
+				{
+					"deviceID": "192.168.1.3_7",
+					"type": "arduino"
+				},{
+					"deviceID": "000d6f0000af5093",
+					"type": "plugwise"
+				}
+			],
+			"userList":["user1", "user2", "user3"],
+			"sensorList":["192.168.1.3","192.168.1.4"],
+			"buttonList":["192.168.1.3_5", "192.168.1.3_6"],
+			"timeShifts":[]
+		},{
+			"ruleSID": "TimeShiftControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "TimeShiftControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "0",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[
+				{
+					"deviceID": "000d6f0000af5093",
+					"type": "plugwise"
+				},{
+					"deviceID": "192.168.1.3_8",
+					"type": "arduino"
+				}
+			],
+			"userList":[],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[
+				{
+					"day":"Monday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Tuesday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Wednesday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Thursday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Friday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Saturday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Sunday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				}
+			]
+		},{
+			"ruleSID": "VideSurveillanceControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "VideSurveillanceControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "4",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[
+				{
+					"deviceID": "192.168.1.5",
+					"type": "vlc"
+				}
+			],
+			"userList":[],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[]
+		},{
+			"ruleSID": "LookOnPresence:UnknownOwner:Strategy",
+			"ruleDescription": "LookOnPresence Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "0",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[],
+			"userList":["user1", "user2", "user3"],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[]
+		}
 	]
-
 }
