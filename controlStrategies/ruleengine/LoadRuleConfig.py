@@ -97,7 +97,6 @@ class LoadRuleConfig(AbstractRule):
 				
 				#general settings section
 				section = ConfigurationConstants.getGeneralSettings()				
-				#config = ConfigParser.SafeConfigParser()
 				config.add_section(section)
 
 				key = ConfigurationConstants.getMessageBroker()
@@ -207,9 +206,6 @@ class LoadRuleConfig(AbstractRule):
 				self.getContext().updateProperty(ConfigurationConstants.getWeekdayOffState(), "False")
 				self.getContext().updateProperty(ConfigurationConstants.getWeekdayOnState(), "False")
 
-				#for key, value in config.items(ConfigurationConstants.getRuleSettings()):
-				#	self.getContext().updateProperty(key, value)
-
 
 				found = True
 
@@ -220,42 +216,6 @@ class LoadRuleConfig(AbstractRule):
 
 
 
-
-
-#	def setDefaultContext(self):
-#		config = ConfigParser.SafeConfigParser()
-#		config.read(self.path)
-#
-#		toBeSplitted = [ConfigurationConstants.getFullSensorList(), ConfigurationConstants.getFullActuatorList(), ConfigurationConstants.getFullUserList()]
-#
-#		if not self.context.getProperty(ConfigurationConstants.getIsDelayTimerOn()):
-#			self.context.updateProperty(ConfigurationConstants.getIsDelayTimerOn(), str(False))
-#
-#		if not self.context.getProperty(ConfigurationConstants.getMotion()):
-#			self.context.updateProperty(ConfigurationConstants.getMotion(), str(False))
-#
-#		if not self.context.getProperty(ConfigurationConstants.getPresence()):
-#			self.context.updateProperty(ConfigurationConstants.getPresence(), str(False))
-#
-#		for key, value in config.items(ConfigurationConstants.getGeneralSettings()):
-#			self.getContext().updateProperty(key, value)
-#			if key in toBeSplitted:
-#				tokens  =  ''.join(value.split()).split(';')
-#				for tok in tokens:
-#					if tok:
-#						self.context.updateProperty(tok, "False")
-#
-#		for section in ConfigurationConstants.getWeekdaysSection():
-#			if config.has_section(section):
-#				for key, value in config.items(section):
-#					if key and value:
-#						self.getContext().updateProperty( section+"_"+key, value)
-#
-#		for key, value in config.items(ConfigurationConstants.getRuleSettings()):
-#			self.getContext().updateProperty(key, value)
-#
-#		self.getContext().updateProperty(ConfigurationConstants.getWeekdayOffState(), "False")
-#		self.getContext().updateProperty(ConfigurationConstants.getWeekdayOnState(), "False")
 
 
 
