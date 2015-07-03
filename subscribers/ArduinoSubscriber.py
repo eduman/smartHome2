@@ -13,15 +13,15 @@ import signal
 import sys
 import json
 from smartHomeDevice import ActuationCommands
-#import ConfigParser
-#import inspect
 
-brokerUri = "192.168.1.5"
-#brokerUri = "localhost"
-brokerPort = "1883"
+
+
 subscriberName = "ArduinoSubscriber"
+deviceType = "arduino"
 
-actuators = "192.168.1.2_2;192.168.1.2_3;192.168.1.3_7;192.168.1.3_8;192.168.1.4_7;192.168.1.4_8;"
+#homeWSUri = "http://localhost:8080/rest/home/configuration"
+homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+
 switchon = "http://%s:8082/set&relay=%s&value=1"
 switchoff = "http://%s:8082/set&relay=%s&value=0"
 configuration = "http://%s:8082/getConfiguration"
@@ -32,12 +32,8 @@ logLevel = logging.DEBUG
 
 class ArduinoSubscriber(AbstractSubscriber):
 	def __init__ (self):
-		super(ArduinoSubscriber, self).__init__(subscriberName, logLevel)
-		self.mqttc = MyMQTTClass(subscriberName, self.logger, self)
-		self.mqttc.connect(brokerUri, brokerPort)
-		self.mqttc.subscribeEvent(actuators.lower(), EventTopics.getActuatorAction())		
-
-		self.loop()
+		super(ArduinoSubscriber, self).__init__(subscriberName, homeWSUri, deviceType,logLevel)
+		
 
 	def notifyJsonEvent(self, topic, jsonEventString):
 		self.logger.debug ("received topic: \"%s\" with msg: \"%s\"" % (topic, jsonEventString))
@@ -66,4 +62,5 @@ class ArduinoSubscriber(AbstractSubscriber):
 
 if __name__ == "__main__":
 	ps = ArduinoSubscriber()
+	ps.start()
 		

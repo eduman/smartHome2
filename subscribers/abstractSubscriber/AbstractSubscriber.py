@@ -10,7 +10,6 @@ import logging
 import os
 import signal
 import sys
-#import inspect
 import json
 import time
 
@@ -21,8 +20,10 @@ import httplib
 
 
 class AbstractSubscriber(object):
-	def __init__(self, subscriberName, logLevel):
+	def __init__(self, subscriberName, homeWSUri, deviceType, logLevel):
 		self.subscriberName = subscriberName
+		self.homeWSUri = homeWSUri
+		self.deviceType = deviceType
 		self.configPath = "conf/agents/%s.conf" % (self.subscriberName)
 		logPath = "log/%s.log" % (self.subscriberName)
 
@@ -55,6 +56,35 @@ class AbstractSubscriber(object):
 	def loop(self):
 		while (True):
 			time.sleep(1.0)
+
+	def start (self):
+		resp, isOk = self.invokeWebService(self.homeWSUri)
+		while (not isOk):
+			self.logger.error ("Unable to find the home proxy. I will try again in a while...")
+			resp, isOk = self.invokeWebService(self.homeWSUri)
+			time.sleep(10) #sleep 10 seconds
+
+		myhome = json.loads(resp)
+		actuators = []
+		for i, rule in enumerate(myhome['rules']):				
+			for i, device in enumerate(rule['actuatorList']):
+				dev = device['deviceID'].lower()
+				if (device['type'].lower() == self.deviceType.lower()) and (dev not in actuators):
+					actuators.append(dev)
+		
+		
+		brokerUri = myhome["homeMessageBroker"]["address"]
+		brokerPort = myhome["homeMessageBroker"]["port"]
+		if (brokerUri != None and brokerUri != "") and (brokerPort != None and brokerPort != ""):
+			self.mqttc = MyMQTTClass(self.subscriberName, self.logger, self)
+			self.mqttc.connect(brokerUri,brokerPort)
+			for a in actuators:
+				self.mqttc.subscribeEvent(a, EventTopics.getActuatorAction())
+		else:
+			self.logger.error ("The message broker address is not valid")
+	
+		self.loop()
+
 
 	def stop (self):
 		self.logger.info("Stopping %s" % (self.subscriberName))
