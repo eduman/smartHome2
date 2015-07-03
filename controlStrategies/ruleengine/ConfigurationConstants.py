@@ -35,7 +35,7 @@ def getRuleSettingsKeywords():
 
 def getGeneralSettingsKeywords():
 	return [getRuleSID(), getRuleDescription(), getRoomID(), getIsRuleEnabled(), getPresenceTimer(), getAbsenceTimer(), getFullUserList(), getFullSensorList(), getFullActuatorList(), getFullButtonList(),
-	getMessageBroker()]
+	getMessageBroker(), getExternalMessageBroker()]
 
 def getWeekdaysSection():
 	return [getMondayOff(), getTuesdayOff(), getWednesdayOff(), getThursdayOff(), getFridayOff(), getSaturdayOff(), getSundayOff()]
@@ -66,19 +66,26 @@ def getAbsenceTimer():
 	return "absencetimer"
 
 def getFullUserList():
-	return "fulluserlist"
+#	return "fulluserlist"
+	return "userlist"
 
 def getFullSensorList():
-	return "fullsensorlist"
+#	return "fullsensorlist"
+	return "sensorlist"
 
 def getFullActuatorList():
-	return "fullactuatorlist"
+#	return "fullactuatorlist"
+	return "actuatorlist"
 
 def getFullButtonList():
-	return "fullbuttonlist"
+#	return "fullbuttonlist"
+	return "buttonlist"
 
 def getMessageBroker():
 	return "messagebroker"
+
+def getExternalMessageBroker():
+	return "externalmessagebroker"
 
 
 

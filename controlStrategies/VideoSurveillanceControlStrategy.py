@@ -5,7 +5,7 @@ from ruleengine.Context import Context
 from ruleengine.RuleEngine import RuleEngine
 from ruleengine.RuleUpdater import RuleUpdater
 from ruleengine.InititializationRule import InititializationRule
-from ruleengine.RestoreStatusRule import RestoreStatusRule
+from ruleengine.LoadRuleConfig import LoadRuleConfig
 from ruleengine.SaveStatusRule import SaveStatusRule
 from ruleengine import ConfigurationConstants
 
@@ -16,7 +16,6 @@ from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
 from smartHomeDevice import ActuationCommands
 
-from ruleengine.DefaultVideoSurveillanceRule import DefaultVideoSurveillanceRule
 from ruleengine.VideoSurveillanceRule import VideoSurveillanceRule
 
 import logging
@@ -27,7 +26,14 @@ import inspect
 import json
 
 
+homeWSUri = "http://localhost:8080/rest/home/configuration"
+#ruleSID = "VideSurveillanceControlStrategy:UnknownOwner:Strategy"
 
+#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+ruleSID = "VideSurveillanceControlStrategy:eduman:ingresso"
+
+#logLevel = logging.INFO
+logLevel = logging.DEBUG
 
 def createVideoSurveillanceContext (id):
 	ctx = Context(id)
@@ -39,9 +45,6 @@ def createVideoSurveillanceContext (id):
 def getDefaultIsLooked():
 	return "False"
 
-
-#logLevel = logging.INFO
-logLevel = logging.DEBUG
 
 class VideoSurveillanceControlStrategy(AbstractControlStategy):
 	
@@ -78,9 +81,9 @@ class VideoSurveillanceControlStrategy(AbstractControlStategy):
 		initRule = InititializationRule(self.context, self.logger)
 		self.ruleEngine.addRule(initRule)
 
-		defaultRule = DefaultVideoSurveillanceRule(self.context, self.logger, self.configPath)
-		self.ruleEngine.addRule(defaultRule)
-		defaultRule.process()
+		loadRule = LoadRuleConfig(self.context, self.logger, self.configPath, homeWSUri, ruleSID)
+		#self.ruleEngine.addRule(loadRule)
+		loadRule.process()
 
 		# Now the mqtt broker is known. Connecting before going ahead 
 		brokerUri, port = self.context.getProperty(ConfigurationConstants.getMessageBroker()).split(":")

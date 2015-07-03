@@ -6,7 +6,7 @@ from ruleengine.RuleEngine import RuleEngine
 from ruleengine.RuleUpdater import RuleUpdater
 from ruleengine.InititializationRule import InititializationRule
 from ruleengine.DefaultTimerRule import DefaultTimerRule
-from ruleengine.RestoreStatusRule import RestoreStatusRule
+from ruleengine.LoadRuleConfig import LoadRuleConfig
 from ruleengine.DelayTimerActionRule import DelayTimerActionRule
 from ruleengine.SaveStatusRule import SaveStatusRule
 from ruleengine import ConfigurationConstants
@@ -26,6 +26,16 @@ import inspect
 import json
 
 
+
+homeWSUri = "http://localhost:8080/rest/home/configuration"
+#ruleSID = "TimerControlStrategy:UnknownOwner:Strategy"
+
+#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+#ruleSID = "SaloneTimerControlStrategy:eduman:salone"
+ruleSID = "SubuferTimerControlStrategy:eduman:salone"
+
+#logLevel = logging.INFO
+logLevel = logging.DEBUG
 
 
 def createTimerContext (id):
@@ -52,8 +62,7 @@ def getDefaultDelayTimerAbsence():
 	return "60"
 
 
-#logLevel = logging.INFO
-logLevel = logging.DEBUG
+
 
 class TimerControlStrategy(AbstractControlStategy):
 	
@@ -92,12 +101,9 @@ class TimerControlStrategy(AbstractControlStategy):
 		initRule = InititializationRule(self.context, self.logger)
 		self.ruleEngine.addRule(initRule)
 
-		defaultRule =  DefaultTimerRule(self.context, self.logger, self.configPath)
-		self.ruleEngine.addRule(defaultRule)
-		defaultRule.process()
-
-		restoreRule = RestoreStatusRule(self.context, self.logger, self.configPath)
-		self.ruleEngine.addRule(restoreRule)
+		loadRule = LoadRuleConfig(self.context, self.logger, self.configPath, homeWSUri, ruleSID)
+		#self.ruleEngine.addRule(loadRule)
+		loadRule.process()
 
 		# Now the mqtt broker is known. Connecting before going ahead 
 		brokerUri, port = self.context.getProperty(ConfigurationConstants.getMessageBroker()).split(":")
