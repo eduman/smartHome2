@@ -24,10 +24,8 @@ import inspect
 import json
 
 homeWSUri = "http://localhost:8080/rest/home/configuration"
-#ruleSID = "TimeShiftControlStrategy:UnknownOwner:Strategy"
+ruleSID = "TimeShiftControlStrategy:UnknownOwner:Strategy"
 
-#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
-ruleSID = "TimeShiftControlStrategy:eduman:timeshifts"
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG

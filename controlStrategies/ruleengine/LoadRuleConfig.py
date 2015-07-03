@@ -27,20 +27,19 @@ class LoadRuleConfig(AbstractRule):
 
 
 	def process(self):
-		#try: 
-		if self.isBeginning:
-			resp, isOk = self.invokeWebService(self.homeWSUri)
-			while (not isOk):
-				self.logger.error ("Unable to find the home proxy. I will try again in a while...")
+		try: 
+			if self.isBeginning:
 				resp, isOk = self.invokeWebService(self.homeWSUri)
-				time.sleep(10) #sleep 10 seconds
+				while (not isOk):
+					self.logger.error ("Unable to find the home proxy. I will try again in a while...")
+					resp, isOk = self.invokeWebService(self.homeWSUri)
+					time.sleep(10) #sleep 10 seconds
 
-			myhome = json.loads(resp)
-			self.loadDefaultConfigFile(myhome)
-			#self.setDefaultContext()
-			self.isBeginning = False
-		#except Exception, e:
-		#	self.logger.error ("Error on LoadRuleConfig.process(): %s" % (e))
+				myhome = json.loads(resp)
+				self.loadDefaultConfigFile(myhome)
+				self.isBeginning = False
+		except Exception, e:
+			self.logger.error ("Error on LoadRuleConfig.process(): %s" % (e))
 
 
 	def stop(self):
