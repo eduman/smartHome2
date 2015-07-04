@@ -28,6 +28,9 @@ import json
 homeWSUri = "http://localhost:8080/rest/home/configuration"
 ruleSID = "LookOnPresenceControlStrategy:UnknownOwner:Strategy"
 
+#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+#ruleSID = "LookOnPresence:eduman:casa"
+
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
 
@@ -81,8 +84,6 @@ class LookOnPresenceControlStrategy(AbstractControlStategy):
 		loadRule = LoadRuleConfig(self.context, self.logger, self.configPath, homeWSUri, ruleSID)
 		#self.ruleEngine.addRule(loadRule)
 		loadRule.process()
-		print self.context.properties
-
 
 		# Now the mqtt broker is known. Connecting before going ahead 
 		brokerUri, port = self.context.getProperty(ConfigurationConstants.getMessageBroker()).split(":")
