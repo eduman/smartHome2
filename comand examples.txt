@@ -38,13 +38,15 @@ mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6",
 
 mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6", "value":"false", "event":"look", "device":"192.168.1.6", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
+mosquitto_pub -t ACTION/LOOK/alldevices/look -m '{"topic":"ACTION/LOOK/alldevices/look", "value":"true", "event":"look", "device":"alldevices", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t ACTION/LOOK/alldevices/look -m '{"topic":"ACTION/LOOK/alldevices/look", "value":"false", "event":"look", "device":"alldevices", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
 
 MQTT look
 mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest/  -m '{"topic":"BEHAVIOURS/PROXIMITY/guest/", "value":"True", "event":"presence", "device":"guest", "timestamp":"2015-06-15 15:48:15"}' -q 2
 
 mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest/  -m '{"topic":"BEHAVIOURS/PROXIMITY/guest/", "value":"False", "event":"presence", "device":"guest", "timestamp":"2015-06-15 15:48:15"}' -q 2
-
 
 
 MQTT switch off all devices
