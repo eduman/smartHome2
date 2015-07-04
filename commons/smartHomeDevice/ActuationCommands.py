@@ -19,6 +19,12 @@ def getScan():
 def getLook():
 	return "look"
 
+def getPresence():
+	return "presence"
+
+def getSwitchOffAll():
+	return "switchoffall"
+
 def getNetConfiguration():
 	return "getNetConfiguration"
 

@@ -66,6 +66,11 @@ class MyMQTTClass:
                         self.logger.debug("Subscribed for the event: %s " % event)
                     except Exception, e:
                         self.logger.error("Error on subscribeEvent() %s", e)
+        else:
+            event = topic + "/#"
+            self._mqttc.subscribe(event)
+            self.logger.debug("Subscribed for the event: %s " % event)
+
 
     def publish(self, eventTopic, payload, qos=2):
         self._mqttc.publish(eventTopic, payload, qos)

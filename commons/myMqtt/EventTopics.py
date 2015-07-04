@@ -11,6 +11,9 @@ def getActuatorAction():
 def getLookAction():
 	return "ACTION/LOOK"
 
+def getSwitchOffAll():
+	return "ACTION/ACTUATOR/SWITCHOFALL"
+
 def getSystemNotificationMessage():
 	return "SYSTEM/NOTIFICATION"
 	

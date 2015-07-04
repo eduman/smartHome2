@@ -226,6 +226,26 @@
 			"sensorList":[],
 			"buttonList":[],
 			"timeShifts":[]
+		},{
+			"ruleSID": "SwitchOffAllControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "SwitchOffAllControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "0",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[
+				{
+					"deviceID": "000d6f0000af5093",
+					"type": "plugwise"
+				},{
+					"deviceID": "192.168.1.3_8",
+					"type": "arduino"
+				}
+			],
+			"userList":[],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[]
 		}
 	]
 }

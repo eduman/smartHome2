@@ -96,6 +96,9 @@ def getIsDelayTimerOn():
 def getMotion():
 	return "motion"
 
+def getSwitchOffAll():
+	return "switchoffall"
+
 def getPresence():
 	return "presence"
 
