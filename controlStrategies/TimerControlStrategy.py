@@ -30,7 +30,9 @@ import json
 homeWSUri = "http://localhost:8080/rest/home/configuration"
 ruleSID = "TimerControlStrategy:UnknownOwner:Strategy"
 
-
+#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+#ruleSID = "SaloneTimerControlStrategy:eduman:salone"
+#ruleSID = "SubuferTimerControlStrategy:eduman:salone"
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG

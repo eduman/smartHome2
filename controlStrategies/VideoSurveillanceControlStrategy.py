@@ -26,8 +26,11 @@ import inspect
 import json
 
 
-homeWSUri = "http://localhost:8080/rest/home/configuration"
-ruleSID = "VideSurveillanceControlStrategy:UnknownOwner:Strategy"
+#homeWSUri = "http://localhost:8080/rest/home/configuration"
+#ruleSID = "VideSurveillanceControlStrategy:UnknownOwner:Strategy"
+
+homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+ruleSID = "VideSurveillanceControlStrategy:eduman:ingresso"
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
