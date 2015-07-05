@@ -53,6 +53,14 @@ class LookOnPresenceRule(AbstractActionRule):
 						except Exception, e:
 							self.logger.error("Error on LookOnPresenceRule.process(): Malformed boolean exception for user = %s. %s." % (user, e))
 
+#			try:
+#				alldevices = Utilities.to_bool(self.context.getProperty("alldevices"))
+#				if (alldevices == True):
+#					presence = alldevices
+#			except Exception, e:
+#				self.logger.error("Error on LookOnPresenceRule.process(): Malformed boolean exception for alldevices = %s. %s." % (alldevices, e))
+
+
 			if (presence):
 				self.publishUnlook()
 			else:
