@@ -45,6 +45,8 @@ class AbstractControlStategy(object):
 		consoleHandler.setFormatter(formatter)
 		self.logger.addHandler(consoleHandler)
 
+		self.subscribedEventList = []
+
 
 	def signal_handler(self, signal, frame):
 		self.stop()
@@ -65,6 +67,8 @@ class AbstractControlStategy(object):
 
 			if hasattr (self, "mqtt"):
 				try:
+					for event in self.subscribedEventList:
+						self.mqtt.unsubscribeEvent(event)
 					self.mqtt.disconnect()
 				except Exception, e:
 					self.logger.error("Error on stop(): %s" % (e))
@@ -73,7 +77,6 @@ class AbstractControlStategy(object):
 		except Exception, e2:
 				self.logger.error("Error on stop(): %s" % (e2))
 		sys.exit(0)
-
 
 
 	def notifyJsonEvent(self, topic, jsonEventString):

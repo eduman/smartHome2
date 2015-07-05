@@ -70,7 +70,7 @@ class SwitchOffAllControlStrategy(AbstractControlStategy):
 				
 				self.setRuleEngine()
 
-				self.mqtt.subscribeEvent(None, EventTopics.getSwitchOffAll())
+				self.subscribedEventList += self.mqtt.subscribeEvent(None, EventTopics.getSwitchOffAll())
 				
 				self.loop()
 		except KeyboardInterrupt, e:

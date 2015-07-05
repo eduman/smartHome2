@@ -55,7 +55,7 @@ class TimeShiftControlStrategy(AbstractControlStategy):
 			self.setRuleEngine()
 
 			# subscribes for events
-			#self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
+			#self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
 
 			self.loop()
 		except KeyboardInterrupt, e:

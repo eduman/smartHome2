@@ -26,11 +26,11 @@ import inspect
 import json
 
 
-#homeWSUri = "http://localhost:8080/rest/home/configuration"
-#ruleSID = "VideSurveillanceControlStrategy:UnknownOwner:Strategy"
+homeWSUri = "http://localhost:8080/rest/home/configuration"
+ruleSID = "VideSurveillanceControlStrategy:UnknownOwner:Strategy"
 
-homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
-ruleSID = "VideSurveillanceControlStrategy:eduman:ingresso"
+#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+#ruleSID = "VideSurveillanceControlStrategy:eduman:ingresso"
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
@@ -69,8 +69,8 @@ class VideoSurveillanceControlStrategy(AbstractControlStategy):
 				self.ruleUpdater = RuleUpdater(self.ruleEngine, self.logger)
 				
 				self.setRuleEngine()
-				self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullActuatorList()), EventTopics.getLookAction())
-				self.mqtt.subscribeEvent("alldevices/" + ActuationCommands.getLook(), EventTopics.getLookAction())
+				self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullActuatorList()), EventTopics.getLookAction())
+				self.subscribedEventList += self.mqtt.subscribeEvent("alldevices/" + ActuationCommands.getLook(), EventTopics.getLookAction())
 				self.loop()
 		except KeyboardInterrupt, e:
 			self.exit()

@@ -45,6 +45,8 @@ class AbstractSubscriber(object):
 		consoleHandler.setFormatter(formatter)
 		self.logger.addHandler(consoleHandler)
 
+		self.subscribedEventList = []
+
 
 		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
 			signal.signal(sig, self.signal_handler)
@@ -79,7 +81,8 @@ class AbstractSubscriber(object):
 			self.mqttc = MyMQTTClass(self.subscriberName, self.logger, self)
 			self.mqttc.connect(brokerUri,brokerPort)
 			for a in actuators:
-				self.mqttc.subscribeEvent(a, EventTopics.getActuatorAction())
+				event = self.mqttc.subscribeEvent(a, EventTopics.getActuatorAction())
+				self.subscribedEventList +=  event
 		else:
 			self.logger.error ("The message broker address is not valid")
 	
@@ -90,6 +93,8 @@ class AbstractSubscriber(object):
 		self.logger.info("Stopping %s" % (self.subscriberName))
 		if hasattr (self, "mqttc"):
 			try:
+				for event in self.subscribedEventList:
+					self.mqttc.unsubscribeEvent(event)	
 				self.mqttc.disconnect()
 			except Exception, e:
 				self.logger.error("Error on stop(): %s" % (e))

@@ -25,11 +25,11 @@ import sys
 import inspect
 import json
 
-homeWSUri = "http://localhost:8080/rest/home/configuration"
-ruleSID = "LookOnPresenceControlStrategy:UnknownOwner:Strategy"
+#homeWSUri = "http://localhost:8080/rest/home/configuration"
+#ruleSID = "LookOnPresenceControlStrategy:UnknownOwner:Strategy"
 
-#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
-#ruleSID = "LookOnPresence:eduman:casa"
+homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+ruleSID = "LookOnPresence:eduman:casa"
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
@@ -70,7 +70,7 @@ class LookOnPresenceControlStrategy(AbstractControlStategy):
 				
 				self.setRuleEngine()
 
-				self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
+				self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
 				
 				self.loop()
 		except KeyboardInterrupt, e:

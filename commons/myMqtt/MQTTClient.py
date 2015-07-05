@@ -20,6 +20,7 @@ class MyMQTTClass:
         self._mqttc.on_connect = self.mqtt_on_connect
         self._mqttc.on_publish = self.mqtt_on_publish
         self._mqttc.on_subscribe = self.mqtt_on_subscribe
+        self._mqttc.on_unsubscribe = self.mqtt_on_unsubscribe
 
     def mqtt_on_connect(self, mqttc, obj, flags, rc):
         self.logger.debug("Connected to message broker with result code: "+str(rc))
@@ -33,6 +34,9 @@ class MyMQTTClass:
 
     def mqtt_on_subscribe(self, mqttc, obj, mid, granted_qos):
         self.logger.debug("Subscribed: "+str(mid)+" "+str(granted_qos))
+
+    def mqtt_on_unsubscribe(self, mqttc, obj, mid):
+        self.logger.debug("Unsubscribed: "+str(mid))
 
     def mqtt_on_log(self, mqttc, obj, level, string):
         self.logger.debug(string)
@@ -56,6 +60,7 @@ class MyMQTTClass:
             self.logger.error("Erron on mqttDisconnect() %s", e)
 
     def subscribeEvent(self, fullString, topic):
+        subscribedEvents = []
         if fullString:
             tokens =  ''.join(str(fullString).split()).split(';')
             for tok in tokens:
@@ -63,13 +68,24 @@ class MyMQTTClass:
                     event = topic + "/" + tok.lower() + "/#"
                     try: 
                         self._mqttc.subscribe(event)
+                        subscribedEvents.append(event)
                         self.logger.debug("Subscribed for the event: %s " % event)
                     except Exception, e:
                         self.logger.error("Error on subscribeEvent() %s", e)
         else:
             event = topic + "/#"
             self._mqttc.subscribe(event)
+            subscribedEvents.append(event)
             self.logger.debug("Subscribed for the event: %s " % event)
+
+        return subscribedEvents
+
+    def unsubscribeEvent(self, event):
+        try:
+            self._mqttc.unsubscribe(event)
+            self.logger.debug("Unsubscribed for the event: %s " % event)
+        except Exception, e:
+            self.logger.error("Error on unsubscribeEvent() %s", e)
 
 
     def publish(self, eventTopic, payload, qos=2):
