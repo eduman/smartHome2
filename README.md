@@ -14,6 +14,6 @@ It includes:
 ## External dependencies
 the following libraries or external programs are needed:
 
-- paho mqtt library python version. "sudo pip install paho-mqtt" 
+- paho mqtt library python version. (sudo pip install paho-mqtt)
 - python-plugwise library (https://bitbucket.org/hadara/python-plugwise/wiki/Home)
 - cherrypy library (sudo pip install cherrypy)
