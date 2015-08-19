@@ -1,0 +1,116 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/computer_fragment_scrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+				android:id="@+id/computerSettingsActivity_computerID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="10dp"
+		        android:text="@string/computersTextView"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+			<Spinner
+			    android:id="@+id/computerSettingsActivity_computerSpinner"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/computerSettingsActivity_computerID"
+			    android:layout_toLeftOf="@+id/computerSettingsActivity_addComputerButton"
+			    android:layout_toRightOf="@+id/computerSettingsActivity_computerID" >
+
+			</Spinner>
+			
+			<Button
+                android:id="@+id/computerSettingsActivity_addComputerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/computerSettingsActivity_computerID"
+                android:layout_alignBottom="@+id/computerSettingsActivity_computerID"
+                android:layout_alignParentRight="true"
+                android:text="@string/computerAddButton"
+                android:layout_marginRight="10dp" 
+                android:textColor="#FFFFFF"
+                android:background="@drawable/my_button"/>
+ 
+            <TableLayout
+                android:id="@+id/computerSettingsActivity_nothingTableLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/computerSettingsActivity_computerID"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp" >
+
+                <TableRow
+                    android:id="@+id/computerSettings_tabbleRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                    <TableLayout
+				        android:id="@+id/computerSettingsActivity_computerSettingstableLayout"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginTop="16dp" > 
+
+		    		</TableLayout>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/computerSettings_tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                    <TableLayout
+				        android:id="@+id/computerSettingsActivity_buttonSettingsTableLayout"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginTop="16dp" 
+				        android:gravity="right"> 
+
+		    		</TableLayout>
+                </TableRow>
+               <!-- <TableRow
+                    android:id="@+id/computer_tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                    <TableLayout
+				        android:id="@+id/computerActivity_computerCommandstableLayout"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginTop="16dp" > 
+
+		    		</TableLayout>
+                </TableRow> -->
+		    </TableLayout>
+
+		 <!-- <TableLayout
+		        android:id="@+id/computerSettingsActivity_computerSettingstableLayout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentBottom="true"
+		        android:layout_alignParentLeft="true"
+		        android:layout_alignParentRight="true"
+		        android:layout_below="@+id/computerSettingsActivity_computerID"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginTop="16dp" > 
+
+		    </TableLayout> -->
+
+        </RelativeLayout>
+       
+    </ScrollView>

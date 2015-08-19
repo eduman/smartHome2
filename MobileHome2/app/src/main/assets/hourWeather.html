@@ -1,0 +1,203 @@
+
+<html>
+<head>
+<title>Open Weather Chart</title>
+<meta charset="utf-8">
+
+<script src="http://code.jquery.com/jquery-1.7.min.js" ></script>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+
+<link href="http://openweathermap.org/stylesheets/bootstrap.min.css" rel="stylesheet">
+<link href="http://openweathermap.org/stylesheets/2.0.4/bootstrap-responsive.min.css" rel="stylesheet">
+
+<script src="http://openweathermap.org/js/charts.js"></script>
+
+</head>
+
+<body>
+
+<h3>Next hours</h3>
+<div id="chart_small" style="width: 650px; height: 200px; " ></div>
+<div id="forecast_small"></div>
+
+
+
+</body>
+
+<script type="text/javascript">
+var time_zone = 1000 * (new Date().getTimezoneOffset())*(-60);
+
+jQuery(document).ready(function() {
+	var curd = new Date();
+	var d = new Date(curd.getFullYear(), curd.getMonth(), curd.getDate());
+	var s = Math.round(( d.getTime() ) /1000) - 3600*24;
+	var jsonurl = "http://api.openweathermap.org/data/2.5/forecast?id=hereTheCityID&mode=json&units=metric";
+	$.get(jsonurl, getData).error(errorHandler);
+});
+
+
+function getData(JSONtext)
+{
+	data = JSONtext.list;		
+	showHourlyForecastChart();	
+	showForecastSmall();
+}
+
+
+function showForecastSmall()
+{
+
+ 	var curdate = new Date( (new Date()).getTime()- 180 * 60 * 1000 );
+
+	var html = '';
+
+	var cnt=0;
+	for(var i = 0; i <  data.length ; i ++){
+
+		var dt = new Date(data[i].dt * 1000);
+	
+		if( curdate  > dt )	continue;
+		if(cnt > 10)		break;
+		cnt++;
+
+		var temp = Math.round(10*(data[i].main.temp))/10 ;
+		var tmin = Math.round(10*(data[i].main.temp_min)) / 10;
+		var tmax = Math.round(10*(data[i].main.temp_max)) / 10 ;
+
+		var text = data[i].weather[0].description;
+		var gust = data[i].wind.speed;
+		var pressure = data[i].main.pressure ;
+		var cloud=data[i].clouds.all ;	
+		var icon = data[i].weather[0].icon;
+
+		if( data[i].sys.pod == 'd' )
+			html=html+ '<div style="float: left; text-align: center;" >';
+		else
+			html=html+ '<div style="float: left; text-align: center; background-color:#eeeeee" >';
+
+		html=html+ '<img alt="'+text+'" src="http://openweathermap.org/img/w/'+icon+'.png"/>\
+		<div class="small_val" title="Wind">'+data[i].wind.speed+'m/s</div>\
+		<div class="small_val_grey" title="Pressure">'+data[i].main.pressure+'</div>\
+		</div>';
+	}
+
+	$("#forecast_small").html(html);
+
+};
+
+
+function showHourlyForecastChart()
+{
+
+ 	var curdate = new Date( (new Date()).getTime()- 180 * 60 * 1000 );
+
+	var cnt=0;
+
+	var time = new Array();
+	var tmp = new Array();
+ 	var wind = new Array();
+	var prcp = new Array();
+
+	for(var i = 0; i <  data.length; i ++){
+
+		var dt = new Date(data[i].dt * 1000);
+	
+		if( curdate  > dt )	continue;
+		if(cnt > 10)		break;
+		cnt++;
+
+		tmp.push( Math.round(10*(data[i].main.temp))/10  );
+		time.push( new Date( data[i].dt * 1000 + time_zone) );
+		wind.push(data[i].speed);
+
+		var p=0;
+		if(data[i]['rain'] && data[i]['rain']['3h'])	p += data[i]['rain']['3h'];
+		if(data[i]['snow'] && data[i]['snow']['3h'])	p += data[i]['snow']['3h'];
+		prcp.push( Math.round( p * 10 ) / 10 );
+	}
+
+	$('#chart_small').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: NaN,
+
+            xAxis: {
+                categories: time,
+                type: 'datetime',
+				labels: {
+				    formatter: function() {
+						return Highcharts.dateFormat('%H:%M', this.value);
+				    }				    
+            	}
+            },
+            yAxis: [
+            {
+                labels: {
+                    format: '{value}°C',
+                    style: {
+                        color: 'blue'
+                    }
+                },
+                opposite: true, 
+                title:NaN
+            },{
+                labels: {
+                    format: '{value}mm',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                opposite: true,            	
+                title: NaN
+            }],
+            tooltip: {
+            	useHTML: true,
+                shared: true,                
+                formatter: function() {
+ 					var s = '<small>'+ Highcharts.dateFormat('%d %b. %H:%M', this.x) +'</small><table>';
+                	$.each(this.points, function(i, point) {
+                    		s += '<tr><td style="color:'+point.series.color+'">'+ point.series.name +': </td>'+
+                        	'<td style="text-align: right"><b>'+point.y +'</b></td></tr>';
+                	});
+                	return s+'</table>';
+				}
+            },
+			legend: {
+                layout: 'vertical',
+                align: 'left',
+                x: 410,
+                verticalAlign: 'top',
+                y: 0,
+                floating: true,
+                backgroundColor: '#FFFFFF'
+            }, 
+            series: [
+            {
+                name: 'Precipitation',
+				type: 'column',   
+				color: '#A0A0A0',      
+				yAxis: 1,
+                data: prcp
+            },{
+                name: 'Temperature',
+				type: 'spline',
+				color: 'blue',
+                data: tmp
+            }]
+        });
+
+
+};
+
+
+function  errorHandler(e)
+{
+	alert(e.status +' '+e.statusText);
+}
+</script>
+
+
+</html>

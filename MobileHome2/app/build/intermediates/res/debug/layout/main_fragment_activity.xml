@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainSectionFragment" >
+
+    <ScrollView
+        android:id="@+id/main_fragment_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scrollbars="horizontal|vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TableLayout
+                android:id="@+id/homeActivity_tableLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp" >
+
+                <TableRow
+                    android:id="@+id/computerActivity_tableRow1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/manageRoomsButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="20dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_home"
+                        android:padding="30dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_home"
+                        android:background="@drawable/my_button" />
+
+                    <ImageButton
+                        android:id="@+id/manageComputerButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_computer"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_computer"
+                        android:background="@drawable/my_button" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/computerActivity_tableRow2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal" >
+                    
+
+                    <ImageButton
+                        android:id="@+id/manageWeatherButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="20dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_weather"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_cloud" 
+                        android:background="@drawable/my_button"/>
+
+                    <ImageButton
+                        android:id="@+id/manageMessagesButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_messages"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_email"
+                        android:background="@drawable/my_button"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/computerActivity_tableRow3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/manageLocationButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_location"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_place"
+                        android:background="@drawable/my_button"/>
+                    
+                    <ImageButton
+                        android:id="@+id/manageSettingsButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="10dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/menu_settings"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_settings"
+                        android:background="@drawable/my_button"/>
+
+                </TableRow>
+            </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout><!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/layout/main_fragment_activity.xml -->

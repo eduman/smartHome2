@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="main_preferences"
+    android:screenOrientation="sensor" >
+
+    <PreferenceCategory
+        android:key="@string/preference_category_applicationSettings_key"
+        android:title="@string/preference_category_applicationSettings_title" >
+        <CheckBoxPreference
+            android:defaultValue="@string/preference_keepScreenOn_default_value"
+            android:key="@string/preference_keepScreenOn_key"
+            android:title="@string/preference_keepScreenOn_title" />
+        <CheckBoxPreference
+            android:defaultValue="@string/preference_fullScreen_default_value"
+            android:key="@string/preference_fullScreen_key"
+            android:title="@string/preference_fullScreen_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="@string/preference_category_internetSettings_key"
+        android:title="@string/preference_category_internetSettings_title" >
+        <Preference
+            android:key="@string/preference_wifiSettings_key"
+            android:title="@string/preference_wifi" />
+        <!--<Preference-->
+            <!--android:key="@string/preference_data_roamingSettings_key"-->
+            <!--android:title="@string/preference_data_roaming" />-->
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="@string/preference_category_home_service_provider_settings_key"
+        android:title="@string/preference_category_home_service_provider_settings_title">
+
+        <EditTextPreference
+            android:defaultValue="@string/preference_home_service_provider_default_value"
+            android:dialogMessage="@string/preference_home_service_provider_dialogMessage"
+            android:dialogTitle="@string/preference_home_service_provider_dialogTitle"
+            android:key="@string/preference_home_service_provider_key"
+            android:title="@string/preference_home_service_provider_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="@string/preference_category_debug_key"
+        android:title="@string/preference_category_debug_title" >
+        <CheckBoxPreference
+            android:defaultValue="@string/preference_debug_default_value"
+            android:key="@string/preference_debug_key"
+            android:title="@string/preference_debug_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

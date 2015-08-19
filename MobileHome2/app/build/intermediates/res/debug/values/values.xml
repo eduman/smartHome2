@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="actuationButtonNotFound">Button not found</string>
+    <string name="addressNotFound">Address not found</string>
+    <string name="app_developer_email">patti.edoardo@gmail.com</string>
+    <string name="app_developer_name">Edoardo Patti</string>
+    <string name="app_name">Mobile Home</string>
+    <string name="cancel">Cancel</string>
+    <string name="choseActionActivity">Choose what to do:</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_refresh">Refresh</string>
+    <string name="computerAddButton">Add</string>
+    <string name="computerCommandBrightnessDownButton">Brightness Down</string>
+    <string name="computerCommandBrightnessUpButton">Brightness Up</string>
+    <string name="computerCommandForwardButton">Forward</string>
+    <string name="computerCommandPlayPauseButton">Paly/Pause</string>
+    <string name="computerCommandRewindButton">Rewind</string>
+    <string name="computerCommandSleepButton">Sleep</string>
+    <string name="computerCommandVolumeDownButton">Volume Down</string>
+    <string name="computerCommandVolumeMuteButton">Mute</string>
+    <string name="computerCommandVolumeStopButton">Stop</string>
+    <string name="computerCommandVolumeUpButton">Volume Up</string>
+    <string name="computerConfigureButton">Config</string>
+    <string name="computerDescriptionTextView">Description: </string>
+    <string name="computerLSDescriptionTextView">LS Description: </string>
+    <string name="computerPasswordTextView">Password: </string>
+    <string name="computerUrlTextView">URL: </string>
+    <string name="computersTextView">Computers: </string>
+    <string name="deleteButtonStr">Delete</string>
+    <string name="deleteMarkerPosition">Delete Position</string>
+    <string name="descriptionIsNull">Please insert a valid Description for the Computer</string>
+    <string name="devicesTextView">Devices: </string>
+    <string name="error">Error</string>
+    <string name="homeID">Home ID: </string>
+    <string name="info">Info</string>
+    <string name="internetConnectionErr">The Internet Connection is missing. Please enable it.</string>
+    <string name="loadingMsg">Loading</string>
+    <string name="lsDescriptionIsNull">Please insert a valid Linksmart Description for the Computer</string>
+    <string name="mapDeleteMyHomePosition">Do you want to delete the home location?</string>
+    <string name="mapEnableProximityManagerInfo">The Proximity Manager is disabled. You can enable it selecting “%1$s” from %2$s</string>
+    <string name="mapHomePositionNotFound">Home location not stored. To add it you have to do a long press on the map where your home is located</string>
+    <string name="mapNotInitialized">Google map is not inizialized</string>
+    <string name="mapOverrideMyHomePosition">Do you want to override the home location with this new one?</string>
+    <string name="mapsHybrid">Hybrid map</string>
+    <string name="mapsNormal">Normal map</string>
+    <string name="mapsOptions">Google Maps options</string>
+    <string name="mapsSatellite">Satellite map</string>
+    <string name="mapsTerranian">Terranian map</string>
+    <string name="menu_item_about">About</string>
+    <string name="menu_item_contact_developer">Contact the developer</string>
+    <string name="menu_item_refresh">Refresh</string>
+    <string name="menu_item_settings">Settings</string>
+    <string name="menu_settings">Settings</string>
+    <string name="messagesClearAll">Do you want to delete all the messages?</string>
+    <string name="myHomeMarkerTitle">My Home</string>
+    <string name="noComputerInfo">There is no information about the Computer</string>
+    <string name="noDevicesInfo">There is no information about Devices</string>
+    <string name="noHomeInfo">There is no information about Home</string>
+    <string name="noMessagesForUser">There is no messages for you (%1$s)</string>
+    <string name="noRoomsInfo">There is no information about Rooms</string>
+    <string name="nullString"/>
+    <string name="passwordIsWrong">The password must have 16 digits</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_category_applicationSettings_key">preference_category_deviceSettings_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_category_applicationSettings_title">Application Settings</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_category_debug_key">preference_category_debug_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_category_debug_title">Debug</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_category_home_service_provider_settings_key">preference_category_home_proxy_settings_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_category_home_service_provider_settings_title">Home service provider Settings</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_category_internetSettings_key" translatable="false">preference_category_internetSettings_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_category_internetSettings_title">Internet Settings</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_category_smartHomeWebService_key">"preference_category_smartHomeWebService_key"</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_category_smartHomeWebService_title">Android Proxy Web Service</string>
+    <string name="preference_data_roaming">Mobile Data</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_data_roamingSettings_key">preference_3gSettings_key</string>
+    <string name="preference_debug_default_value">false</string>
+    <string name="preference_debug_key">preference_debug_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_debug_title">Print debug messages</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_fullScreen_default_value">false</string>
+    <string name="preference_fullScreen_key">preference_fullScreen_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_fullScreen_title">Enable the full screen</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_home_service_provider_default_value">http://192.168.1.254:8080/rest/home/configuration</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_home_service_provider_dialogMessage">Provide your Home service provider</string>
+    <string name="preference_home_service_provider_dialogTitle">Set your Home service provider</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_home_service_provider_key">preference_home_service_provider_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_home_service_provider_title">Set your Home service provider</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_keepScreenOn_default_value">false</string>
+    <string name="preference_keepScreenOn_key">preference_keepScreenOn_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="preference_keepScreenOn_title">Keep the screen always on</string>
+    <string name="preference_wifi">Wi-Fi</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
+    <eat-comment/>
+    <string name="preference_wifiSettings_key">preference_wifiSettings_key</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="proximityAllertApproachingHomeMessage">You are getting close to your home.</string>
+    <string name="proximityAllertLeavingHomeMessage">You are moving away from your home.</string>
+    <string name="proximityAllertTitle">Proximity Alert!</string>
+    <string name="proximityInfoNotSent">Unable to send proximity information</string>
+    <string name="proximityManagerDisabled">Proximity Manager Disabled</string>
+    <string name="roomsTextView">Rooms: </string>
+    <string name="runButton">Run</string>
+    <string name="saveButtonStr"> Save </string>
+    <string name="send_email_action">Send Email</string>
+    <string name="send_email_subject">user feedback</string>
+    <string name="setHomeInfo">Please set the Home ID from \"Settings Window\" and try again</string>
+    <string name="startingInfoErr">Error while getting initial information:\n</string>
+    <string name="title_activity_computer">My Computer</string>
+    <string name="title_activity_computer_settings">Computer Settings</string>
+    <string name="title_computer">Computer</string>
+    <string name="title_home">Home</string>
+    <string name="title_location">Location</string>
+    <string name="title_main">Menù</string>
+    <string name="title_messages">Messages</string>
+    <string name="title_weather">Weather</string>
+    <string name="unknownHome">Unknown Home (ID: Unknown HomeID)</string>
+    <string name="unknownLSDescription">The selected Linksmart description is not valid</string>
+    <string name="urlIsNull">Please insert a valid URL</string>
+    <string name="waitMsg">Please wait.</string>
+    <string name="weatherCityText">City</string>
+    <string name="weatherCountryText">Country</string>
+    <string name="weatherDescriptionText">Weather Description</string>
+    <string name="weatherHumidityText">%1$s%%</string>
+    <string name="weatherIcon">Icon</string>
+    <string name="weatherPressueText">%1$s hPa</string>
+    <string name="weatherSearchButton">Search</string>
+    <string name="weatherTemperatureText">%1$s°C</string>
+    <string name="weatherTemperatureTextMaxMin">Max: %1$s°C  Min: %2$s°C</string>
+    <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+</resources>

@@ -1,0 +1,165 @@
+<!--
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapSectionFragment" >
+
+    <com.google.android.gms.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapView"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_above="@+id/map_fragment_footer"/>
+    
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_above="@+id/map_fragment_footer"/>
+    <RelativeLayout
+        android:id="@+id/map_fragment_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp" >
+
+        <ImageButton
+            android:id="@+id/map_fragment_refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/my_button"
+            android:contentDescription="@string/common_refresh"
+            android:src="@drawable/navigation_refresh" />
+
+        <ImageButton
+            android:id="@+id/map_fragment_home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/map_fragment_refresh_button"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/map_fragment_refresh_button"
+            android:background="@drawable/my_button"
+            android:contentDescription="@string/common_refresh"
+            android:src="@drawable/ic_action_view_as_grid" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/map_warning_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/nullString"
+        android:textColor="#ff0000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/map_fragment_myHomeLocation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mapView"
+        android:layout_alignLeft="@+id/map_warning_textView"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/my_button"
+        android:src="@drawable/ic_home" />
+
+</RelativeLayout>
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapSectionFragment" >
+
+    <!--
+         <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:name="it.eduman.mobileHome2.MainActivity"/>
+    -->
+
+    <com.google.android.gms.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapView"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/map_fragment_refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mapView"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/my_button"
+        android:contentDescription="@string/common_refresh"
+        android:src="@drawable/navigation_refresh" />
+
+    <ImageButton
+        android:id="@+id/map_fragment_home_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/map_fragment_refresh_button"
+        android:layout_alignBottom="@+id/mapView"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/map_fragment_refresh_button"
+        android:background="@drawable/my_button"
+        android:contentDescription="@string/common_refresh"
+        android:src="@drawable/ic_action_view_as_grid" />
+
+    <TextView
+        android:id="@+id/map_warning_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/nullString"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ff0000" />
+
+    <ImageButton
+        android:id="@+id/map_fragment_myHomeLocation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mapView"
+        android:layout_alignLeft="@+id/map_warning_textView"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/my_button"
+        android:src="@drawable/ic_home" />
+
+    <ImageButton
+        android:id="@+id/map_fragment_settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/map_fragment_myHomeLocation_button"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/map_fragment_myHomeLocation_button"
+        android:background="@drawable/my_button"
+        android:src="@drawable/ic_action_settings" />
+
+</RelativeLayout>

@@ -1,0 +1,17 @@
+<html><head><title>Open Weather Map</title>
+<script src="http://openlayers.org/api/OpenLayers.js"></script> 
+<script src="http://openweathermap.org/js/OWM.OpenLayers.1.3.4.js" ></script> 
+</head><body  onload="init()"><div id="basicMap"></div></body> 
+<script type="text/javascript"> 
+function init() {  
+var lat = hereTheLat; var lon = hereTheLong; 
+var lonlat = new OpenLayers.LonLat(lon, lat); 
+lonlat.transform(new OpenLayers.Projection("EPSG:4326"), 
+new OpenLayers.Projection("EPSG:900913")); 
+var map = new OpenLayers.Map("basicMap"); 
+var mapnik = new OpenLayers.Layer.OSM(); 
+var stations = new OpenLayers.Layer.Vector.OWMStations("Stations"); 
+var city = new OpenLayers.Layer.Vector.OWMWeather("Weather"); 
+map.addLayers([mapnik, stations, city]);
+map.setCenter( lonlat, 12 );
+} </script></html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="#0099cc" />
+
+    <stroke
+        android:width="3dp"
+        android:color="#33b5e5"/>
+
+    <corners
+        android:bottomLeftRadius="14dp"
+        android:bottomRightRadius="14dp"
+        android:topLeftRadius="14dp"
+        android:topRightRadius="14dp" />
+
+</shape><!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/drawable-hdpi/pressed.xml -->

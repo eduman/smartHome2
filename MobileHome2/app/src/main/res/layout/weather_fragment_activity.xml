@@ -1,0 +1,234 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/weather_fragment_activity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".WeatherSectionFragment" >
+
+    <ProgressBar
+        android:id="@+id/weatherActivity_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
+
+    <ScrollView
+        android:id="@+id/weather_fragment_scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weather_fragment_footer"
+        android:layout_alignParentTop="true"
+        android:scrollbars="horizontal|vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/weatherActivity_city_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true" 
+
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_toLeftOf="@+id/weatherActivity_searchWeatherButton"
+                android:ems="10"
+                android:text="@string/weatherCityText" />
+
+            <TextView
+                android:id="@+id/weatherActivity_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/weatherActivity_city_editText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/weatherCountryText"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageButton
+                android:id="@+id/weatherActivity_searchWeatherButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/weatherActivity_country"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/weatherSearchButton"
+                android:src="@android:drawable/ic_menu_search" 
+                android:background="@drawable/my_button"/>
+
+            <ImageView
+                android:id="@+id/weatherActivity_weatherIcon"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/weatherActivity_country"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/weatherIcon" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/weatherActivity_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/weatherActivity_weatherIcon"
+                android:layout_toRightOf="@+id/weatherActivity_weatherIcon"
+                android:text="@string/weatherDescriptionText"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/weatherActivity_weatherDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weatherActivity_weather"
+                android:layout_toRightOf="@+id/weatherActivity_weatherIcon"
+                android:text="@string/weatherDescriptionText"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/weatherActivity_temperatureIcon"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/weatherActivity_weatherIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/weatherIcon"
+                android:src="@drawable/ic_thermometer" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/weatherActivity_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/weatherActivity_temperatureIcon"
+                android:layout_toRightOf="@+id/weatherActivity_temperatureIcon"
+                android:text="@string/weatherTemperatureText"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/weatherActivity_temperatureMinMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weatherActivity_temperature"
+                android:layout_toRightOf="@+id/weatherActivity_temperatureIcon"
+                android:text="@string/weatherTemperatureTextMaxMin"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ImageView
+                android:id="@+id/weatherActivity_humidityIcon"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/weatherActivity_temperatureIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/weatherIcon"
+                android:src="@drawable/ic_drop" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/weatherActivity_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/weatherActivity_humidityIcon"
+                android:layout_toRightOf="@+id/weatherActivity_humidityIcon"
+                android:text="@string/weatherHumidityText"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <WebView
+                android:id="@+id/weatherActivity_hourPlotWebView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/weatherActivity_humidityIcon"
+                android:layout_alignParentRight="true" />
+            
+            <WebView
+                android:id="@+id/weatherActivity_dailyPlotWebView"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/weatherActivity_hourPlotWebView"
+                android:layout_alignParentRight="true" />
+            
+            <WebView
+                android:id="@+id/weatherActivity_weatherMapWebView"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/weatherActivity_dailyPlotWebView"
+                android:layout_alignParentRight="true" />
+
+            <!--
+            <ImageView
+                android:id="@+id/weatherActivity_pressueIcon"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/weatherActivity_humidityIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/weatherIcon" >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/weatherActivity_pressue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/weatherActivity_pressueIcon"
+                android:layout_toRightOf="@+id/weatherActivity_pressueIcon"
+                android:text="@string/weatherPressueText"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            -->
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/weather_fragment_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <ImageButton
+            android:id="@+id/weather_fragment_refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/common_refresh"
+            android:src="@drawable/navigation_refresh" 
+            android:background="@drawable/my_button"/>
+
+        <ImageButton
+            android:id="@+id/weather_fragment_home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/weather_fragment_refresh_button"
+            android:layout_toLeftOf="@+id/weather_fragment_refresh_button"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/common_refresh"
+            android:src="@drawable/ic_action_view_as_grid" 
+            android:background="@drawable/my_button"/>
+    </RelativeLayout>
+
+</RelativeLayout>

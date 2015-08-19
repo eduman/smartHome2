@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/libs/universal-image-loader-1.8.6.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="09995ba681982ca129af798c9eb21e79c4bffa45">
+        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/universal-image-loader-1.8.6-2a0a28dcf6239300df167ef209c08f7aa5ff4737.jar" />
+    </item>
+    <item
+        jar="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/libs/ksoap2-android-assembly-2.5.8-jar-with-dependencies.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d6e6d14301616c866b7eff210ece6579299417ec">
+        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/ksoap2-android-assembly-2.5.8-jar-with-dependencies-6a03ec4e1cdfc691612cf3a3f4b5f261a8dcd095.jar" />
+    </item>
+    <item
+        jar="/Users/edo/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/gson-2.3.1-4c62d448a5180f1d9ae83a9d12ecc7db984ff5fa.jar" />
+    </item>
+    <item
+        jar="/Users/edo/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-1a11a7b17c570eebb242edbd4532315ad05223e0.jar" />
+    </item>
+
+</items>

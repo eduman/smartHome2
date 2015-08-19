@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dip" >
+
+    <ImageView
+        android:id="@+id/messages_row_image"
+        android:layout_width="25dip"
+        android:layout_height="25dip" />
+
+    <ImageButton
+        android:id="@+id/messages_row_clearButton"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:layout_alignBottom="@+id/messages_row_date"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/my_button"
+        android:src="@drawable/ic_action_cancel" />
+
+    <TextView
+        android:id="@+id/messages_row_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/messages_row_image"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/messages_row_clearButton"
+        android:layout_toRightOf="@+id/messages_row_image"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/messages_row_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/messages_row_date"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/messages_row_date"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+     <TextView
+        android:id="@+id/messages_row_messageID"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignLeft="@+id/messages_row_date"
+        android:layout_below="@+id/messages_row_date"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout><!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/layout/messages_list_row.xml -->
