@@ -12,16 +12,41 @@ IP="`ipconfig getifaddr $INTERFACE`"
 NETMASK=""
 GATEWAY=""
 
-Test="`osascript -e 'output muted of (get volume settings)'`"
-if [ $Test = "true" ]; then
-	RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"description\": \"macosx\",\"isError\": false,\"functions\": [{\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/brightnessdown\"},{\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/brightnessUp\"},{\"type\": \"Next\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playernext\"},{\"type\": \"Play/Pause\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerplaypause\"},{\"type\": \"Previous\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerprevious\"},{\"type\": \"Stop\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerstop\"},{\"type\": \"VolumeDown\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumedown\"},{\"type\": \"VolumeUp\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumeup\"},{\"type\": \"Muted\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumemutedfalse\"},{\"type\": \"Sleep\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/sleep\"}]}")
+WSBASE="http://$IP:8080/rest/macosx"
+BRIGHTNESS_DOWN_WS="$WSBASE/brightnessdown"
+BRIGHTNESS_UP_WS="$WSBASE/brightnessUp"
+PLAYER_NEXT_WS="$WSBASE/playernext"
+PLAYER_PLAY_PAUSE_WS="$WSBASE/playerplaypause"
+PLAYER_PREVIOUS_WS="$WSBASE/playerprevious"
+PLAYER_STOP_WS="$WSBASE/playerstop"
+VOLUME_DOWN_WS="$WSBASE/volumedown"
+VOLUME_UP_WS="$WSBASE/volumeup"
 
+IS_MUTED="`osascript -e 'output muted of (get volume settings)'`"
+if [ $IS_MUTED = "true" ]; then
+	VOLUME_MUTE_WS="$WSBASE/volumemutedfalse"
+	VOLUME_MUTE_STATUS="Muted"
 else 
-	RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"description\": \"macosx\",\"isError\": false,\"functions\": [{\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/brightnessdown\"},{\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/brightnessUp\"},{\"type\": \"Next\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playernext\"},{\"type\": \"Play/Pause\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerplaypause\"},{\"type\": \"Previous\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerprevious\"},{\"type\": \"Stop\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerstop\"},{\"type\": \"VolumeDown\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumedown\"},{\"type\": \"VolumeUp\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumeup\"},{\"type\": \"Mute\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumemutedtrue\"},{\"type\": \"Sleep\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/sleep\"}]}")
-
+	VOLUME_MUTE_WS="$WSBASE/volumemutedtrue"
+	VOLUME_MUTE_STATUS="ToBeMouted"
 fi
 
-#RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"description\": \"macosx\",\"isError\": false,\"functions\": [{\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/brightnessdown\"},{\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/brightnessUp\"},{\"type\": \"Next\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playernext\"},{\"type\": \"Play/Pause\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerplaypause\"},{\"type\": \"Previous\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerprevious\"},{\"type\": \"Stop\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/playerstop\"},{\"type\": \"VolumeDown\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumedown\"},{\"type\": \"VolumeUp\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumeup\"},{\"type\": \"Mute\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumemutedfalse\"},{\"type\": \"Mute\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/volumemutedtrue\"},{\"type\": \"Sleep\",\"configuredAs\": \"Button\",\"rest\":\"GET\",\"ws\":\"/rest/macosx/sleep\"}]}")
+
+
+
+
+RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"description\": \"macosx\",\"isError\": false,\"functions\": [
+	{\"pin\":0,\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_DOWN_WS\"},
+	{\"pin\":1,\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_UP_WS\"},
+	{\"pin\":2,\"type\": \"Next\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_NEXT_WS\"},
+	{\"pin\":3,\"type\": \"Play/Pause\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_PLAY_PAUSE_WS\"},
+	{\"pin\":4,\"type\": \"Previous\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_PREVIOUS_WS\"},
+	{\"pin\":5,\"type\": \"Stop\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_STOP_WS\"},
+	{\"pin\":6,\"type\": \"VolumeDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_DOWN_WS\"},
+	{\"pin\":7,\"type\": \"VolumeUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_UP_WS\"},
+	{\"pin\":8,\"type\": \"VolumeMute\",\"configuredAs\": \"Button\",\"status\":\"$VOLUME_MUTE_STATUS\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_MUTE_WS\"}]}")
+
+
 echo "$RESULT"
 
 
