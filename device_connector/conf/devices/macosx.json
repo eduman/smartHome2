@@ -1,6 +1,6 @@
 {
   "name": "macosx",
-  "description": "Configuration for raspberry pi",
+  "description": "Configuration for macosx",
   "meta": {},
   "ttl": 30,
   "resources": [
@@ -270,12 +270,12 @@
       ]
     },{
       "type": "Resource",
-      "name": "sleep",
+      "name": "volumemute",
       "meta": {},
       "agent": {
         "type": "task",
         "dir": null,
-        "exec": "pmset sleepnow"
+        "exec": "agents/macosx/volumeMute.sh"
       },
       "representation": {
         "application/json": {

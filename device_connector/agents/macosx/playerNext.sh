@@ -1,5 +1,5 @@
-#! /usr/bin/osascript
-
+#!/bin/sh 
+osascript <<END 
 tell application "System Events"
 	set frontApp to name of first application process whose frontmost is true 
 end tell
@@ -12,3 +12,7 @@ else
 		next track
 	end tell
 end if
+END
+
+./agents/macosx/getConfiguration.sh
+
