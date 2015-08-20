@@ -39,7 +39,7 @@
     <string name="preference_home_service_provider_dialogMessage">Provide your Home service provider</string>
     <string name="preference_home_service_provider_dialogTitle">Set your Home service provider</string>
     <string name="preference_home_service_provider_title">Set your Home service provider</string>
-    <string name="preference_category_smartHomeWebService_title">Android Proxy Web Service</string>
+    <!--<string name="preference_category_smartHomeWebService_title">Android Proxy Web Service</string>-->
     <string name="preference_category_applicationSettings_title">Application Settings</string>
     <string name="preference_keepScreenOn_title">Keep the screen always on</string>
     <string name="preference_fullScreen_title">Enable the full screen</string>
@@ -89,33 +89,33 @@
 
 
     <!-- About Maps Fragment -->
-    <string name="proximityManagerDisabled">Proximity Manager Disabled</string>
-    <string name="deleteMarkerPosition">Delete Position</string>
-    <string name="cancel">Cancel</string>
-    <string name="mapsOptions">Google Maps options</string>
-    <string name="myHomeMarkerTitle">My Home</string>
-    <string name="mapsNormal">Normal map</string>
-    <string name="mapsHybrid">Hybrid map</string>
-    <string name="mapsSatellite">Satellite map</string>
-    <string name="mapsTerranian">Terranian map</string>
+    <!--<string name="proximityManagerDisabled">Proximity Manager Disabled</string>-->
+    <!--<string name="deleteMarkerPosition">Delete Position</string>-->
+    <!--<string name="cancel">Cancel</string>-->
+    <!--<string name="mapsOptions">Google Maps options</string>-->
+    <!--<string name="myHomeMarkerTitle">My Home</string>-->
+    <!--<string name="mapsNormal">Normal map</string>-->
+    <!--<string name="mapsHybrid">Hybrid map</string>-->
+    <!--<string name="mapsSatellite">Satellite map</string>-->
+    <!--<string name="mapsTerranian">Terranian map</string>-->
     
     <!-- About Proximity allerts -->
-    <string name="proximityAllertTitle">Proximity Alert!</string>
-    <string name="proximityAllertApproachingHomeMessage">You are getting close to your home.</string>
-    <string name="proximityAllertLeavingHomeMessage">You are moving away from your home.</string>
+    <!--<string name="proximityAllertTitle">Proximity Alert!</string>-->
+    <!--<string name="proximityAllertApproachingHomeMessage">You are getting close to your home.</string>-->
+    <!--<string name="proximityAllertLeavingHomeMessage">You are moving away from your home.</string>-->
     
     <!-- About Remote User Messages -->
-	<string name="noMessagesForUser">There is no messages for you (%1$s)</string>
+	<!--<string name="noMessagesForUser">There is no messages for you (%1$s)</string>-->
 
     <!-- Info Messages -->
     <string name="info">Info</string>
     <string name="waitMsg">Please wait.</string>
     <string name="loadingMsg">Loading</string>
-    <string name="mapEnableProximityManagerInfo">The Proximity Manager is disabled. You can enable it selecting &#8220;%1$s&#8221; from %2$s</string>
-    <string name="mapHomePositionNotFound">Home location not stored. To add it you have to do a long press on the map where your home is located</string>
-    <string name="mapOverrideMyHomePosition">Do you want to override the home location with this new one?</string>
-    <string name="mapDeleteMyHomePosition">Do you want to delete the home location?</string>
-	<string name="messagesClearAll">Do you want to delete all the messages?</string>
+    <!--<string name="mapEnableProximityManagerInfo">The Proximity Manager is disabled. You can enable it selecting &#8220;%1$s&#8221; from %2$s</string>-->
+    <!--<string name="mapHomePositionNotFound">Home location not stored. To add it you have to do a long press on the map where your home is located</string>-->
+    <!--<string name="mapOverrideMyHomePosition">Do you want to override the home location with this new one?</string>-->
+    <!--<string name="mapDeleteMyHomePosition">Do you want to delete the home location?</string>-->
+	<!--<string name="messagesClearAll">Do you want to delete all the messages?</string>-->
     <!-- Error Messages -->
     <string name="error">Error</string>
     <string name="internetConnectionErr">The Internet Connection is missing. Please enable it.</string>
@@ -127,7 +127,10 @@
     <string name="setHomeInfo">Please set the Home ID from \"Settings Window\" and try again</string>
     <string name="startingInfoErr">Error while getting initial information:\n</string>
     <string name="noComputerInfo">There is no information about the Computer</string>
-    <string name="urlIsNull">Please insert a valid URL</string>
+    <string name="urlIsNull">Please insert a valid URL</string>webPageError
+    <string name="webPageError">Unable to load the required web page</string>
+
+    <!-- to be deleted-->
     <string name="descriptionIsNull">Please insert a valid Description for the Computer</string>
     <string name="lsDescriptionIsNull">Please insert a valid Linksmart Description for the Computer</string>
     <string name="passwordIsWrong">The password must have 16 digits</string>

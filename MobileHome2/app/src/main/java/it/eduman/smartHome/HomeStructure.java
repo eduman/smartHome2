@@ -9,6 +9,7 @@ public class HomeStructure {
     private String floor;
     private String landlord;
     private String buildingID;
+    private String thingspeakChannel;
 
     private MessageBroker homeMessageBroker;
     private MessageBroker externalMessageBroker;
@@ -55,6 +56,14 @@ public class HomeStructure {
 
     public void setBuildingID(String buildingID) {
         this.buildingID = buildingID;
+    }
+
+    public String getThingspeakChannel() {
+        return thingspeakChannel;
+    }
+
+    public void setThingspeakChannel(String thingspeakChannel) {
+        this.thingspeakChannel = thingspeakChannel;
     }
 
     public MessageBroker getHomeMessageBroker() {

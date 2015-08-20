@@ -3,27 +3,19 @@ package it.eduman.mobileHome2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 
@@ -34,10 +26,8 @@ import it.eduman.android.commons.utilities.ErrorUtilities;
 import it.eduman.android.commons.utilities.HardwareUtilities;
 import it.eduman.android.commons.utilities.HttpConnection;
 import it.eduman.android.commons.utilities.HttpConnectionException;
-import it.eduman.android.commons.utilities.Response;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.mobileHome2.communication.ProxyWebServices;
 import it.eduman.smartHome.HomeStructure;
 import it.eduman.smartHome.Room;
 
