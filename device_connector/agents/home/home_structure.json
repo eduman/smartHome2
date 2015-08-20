@@ -4,6 +4,7 @@
 	"floor":"2",
 	"landlord":"my landlord",
 	"buildingID":"1",
+	"thingspeakChannel": "https://thingspeak.com/channels/212",
 	"homeMessageBroker":{
 		"address":"home.message.broker.address",
 		"port" : "1883"
