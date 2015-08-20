@@ -249,6 +249,7 @@ public class PlotsSectionFragment extends MyFragment {
             this.homeStructureProgress.setVisibility(View.VISIBLE);
         }
 
+
         @SuppressWarnings("unchecked")
         @Override
         protected HomeStructure doInBackground(String... params)
