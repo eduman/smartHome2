@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -19,8 +21,10 @@ public class HttpConnection {
 	private static class HttpGetCallable implements Callable<String> {
 
 		private String uri;
-		public HttpGetCallable(String uri){
+		private HashMap<String, String> headers;
+		public HttpGetCallable(String uri, HashMap<String, String> headers){
 			this.uri = uri;
+			this.headers = headers;
 		}
 		
 		@Override
@@ -37,6 +41,14 @@ public class HttpConnection {
 
 				//add request header
 				con.setRequestProperty("User-Agent", USER_AGENT);
+//				con.setRequestProperty("Content-Type", "application/json");
+				if (headers != null){
+					for (HashMap.Entry<String, String> entry: this.headers.entrySet()){
+						con.setRequestProperty(entry.getKey(), entry.getValue());
+					}
+				}
+
+
 
 				int responseCode = con.getResponseCode();
 
@@ -66,8 +78,12 @@ public class HttpConnection {
 
 
 	public static String sendGet(String uri) throws HttpConnectionException{
+		return sendGet(uri, new HashMap<String, String>());
+	}
+
+	public static String sendGet(String uri, HashMap<String, String> headers) throws HttpConnectionException{
 		ExecutorService executor = Executors.newSingleThreadExecutor();
-		Callable<String> httpGet = new HttpGetCallable(uri);
+		Callable<String> httpGet = new HttpGetCallable(uri, headers);
 		Future<String> future = executor.submit(httpGet);
 		try {
 			return future.get();

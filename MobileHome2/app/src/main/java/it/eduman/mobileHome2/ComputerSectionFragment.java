@@ -7,12 +7,12 @@ import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.android.commons.utilities.TaskOn;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
 import it.eduman.mobileHome2.communication.ProxyWebServices;
-import it.eduman.smartHome.computer.ComputerSettings;
-import it.eduman.smartHome.device.ActuationCommands;
-import it.eduman.smartHome.device.DeviceConstants;
-import it.eduman.smartHome.device.DeviceContent;
-import it.eduman.smartHome.device.HardwarePinStatusContent;
-import it.eduman.smartHome.webServices.QueryContent;
+import it.eduman.smartHome.deprecated.computer.ComputerSettings;
+import it.eduman.smartHome.deprecated.device.ActuationCommands;
+import it.eduman.smartHome.deprecated.device.DeviceConstants;
+import it.eduman.smartHome.deprecated.device.DeviceContent;
+import it.eduman.smartHome.deprecated.device.HardwarePinStatusContent;
+import it.eduman.smartHome.deprecated.webServices.QueryContent;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -238,7 +238,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 												else 
 													onOff.setImageResource(R.drawable.ic_action_volume_on);
 											}
-										} catch (it.eduman.smartHome.security.SecurityException e) {
+										} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
 											SoftwareUtilities.MyErrorDialogFactory(
 													rootView.getContext(), 
 													ErrorUtilities.getExceptionMessage(e));
@@ -260,7 +260,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 									String command = hw.getActuationCommand();
 									try {
 										ActivityCommons.actuateButton(context, device, hw, command, proxyWebServices);
-									} catch (it.eduman.smartHome.security.SecurityException e) {
+									} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
 										SoftwareUtilities.MyErrorDialogFactory(
 												rootView.getContext(), 
 												ErrorUtilities.getExceptionMessage(e));

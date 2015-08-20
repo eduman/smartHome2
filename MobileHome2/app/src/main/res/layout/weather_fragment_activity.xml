@@ -63,7 +63,7 @@
                 android:layout_above="@+id/weatherActivity_country"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/weatherSearchButton"
-                android:src="@android:drawable/ic_menu_search" 
+                android:src="@drawable/ic_action_search"
                 android:background="@drawable/my_button"/>
 
             <ImageView

@@ -32,7 +32,8 @@ public class MainSectionFragment extends MyFragment {
 				container, false);
 
 //		ActivityCommons.updateAfterUserSettingsChanges(rootView.getContext());
-		
+
+
 		ImageButton roomsButton = (ImageButton) rootView.findViewById(R.id.manageRoomsButton);
 		roomsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -40,15 +41,40 @@ public class MainSectionFragment extends MyFragment {
 				((MainActivity)getActivity()).nextPage(MobileHomeConstants.HOME_FRAGMENT_POSITION);
 			}
 		});
-		
+
+		ImageButton plotsButton = (ImageButton) rootView.findViewById(R.id.plotsButton);
+		plotsButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((MainActivity)getActivity()).nextPage(MobileHomeConstants.PLOTS_FRAGMENT_POSITION);
+			}
+		});
+
+		ImageButton userButton = (ImageButton) rootView.findViewById(R.id.userButton);
+		userButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((MainActivity)getActivity()).nextPage(MobileHomeConstants.USER_FRAGMENT_POSITION);
+			}
+		});
+
+		ImageButton videosurveillanceButton = (ImageButton) rootView.findViewById(R.id.videosurveillanceButton);
+		videosurveillanceButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((MainActivity)getActivity()).nextPage(MobileHomeConstants.VIDEOSURVEILLANCE_FRAGMENT_POSITION);
+			}
+		});
+
 		ImageButton computerButton = (ImageButton) rootView.findViewById(R.id.manageComputerButton);
 		computerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((MainActivity)getActivity()).nextPage(MobileHomeConstants.COMPUTER_FRAGMENT_POSITION); 
+				((MainActivity)getActivity()).nextPage(MobileHomeConstants.COMPUTER_FRAGMENT_POSITION);
 			}
 		});
-		
+
+
 		ImageButton weatherButton = (ImageButton) rootView.findViewById(R.id.manageWeatherButton);
 		weatherButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -56,20 +82,13 @@ public class MainSectionFragment extends MyFragment {
 				((MainActivity)getActivity()).nextPage(MobileHomeConstants.WEATHER_FRAGMENT_POSITION); 
 			}
 		});
+
 		
-		ImageButton messagesButton = (ImageButton) rootView.findViewById(R.id.manageMessagesButton);
-		messagesButton.setOnClickListener(new View.OnClickListener() {
+		ImageButton rulemanagerButton = (ImageButton) rootView.findViewById(R.id.rulemanagerButton);
+		rulemanagerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((MainActivity)getActivity()).nextPage(MobileHomeConstants.MESSAGES_FRAGMENT_POSITION); 
-			}
-		});
-		
-		ImageButton locationButton = (ImageButton) rootView.findViewById(R.id.manageLocationButton);
-		locationButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((MainActivity)getActivity()).nextPage(MobileHomeConstants.LOCATION_FRAGMENT_POSITION); 
+				((MainActivity)getActivity()).nextPage(MobileHomeConstants.RULEMANAGER_FRAGMENT_POSITION);
 			}
 		});
 		

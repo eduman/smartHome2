@@ -18,6 +18,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://repo.eclipse.org/content/repositories/paho-releases/"
+    }
+}
+
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
     compile 'com.google.code.gson:gson:2.3.1'

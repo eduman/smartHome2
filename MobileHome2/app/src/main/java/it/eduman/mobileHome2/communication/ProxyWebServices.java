@@ -3,16 +3,15 @@ package it.eduman.mobileHome2.communication;
 import it.eduman.android.commons.utilities.KeyValue;
 import it.eduman.android.commons.utilities.Response;
 import it.eduman.android.commons.utilities.TaskOn;
-import it.eduman.mobileHome2.R;
-import it.eduman.smartHome.device.DeviceContent;
-import it.eduman.smartHome.device.MeasurementContent;
-import it.eduman.smartHome.home.BuildingContent;
-import it.eduman.smartHome.home.HomeContent;
-import it.eduman.smartHome.home.RoomContent;
-import it.eduman.smartHome.security.MyCipher;
-import it.eduman.smartHome.security.SecurityException;
-import it.eduman.smartHome.userMessage.UserMessageContent;
-import it.eduman.smartHome.webServices.QueryContent;
+import it.eduman.smartHome.deprecated.device.DeviceContent;
+import it.eduman.smartHome.deprecated.device.MeasurementContent;
+import it.eduman.smartHome.deprecated.home.BuildingContent;
+import it.eduman.smartHome.deprecated.home.HomeContent;
+import it.eduman.smartHome.deprecated.home.RoomContent;
+import it.eduman.smartHome.deprecated.security.MyCipher;
+import it.eduman.smartHome.deprecated.security.SecurityException;
+import it.eduman.smartHome.deprecated.userMessage.UserMessageContent;
+import it.eduman.smartHome.deprecated.webServices.QueryContent;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -27,7 +26,6 @@ import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 public class ProxyWebServices {

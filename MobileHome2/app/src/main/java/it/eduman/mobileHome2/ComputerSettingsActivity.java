@@ -2,7 +2,7 @@ package it.eduman.mobileHome2;
 
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.smartHome.computer.ComputerSettings;
+import it.eduman.smartHome.deprecated.computer.ComputerSettings;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

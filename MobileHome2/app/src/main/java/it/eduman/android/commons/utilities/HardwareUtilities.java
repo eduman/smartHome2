@@ -42,12 +42,25 @@ public class HardwareUtilities {
 		return (isWiFiConnected(context) || isMobileDataConnected(context));
 	}
 
+	public static boolean isConnected(Context context,
+									  boolean isWifiToBeEnabled, boolean isMobileDataToBeEnabled){
+		boolean result = false;
+		if (isWifiToBeEnabled && isMobileDataToBeEnabled)
+			result = (isWiFiConnected(context) || isMobileDataConnected(context));
+		else if (isWifiToBeEnabled)
+			result = isWiFiConnected(context);
+		else if (isMobileDataToBeEnabled)
+			result = isMobileDataConnected(context);
+
+		return result;
+	}
+
 	public static void enableInternetConnectionAlertDialog(
 			final Context context,
 			final boolean isWifiToBeEnabled,
 			final boolean isMobileDataToBeEnabled){
 
-		if (!isConnected(context)){
+		if (!isConnected(context, isWifiToBeEnabled, isMobileDataToBeEnabled)){
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setMessage(R.string.internetConnectionErr).setTitle(R.string.error);
 

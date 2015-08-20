@@ -36,9 +36,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private MyFragment homeFragment = null;
 	private MyFragment computerFragment = null;
 	private MyFragment mainFragment = null;
-	private MyFragment mapFragment = null;
 	private MyFragment weatherFragment = null;
-	private MyFragment messagesFragment = null;
+	private MyFragment plotsFragment = null;
+	private MyFragment userFragment = null;
+	private MyFragment videosurveillanceFragment = null;
+	private MyFragment rulemanagerFragment = null;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
@@ -65,11 +67,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		this.mainFragment = new MainSectionFragment();
 		this.homeFragment = new HomeSectionFragment();
+		this.plotsFragment = new PlotsSectionFragment();
+		this.userFragment = new UserSectionFragment();
+		this.videosurveillanceFragment = new VideoSurveillanceSectionFragment();
 		this.computerFragment = new ComputerSectionFragment();
 		this.weatherFragment = new WeatherSectionFragment();
-//		this.mapFragment = new MapSectionFragment();
-		this.messagesFragment = new MessagesSectionFragment();
-
+		this.rulemanagerFragment = new RuleManagerSectionFragment();
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -118,8 +121,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		super.onStart();
 		ActivityCommons.checkAndSetFullScreen(this);
 		ActivityCommons.checkAndSetScreenAlwaysOn(this);
-
-
 	}
 
 
@@ -170,10 +171,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(position);
+
+		//TODO commented fragments  to be enabled
 		if (mainFragment != null &&
 				homeFragment != null &&
+				plotsFragment != null &&
+				userFragment != null &&
+				videosurveillanceFragment != null &&
+				rulemanagerFragment != null &&
 				computerFragment != null &&
-				mapFragment != null &&
 				weatherFragment != null) {
 			switch (position) {
 				case MobileHomeConstants.MAIN_FRAGMENT_POSITION:
@@ -186,6 +192,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							MobileHomeConstants.HOME_FRAGMENT_POSITION;
 					homeFragment.update();
 					break;
+				case MobileHomeConstants.PLOTS_FRAGMENT_POSITION:
+					MyFragment.CURRENT_VISIBLE_FRAGMENT =
+							MobileHomeConstants.PLOTS_FRAGMENT_POSITION;
+					plotsFragment.update();
+					break;
+				case MobileHomeConstants.USER_FRAGMENT_POSITION:
+					MyFragment.CURRENT_VISIBLE_FRAGMENT =
+							MobileHomeConstants.USER_FRAGMENT_POSITION;
+					userFragment.update();
+					break;
+				case MobileHomeConstants.VIDEOSURVEILLANCE_FRAGMENT_POSITION:
+					MyFragment.CURRENT_VISIBLE_FRAGMENT =
+							MobileHomeConstants.VIDEOSURVEILLANCE_FRAGMENT_POSITION;
+					videosurveillanceFragment.update();
+					break;
 				case MobileHomeConstants.COMPUTER_FRAGMENT_POSITION:
 					MyFragment.CURRENT_VISIBLE_FRAGMENT =
 							MobileHomeConstants.COMPUTER_FRAGMENT_POSITION;
@@ -196,15 +217,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							MobileHomeConstants.WEATHER_FRAGMENT_POSITION;
 					weatherFragment.update();
 					break;
-				case MobileHomeConstants.MESSAGES_FRAGMENT_POSITION:
+				case MobileHomeConstants.RULEMANAGER_FRAGMENT_POSITION:
 					MyFragment.CURRENT_VISIBLE_FRAGMENT =
-							MobileHomeConstants.MESSAGES_FRAGMENT_POSITION;
-					messagesFragment.update();
-				case MobileHomeConstants.LOCATION_FRAGMENT_POSITION:
-					MyFragment.CURRENT_VISIBLE_FRAGMENT =
-							MobileHomeConstants.LOCATION_FRAGMENT_POSITION;
-					mapFragment.update();
+							MobileHomeConstants.RULEMANAGER_FRAGMENT_POSITION;
+					rulemanagerFragment.update();
 					break;
+
 			}
 		}
 
@@ -231,6 +249,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			MyFragment fragment = null;
 			Bundle args = new Bundle();
 
+			//TODO commented fragments  to be enabled
 			switch (position){
 				case MobileHomeConstants.MAIN_FRAGMENT_POSITION:
 					fragment = mainFragment;
@@ -239,6 +258,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					break;
 				case MobileHomeConstants.HOME_FRAGMENT_POSITION:
 					fragment = homeFragment;
+					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
+					fragment.setArguments(args);
+					break;
+				case MobileHomeConstants.PLOTS_FRAGMENT_POSITION:
+					fragment = plotsFragment;
+					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
+					fragment.setArguments(args);
+					break;
+				case MobileHomeConstants.USER_FRAGMENT_POSITION:
+					fragment = userFragment;
+					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
+					fragment.setArguments(args);
+					break;
+				case MobileHomeConstants.VIDEOSURVEILLANCE_FRAGMENT_POSITION:
+					fragment = videosurveillanceFragment;
 					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
 					fragment.setArguments(args);
 					break;
@@ -252,16 +286,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
 					fragment.setArguments(args);
 					break;
-				case MobileHomeConstants.MESSAGES_FRAGMENT_POSITION:
-					fragment = messagesFragment;
+				case MobileHomeConstants.RULEMANAGER_FRAGMENT_POSITION:
+					fragment = rulemanagerFragment;
 					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
 					fragment.setArguments(args);
 					break;
-				case MobileHomeConstants.LOCATION_FRAGMENT_POSITION:
-					fragment = mapFragment;
-					args.putInt(MobileHomeConstants.ARG_SECTION_NUMBER, position + 1);
-					fragment.setArguments(args);
-					break;
+
 			}
 
 
@@ -281,14 +311,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					return this.context.getString(R.string.title_main).toUpperCase(l);
 				case MobileHomeConstants.HOME_FRAGMENT_POSITION:
 					return this.context.getString(R.string.title_home).toUpperCase(l);
+				case MobileHomeConstants.PLOTS_FRAGMENT_POSITION:
+					return this.context.getString(R.string.title_plots).toUpperCase(l);
+				case MobileHomeConstants.USER_FRAGMENT_POSITION:
+					return this.context.getString(R.string.title_user).toUpperCase(l);
+				case MobileHomeConstants.VIDEOSURVEILLANCE_FRAGMENT_POSITION:
+					return this.context.getString(R.string.title_videosurveillance).toUpperCase(l);
 				case MobileHomeConstants.COMPUTER_FRAGMENT_POSITION:
 					return this.context.getString(R.string.title_computer).toUpperCase(l);
 				case MobileHomeConstants.WEATHER_FRAGMENT_POSITION:
 					return this.context.getString(R.string.title_weather).toUpperCase(l);
-				case MobileHomeConstants.MESSAGES_FRAGMENT_POSITION:
-					return this.context.getString(R.string.title_messages).toUpperCase(l);
-				case MobileHomeConstants.LOCATION_FRAGMENT_POSITION:
-					return this.context.getString(R.string.title_location).toUpperCase(l);
+				case MobileHomeConstants.RULEMANAGER_FRAGMENT_POSITION:
+					return this.context.getString(R.string.title_rulemanager).toUpperCase(l);
 			}
 			return null;
 		}

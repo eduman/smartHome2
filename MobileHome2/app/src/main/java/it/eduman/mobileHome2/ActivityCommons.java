@@ -3,20 +3,19 @@ package it.eduman.mobileHome2;
 import it.eduman.android.commons.utilities.Response;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.android.commons.utilities.TaskOn;
-import it.eduman.mobileHome2.commons.MobileHomeConstants;
 import it.eduman.mobileHome2.communication.ProxyWebServices;
 //import it.eduman.mobileHome2.deprecated.proxymityAllert.ProximityAllert;
-import it.eduman.smartHome.device.DeviceContent;
-import it.eduman.smartHome.device.HardwarePinStatusContent;
-import it.eduman.smartHome.security.SecurityException;
-import it.eduman.smartHome.webServices.QueryContent;
+import it.eduman.smartHome.deprecated.device.DeviceContent;
+import it.eduman.smartHome.deprecated.device.HardwarePinStatusContent;
+import it.eduman.smartHome.deprecated.security.SecurityException;
+import it.eduman.smartHome.deprecated.webServices.QueryContent;
 import android.app.Activity;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.view.WindowManager;
 
 //import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
+
 
 public class ActivityCommons {
 

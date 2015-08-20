@@ -83,33 +83,9 @@
 
 		    		</TableLayout>
                 </TableRow>
-               <!-- <TableRow
-                    android:id="@+id/computer_tableRow3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-                    <TableLayout
-				        android:id="@+id/computerActivity_computerCommandstableLayout"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:layout_marginLeft="10dp"
-				        android:layout_marginTop="16dp" > 
 
-		    		</TableLayout>
-                </TableRow> -->
 		    </TableLayout>
 
-		 <!-- <TableLayout
-		        android:id="@+id/computerSettingsActivity_computerSettingstableLayout"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentBottom="true"
-		        android:layout_alignParentLeft="true"
-		        android:layout_alignParentRight="true"
-		        android:layout_below="@+id/computerSettingsActivity_computerID"
-		        android:layout_marginLeft="10dp"
-		        android:layout_marginTop="16dp" > 
-
-		    </TableLayout> -->
 
         </RelativeLayout>
        

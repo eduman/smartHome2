@@ -13,7 +13,9 @@
     <string name="app_name">Mobile Home</string>
     <string name="cancel">Cancel</string>
     <string name="choseActionActivity">Choose what to do:</string>
+    <string name="common_backward">Backward</string>
     <string name="common_delete">Delete</string>
+    <string name="common_foreward">Foreward</string>
     <string name="common_refresh">Refresh</string>
     <string name="computerAddButton">Add</string>
     <string name="computerCommandBrightnessDownButton">Brightness Down</string>
@@ -154,9 +156,11 @@
     <string name="title_activity_computer_settings">Computer Settings</string>
     <string name="title_computer">Computer</string>
     <string name="title_home">Home</string>
-    <string name="title_location">Location</string>
     <string name="title_main">Menù</string>
-    <string name="title_messages">Messages</string>
+    <string name="title_plots">Plots</string>
+    <string name="title_rulemanager">Rules</string>
+    <string name="title_user">User</string>
+    <string name="title_videosurveillance">Surveillance</string>
     <string name="title_weather">Weather</string>
     <string name="unknownHome">Unknown Home (ID: Unknown HomeID)</string>
     <string name="unknownLSDescription">The selected Linksmart description is not valid</string>

@@ -49,31 +49,13 @@
                 android:text="@string/roomsTextView"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/textDevices"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textRooms"
-                android:layout_marginTop="16dp"
-                android:text="@string/devicesTextView"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
             <Spinner
                 android:id="@+id/spinnerRooms"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/textDevices"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/textRooms" />
-
-            <Spinner
-                android:id="@+id/spinnerDevices"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textDevices"
-                android:layout_alignBottom="@+id/textDevices"
-                android:layout_alignLeft="@+id/spinnerRooms" />
+                android:layout_alignBottom="@+id/textRooms"
+                android:layout_toRightOf="@+id/textRooms"
+                android:layout_toEndOf="@+id/textRooms" />
 
             <TableLayout
                 android:id="@+id/tableLayout"
@@ -82,8 +64,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/textDevices"
-                android:layout_marginTop="16dp" >
+                android:layout_below="@+id/spinnerRooms">
             </TableLayout>
         </RelativeLayout>
     </ScrollView>
@@ -99,7 +80,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/my_button"

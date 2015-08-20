@@ -37,7 +37,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 android:contentDescription="@string/computerConfigureButton"
-                android:src="@drawable/ic_action_settings" 
+                android:src="@drawable/ic_action_settings_small"
                 android:background="@drawable/my_button"/>
 
             <ProgressBar
@@ -301,7 +301,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
-            android:src="@drawable/navigation_refresh" 
+            android:src="@drawable/navigation_refresh"
             android:background="@drawable/my_button"/>
         
         <ImageButton

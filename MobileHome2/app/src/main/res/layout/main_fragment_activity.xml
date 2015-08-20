@@ -49,16 +49,16 @@
                         android:background="@drawable/my_button" />
 
                     <ImageButton
-                        android:id="@+id/manageComputerButton"
+                        android:id="@+id/plotsButton"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/title_computer"
+                        android:contentDescription="@string/title_plots"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_action_computer"
+                        android:src="@drawable/ic_action_plot"
                         android:background="@drawable/my_button" />
                 </TableRow>
 
@@ -68,37 +68,74 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:gravity="center_horizontal" >
-                    
 
                     <ImageButton
-                        android:id="@+id/manageWeatherButton"
+                        android:id="@+id/userButton"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="20dp"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/title_weather"
+                        android:contentDescription="@string/title_user"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_action_cloud" 
+                        android:src="@drawable/ic_action_user"
                         android:background="@drawable/my_button"/>
 
                     <ImageButton
-                        android:id="@+id/manageMessagesButton"
+                        android:id="@+id/videosurveillanceButton"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/title_messages"
+                        android:contentDescription="@string/title_videosurveillance"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_action_email"
+                        android:src="@drawable/ic_action_video"
                         android:background="@drawable/my_button"/>
+
+
                 </TableRow>
+
 
                 <TableRow
                     android:id="@+id/computerActivity_tableRow3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/manageComputerButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="20dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_computer"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_computer"
+                        android:background="@drawable/my_button" />
+
+                    <ImageButton
+                        android:id="@+id/manageWeatherButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title_weather"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_action_cloud"
+                        android:background="@drawable/my_button"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/computerActivity_tableRow4"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="50dp"
@@ -106,17 +143,17 @@
                     android:gravity="center_horizontal" >
 
                     <ImageButton
-                        android:id="@+id/manageLocationButton"
+                        android:id="@+id/rulemanagerButton"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="10dp"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/title_location"
+                        android:contentDescription="@string/title_rulemanager"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ic_action_place"
+                        android:src="@drawable/ic_action_rules"
                         android:background="@drawable/my_button"/>
                     
                     <ImageButton
