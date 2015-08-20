@@ -12,7 +12,8 @@ IP="`ipconfig getifaddr $INTERFACE`"
 NETMASK=""
 GATEWAY=""
 
-WSBASE="http://$IP:8080/rest/macosx"
+PORT="8080"
+WSBASE="http://$IP:$PORT/rest/macosx"
 BRIGHTNESS_DOWN_WS="$WSBASE/brightnessdown"
 BRIGHTNESS_UP_WS="$WSBASE/brightnessUp"
 PLAYER_NEXT_WS="$WSBASE/playernext"
@@ -35,16 +36,16 @@ fi
 
 
 
-RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"description\": \"macosx\",\"isError\": false,\"functions\": [
-	{\"pin\":0,\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_DOWN_WS\"},
-	{\"pin\":1,\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_UP_WS\"},
-	{\"pin\":2,\"type\": \"Next\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_NEXT_WS\"},
-	{\"pin\":3,\"type\": \"Play/Pause\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_PLAY_PAUSE_WS\"},
-	{\"pin\":4,\"type\": \"Previous\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_PREVIOUS_WS\"},
-	{\"pin\":5,\"type\": \"Stop\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_STOP_WS\"},
-	{\"pin\":6,\"type\": \"VolumeDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_DOWN_WS\"},
-	{\"pin\":7,\"type\": \"VolumeUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_UP_WS\"},
-	{\"pin\":8,\"type\": \"VolumeMute\",\"configuredAs\": \"Button\",\"status\":\"$VOLUME_MUTE_STATUS\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_MUTE_WS\"}]}")
+RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"$PORT\",\"description\": \"macosx\",\"isError\": false,\"functions\": [
+{\"pin\":0,\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_DOWN_WS\"},
+{\"pin\":1,\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_UP_WS\"},
+{\"pin\":2,\"type\": \"Next\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_NEXT_WS\"},
+{\"pin\":3,\"type\": \"Play/Pause\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_PLAY_PAUSE_WS\"},
+{\"pin\":4,\"type\": \"Previous\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_PREVIOUS_WS\"},
+{\"pin\":5,\"type\": \"Stop\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_STOP_WS\"},
+{\"pin\":6,\"type\": \"VolumeDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_DOWN_WS\"},
+{\"pin\":7,\"type\": \"VolumeUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_UP_WS\"},
+{\"pin\":8,\"type\": \"VolumeMute\",\"configuredAs\": \"Button\",\"status\":\"$VOLUME_MUTE_STATUS\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$VOLUME_MUTE_WS\"}]}")
 
 
 echo "$RESULT"
