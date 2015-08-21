@@ -103,7 +103,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //				this.deviceSpinnerPosition = 0;
 //			}
 
-			Spinner roomSpinner = (Spinner) rootView.findViewById(R.id.computerActivity_computerSpinner);
+			Spinner roomSpinner = (Spinner) rootView.findViewById(R.id.spinnerRooms);
 			try {
 				if (roomSpinner != null)
 					{ roomSpinner.setSelection(this.roomSpinnerPosition); }
@@ -163,15 +163,15 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 		if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.HOME_FRAGMENT_POSITION){
 			if (this.sharedPref == null)
 				this.sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
-			String homeID = this.sharedPref.getString(
+			String homeServiceProvider = this.sharedPref.getString(
 					rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
-			if (homeID == null){
+			if (homeServiceProvider == null){
 				SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
 			} else {
 				HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
 				if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
 					RetrieveHome rh = new RetrieveHome(rootView.getContext());
-					rh.execute(homeID);
+					rh.execute(homeServiceProvider);
 				}
 			}
 
@@ -415,10 +415,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 				String response;
 				HashMap<String, String> httpHeaders = new HashMap<String, String>();
 				httpHeaders.put("Content-Type", "application/json");
-				response = HttpConnection.sendGet(
-						sharedPref.getString(context.getString(R.string.preference_home_service_provider_key),
-								context.getString(R.string.preference_home_service_provider_default_value)),
-						httpHeaders);
+				response = HttpConnection.sendGet(params[0], httpHeaders);
 				homeStructure = new Gson().fromJson(response, HomeStructure.class);
 			} catch (Exception e){
 				this.errors += ErrorUtilities.getExceptionMessage(e);

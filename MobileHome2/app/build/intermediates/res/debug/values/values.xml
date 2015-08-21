@@ -127,11 +127,13 @@
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="roomsTextView">Rooms: </string>
+    <string name="ruleSettingsSent">New rule settings has been sent.</string>
+    <string name="ruleTextView">List of rules: </string>
     <string name="runButton">Run</string>
     <string name="saveButtonStr"> Save </string>
     <string name="send_email_action">Send Email</string>
     <string name="send_email_subject">user feedback</string>
-    <string name="setHomeInfo">Please set the Home ID from \"Settings Window\" and try again</string>
+    <string name="setHomeInfo">Please set the Home Service Provider from \"Settings Window\" and try again</string>
     <string name="startingInfoErr">Error while getting initial information:\n</string>
     <string name="title_activity_computer">My Computer</string>
     <string name="title_activity_computer_settings">Computer Settings</string>
@@ -143,7 +145,7 @@
     <string name="title_user">User</string>
     <string name="title_videosurveillance">Surveillance</string>
     <string name="title_weather">Weather</string>
-    <string name="unknownHome">Unknown Home (ID: Unknown HomeID)</string>
+    <string name="unknownHome">Unknown Home (ID: Unknown Home Service Provider)</string>
     <string name="unknownUrl">The selected url is not valid</string>
     <string name="urlIsNull">Please insert a valid URL</string>
     <string name="waitMsg">Please wait.</string>

@@ -3,6 +3,7 @@ package it.eduman.android.commons.utilities;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,7 +42,6 @@ public class HttpConnection {
 
 				//add request header
 				con.setRequestProperty("User-Agent", USER_AGENT);
-//				con.setRequestProperty("Content-Type", "application/json");
 				if (headers != null){
 					for (HashMap.Entry<String, String> entry: this.headers.entrySet()){
 						con.setRequestProperty(entry.getKey(), entry.getValue());
@@ -49,6 +49,69 @@ public class HttpConnection {
 				}
 
 
+
+				int responseCode = con.getResponseCode();
+
+				if (responseCode != 200){
+					throw new HttpConnectionException(con.getResponseMessage());
+				} else {
+					BufferedReader in = new BufferedReader(
+							new InputStreamReader(con.getInputStream()));
+					String inputLine;
+
+					while ((inputLine = in.readLine()) != null) {
+						response.append(inputLine);
+					}
+					in.close();
+				}
+				return response.toString();
+
+
+			}catch (MalformedURLException e) {
+				throw new HttpConnectionException(e);
+			} catch (IOException e) {
+				throw new HttpConnectionException(e);
+			}
+		}
+
+	}
+
+	private static class HttpPutCallable implements Callable<String> {
+
+		private String uri;
+		private HashMap<String, String> headers;
+		private String parameter;
+		public HttpPutCallable(String uri, String parameter, HashMap<String, String> headers){
+			this.uri = uri;
+			this.headers = headers;
+			this.parameter = parameter;
+		}
+
+		@Override
+		public String call() throws HttpConnectionException {
+			try {
+
+				StringBuilder response = new StringBuilder();
+
+				URL obj = new URL(uri);
+				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+				// optional default is GET
+				con.setRequestMethod("PUT");
+				con.setDoOutput(true);
+
+				//add request header
+				con.setRequestProperty("User-Agent", USER_AGENT);
+				if (headers != null){
+					for (HashMap.Entry<String, String> entry: this.headers.entrySet()){
+						con.setRequestProperty(entry.getKey(), entry.getValue());
+					}
+				}
+
+				OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream());
+				osw.write(parameter);
+				osw.flush();
+				osw.close();
 
 				int responseCode = con.getResponseCode();
 
@@ -84,6 +147,21 @@ public class HttpConnection {
 	public static String sendGet(String uri, HashMap<String, String> headers) throws HttpConnectionException{
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Callable<String> httpGet = new HttpGetCallable(uri, headers);
+		Future<String> future = executor.submit(httpGet);
+		try {
+			return future.get();
+		} catch (InterruptedException e) {
+			throw new HttpConnectionException(e);
+		} catch (ExecutionException e) {
+			throw new HttpConnectionException(e);
+		}
+	}
+
+
+
+	public static String sendPUT(String uri, String parameter, HashMap<String, String> headers) throws HttpConnectionException{
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Callable<String> httpGet = new HttpPutCallable(uri, parameter, headers);
 		Future<String> future = executor.submit(httpGet);
 		try {
 			return future.get();

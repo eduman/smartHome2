@@ -49,6 +49,7 @@
     <!-- About Home Fragment Activity -->
     <string name="homeID">Home ID: </string>
     <string name="roomsTextView">Rooms: </string>
+    <string name="ruleTextView">List of rules: </string>
     <string name="devicesTextView">Devices: </string>
     <string name="runButton">Run</string>
 
@@ -91,6 +92,7 @@
     <string name="info">Info</string>
     <string name="waitMsg">Please wait.</string>
     <string name="loadingMsg">Loading</string>
+    <string name="ruleSettingsSent">New rule settings has been sent.</string>
 
     <!-- Error Messages -->
     <string name="error">Error</string>
@@ -99,8 +101,8 @@
     <string name="noDevicesInfo">There is no information about Devices</string>
     <string name="noRoomsInfo">There is no information about Rooms</string>
     <string name="noHomeInfo">There is no information about Home</string>
-    <string name="unknownHome">Unknown Home (ID: Unknown HomeID)</string>
-    <string name="setHomeInfo">Please set the Home ID from \"Settings Window\" and try again</string>
+    <string name="unknownHome">Unknown Home (ID: Unknown Home Service Provider)</string>
+    <string name="setHomeInfo">Please set the Home Service Provider from \"Settings Window\" and try again</string>
     <string name="startingInfoErr">Error while getting initial information:\n</string>
     <string name="noComputerInfo">There is no information about the Computer</string>
     <string name="urlIsNull">Please insert a valid URL</string>webPageError
