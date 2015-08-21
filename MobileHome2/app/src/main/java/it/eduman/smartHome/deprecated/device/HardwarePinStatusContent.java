@@ -1,5 +1,7 @@
 package it.eduman.smartHome.deprecated.device;
 
+import it.eduman.smartHome.IoTDevice.ActuationCommands;
+
 public class HardwarePinStatusContent {
 
 	private int pin;

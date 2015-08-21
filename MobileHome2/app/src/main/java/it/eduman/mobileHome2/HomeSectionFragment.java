@@ -28,8 +28,8 @@ import it.eduman.android.commons.utilities.HttpConnection;
 import it.eduman.android.commons.utilities.HttpConnectionException;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.smartHome.HomeStructure;
-import it.eduman.smartHome.Room;
+import it.eduman.smartHome.HomeStructure.HomeStructure;
+import it.eduman.smartHome.HomeStructure.Room;
 
 
 public class HomeSectionFragment extends MyFragment implements AdapterView.OnItemSelectedListener{
@@ -407,7 +407,6 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 			this.progress.setVisibility(View.VISIBLE);
         }
 
-		@SuppressWarnings("unchecked")
 		@Override
 		protected HomeStructure doInBackground(String... params)
 		{
@@ -421,7 +420,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 								context.getString(R.string.preference_home_service_provider_default_value)),
 						httpHeaders);
 				homeStructure = new Gson().fromJson(response, HomeStructure.class);
-			} catch (HttpConnectionException e){
+			} catch (Exception e){
 				this.errors += ErrorUtilities.getExceptionMessage(e);
 			}
 

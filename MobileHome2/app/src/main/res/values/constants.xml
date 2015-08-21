@@ -24,6 +24,10 @@
     <string name="preference_keepScreenOn_default_value">false</string>
     <string name="preference_fullScreen_default_value">false</string>
 
-    
+    <string name="preference_computer_description_default_value">Description</string>
+    <string name="preference_computer_uri_default_value">http://192.168.1.254:8080/rest/macosx/configuration</string>
+
+
+
 
 </resources>

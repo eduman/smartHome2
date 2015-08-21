@@ -1,20 +1,18 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.Response;
-import it.eduman.android.commons.utilities.SoftwareUtilities;
-import it.eduman.android.commons.utilities.TaskOn;
-import it.eduman.mobileHome2.communication.ProxyWebServices;
-//import it.eduman.mobileHome2.deprecated.proxymityAllert.ProximityAllert;
-import it.eduman.smartHome.deprecated.device.DeviceContent;
-import it.eduman.smartHome.deprecated.device.HardwarePinStatusContent;
-import it.eduman.smartHome.deprecated.security.SecurityException;
-import it.eduman.smartHome.deprecated.webServices.QueryContent;
+import it.eduman.android.commons.utilities.HttpConnection;
+import it.eduman.android.commons.utilities.HttpConnectionException;
+import it.eduman.smartHome.IoTDevice.Function;
+import it.eduman.smartHome.IoTDevice.IoTDevice;
 import android.app.Activity;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.view.WindowManager;
 
-//import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+
 
 
 public class ActivityCommons {
@@ -49,69 +47,46 @@ public class ActivityCommons {
 
 	public static void updateAfterUserSettingsChanges(Context context){
 		Debug.setPrintDebugMSG(context);
-//		boolean isProximityManagerEnabled =  PreferenceManager
-//				.getDefaultSharedPreferences(context)
-//				.getBoolean(context.getResources().getString(R.string.preference_proximityManager_key), false);
-//
-//		boolean isProximityManagerMoreAccurate =  PreferenceManager
-//				.getDefaultSharedPreferences(context)
-//				.getBoolean(context.getResources()
-//				.getString(R.string.preference_moreAccurateProximityManager_key), false);
-
-//		if (isProximityManagerEnabled){
-//			Gson gson = new Gson();
-//			LatLng myHomePosition = gson.fromJson(
-//					PreferenceManager.getDefaultSharedPreferences(context)
-//						.getString(MobileHomeConstants.MY_HOME_LAT_LNG, null),
-//						LatLng.class);
-//			ProximityAllert.enableProximityAllert(context, myHomePosition, isProximityManagerMoreAccurate);
-//		} else {
-//			ProximityAllert.disableProximityAllert(context, isProximityManagerMoreAccurate);
-//		}
-
-
 	}
 
-	public static void actuateButton (final Context context, final DeviceContent device,
-			final HardwarePinStatusContent hw, final String command, ProxyWebServices proxyWebServices) throws SecurityException{
-		actuateToggleButton(context, device, hw, command, false, proxyWebServices);
+	public static String actuateButton (final Context context, final IoTDevice device,
+									   final Function function, final String commandWS) throws HttpConnectionException{
+		return actuateGenerciButton(context, device, function, commandWS, false);
 	}
 
-	public static Boolean actuateToggleButton (final Context context, final DeviceContent device,
-			final HardwarePinStatusContent hw, final String command, final boolean isInvertedSwitch, ProxyWebServices proxyWebServices) throws SecurityException{
-		QueryContent query = new QueryContent()
-				.setDeviceID(device.getDeviceID())
-				.setActuator(String.valueOf(hw.getPin()))
-				.setCommand(command)
-				.setValue(String.valueOf(hw.getStatus()));
+	public static String actuateToggleButton (final Context context, final IoTDevice device,
+									  final Function function, final String commandWS) throws HttpConnectionException{
+		return actuateGenerciButton(context, device, function, commandWS, true);
+	}
 
-//		return (Boolean)proxyWebServices.actuate(device.getDeviceID(), String.valueOf(hw.getPin()), command, String.valueOf(hw.getStatus()), new TaskOn<Response<DeviceContent>>() {
-				return (Boolean)proxyWebServices.actuate(query, new TaskOn<Response<DeviceContent>>() {
-			@Override
-			public Object doTask(Response<DeviceContent> parameter) {
-				Boolean result = null;
-				DeviceContent device2 = device;
-				if(!parameter.isOk()){
-					SoftwareUtilities.MyErrorDialogFactory(context, parameter.getErrorMessage());
-				} else {
-					device2.getHardwarePinStatusList().clear();
-					device2.getHardwarePinStatusList().addAll(parameter.getContent().getHardwarePinStatusList());
-					for (HardwarePinStatusContent newHW : device.getHardwarePinStatusList()){
-						if (newHW.getPin() == hw.getPin()){
-							hw.setActuationCommand(newHW.getActuationCommand())
-								.setStatus(newHW.getStatus())
-								.setConfiguredAs(newHW.getConfiguredAs());
-							if (isInvertedSwitch)
-								result = !(Integer.parseInt(newHW.getStatus()) != 0);
-							else
-								result =  Integer.parseInt(newHW.getStatus()) != 0;
-						}
-					}
+	protected static String actuateGenerciButton (final Context context, final IoTDevice device,
+			final Function function, final String commandWS, final boolean isInvertedSwitch) throws  HttpConnectionException{
+
+		String result = "";
+		try {
+			String response;
+			HashMap<String, String> httpHeaders = new HashMap<String, String>();
+			httpHeaders.put("Content-Type", "application/json");
+			response = HttpConnection.sendGet(commandWS, httpHeaders);
+
+			IoTDevice deviceResponse = new Gson().fromJson(response, IoTDevice.class);
+
+			for (Function newFunc : deviceResponse.getFunctions()){
+				if (newFunc.getPin() == function.getPin()){
+					function.setConfiguredAs(newFunc.getConfiguredAs());
+					function.setRest(newFunc.getRest());
+					function.setStatus(newFunc.getStatus());
+					function.setType(newFunc.getType());
+					function.setUnit(newFunc.getUnit());
+					function.setWs(newFunc.getWs());
+					result = newFunc.getStatus();
 				}
-				return result;
 			}
-		});
+		} catch (Exception e){
+			throw new HttpConnectionException(e);
+		}
+
+		return result;
 
 	}
-
 }

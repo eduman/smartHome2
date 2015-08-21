@@ -1,4 +1,4 @@
-package it.eduman.smartHome;
+package it.eduman.smartHome.HomeStructure;
 
 
 import java.util.List;

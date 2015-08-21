@@ -1,22 +1,5 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.ErrorUtilities;
-import it.eduman.android.commons.utilities.HardwareUtilities;
-import it.eduman.android.commons.utilities.Response;
-import it.eduman.android.commons.utilities.SoftwareUtilities;
-import it.eduman.android.commons.utilities.TaskOn;
-import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.mobileHome2.communication.ProxyWebServices;
-import it.eduman.smartHome.deprecated.computer.ComputerSettings;
-import it.eduman.smartHome.deprecated.device.ActuationCommands;
-import it.eduman.smartHome.deprecated.device.DeviceConstants;
-import it.eduman.smartHome.deprecated.device.DeviceContent;
-import it.eduman.smartHome.deprecated.device.HardwarePinStatusContent;
-import it.eduman.smartHome.deprecated.webServices.QueryContent;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,26 +17,39 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-//import android.widget.ToggleButton;
+
+import it.eduman.android.commons.utilities.HttpConnection;
+import it.eduman.smartHome.Contants.ActuatorAndSensorProperties;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+
+import it.eduman.android.commons.utilities.ErrorUtilities;
+import it.eduman.android.commons.utilities.HardwareUtilities;
+import it.eduman.android.commons.utilities.SoftwareUtilities;
+import it.eduman.mobileHome2.commons.MobileHomeConstants;
+import it.eduman.smartHome.IoTDevice.ActuationCommands;
+import it.eduman.smartHome.IoTDevice.Function;
+import it.eduman.smartHome.IoTDevice.IoTDevice;
+import it.eduman.smartHome.computer.ComputerSettings;
+
+
+//import android.widget.ToggleButton;
 /**
  * A dummy fragment representing a section of the app, but that simply
  * displays dummy text.
  */
 public class ComputerSectionFragment extends MyFragment implements AdapterView.OnItemSelectedListener{
-	/**
-	 * The fragment argument representing the section number for this
-	 * fragment.
-	 */	
+
 
 	private static View rootView = null;
 	private ComputerSettings computerSettings;
 	private int computerSpinnerPosition = 0;
 	private SharedPreferences sharedPref;
 	private HashMap<String, ComputerSettings> computersMap = new HashMap<String, ComputerSettings>();
-	private String wsdlName = "MacosxProxyWrapp"; //TODO
 
 	public ComputerSectionFragment() {}
 
@@ -135,7 +131,6 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		// Save the values you need from your textview into "outState"-object
 		outState.putInt(MobileHomeConstants.COMPUTERS_SPINNER_POSITION, this.computerSpinnerPosition);
 		super.onSaveInstanceState(outState);
 	}
@@ -146,16 +141,17 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 		switch (parent.getId()){
 		case R.id.computerActivity_computerSpinner:
 			String computerSpinnerString = (String)parent.getItemAtPosition(position).toString().replace(")", "");
-			String lsDescriptionStr = computerSpinnerString.substring(computerSpinnerString.lastIndexOf("(ID: ") + "(ID: ".length(), computerSpinnerString.length());
-			if (computersMap.containsKey(lsDescriptionStr)){
+			String uniqueComputerKey = computerSpinnerString.substring(computerSpinnerString.lastIndexOf("(ID: ") + "(ID: ".length(), computerSpinnerString.length());
+			if (computersMap.containsKey(uniqueComputerKey)){
 				this.computerSpinnerPosition = position;
 				Editor edit = sharedPref.edit();
 				edit.putInt(MobileHomeConstants.COMPUTERS_SPINNER_POSITION, this.computerSpinnerPosition);
 				edit.commit();
-				computerSettings = computersMap.get(lsDescriptionStr);
+				computerSettings = computersMap.get(uniqueComputerKey);
 				if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
 					RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
-					rc.execute();
+					//TODO
+					rc.execute("http://192.168.43.203:8080/rest/macosx/configuration");
 				} else {
 					HardwareUtilities.enableInternetConnectionAlertDialog(
 							rootView.getContext(), true, false);
@@ -172,82 +168,47 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 	}
 
-	protected void showButtons (final DeviceContent device, final Context context, final ProxyWebServices proxyWebServices){
+	protected void showButtons (final IoTDevice device, final Context context){
 
 		boolean isSwitch = false, isButton = false;
 		int buttonId = -1;
 
-		for(final HardwarePinStatusContent hw : device.getHardwarePinStatusList()){
+		for(final Function function : device.getFunctions()){
+			buttonId = getButtonId(function.getType());
 
-			buttonId = getButtonId(hw.getActuationCommand());
 			if (buttonId != -1) {
 				isSwitch = false;
 				isButton = false;
-				if (hw.getConfiguredAs().equalsIgnoreCase(
-						DeviceConstants.ActuatorAndSensorProperties.Button.toString()))
+				if (function.getConfiguredAs().equalsIgnoreCase(
+						ActuatorAndSensorProperties.Button.toString()))
 					isButton = true;
-				if (hw.getConfiguredAs().equalsIgnoreCase(
-						DeviceConstants.ActuatorAndSensorProperties.Switch.toString()))
+				if (function.getConfiguredAs().equalsIgnoreCase(
+						ActuatorAndSensorProperties.Switch.toString()))
 					isSwitch = true;
 
 				if (isSwitch || isButton){
 
 					if (isSwitch){
-						// how to manage a generic isSwitch button
-//						ToggleButton onOff = (ToggleButton) rootView.findViewById(buttonId);
-//						onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
-//						onOff.setOnClickListener(new View.OnClickListener() {
-//							@Override
-//							public void onClick(View v) {
-//								ToggleButton onOff = (ToggleButton) v;
-//								if (HardwareUtilities.isConnected(context)){
-//									String command = hw.getActuationCommand();
-//									Boolean newIsOn = ActivityCommons.actuateToggleButton(context, device, hw, command, false, proxyWebServices);
-//									onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
-//									if (newIsOn != null) onOff.setChecked(newIsOn);
-//									else onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
-//								} else {
-//									HardwareUtilities.enableInternetConnectionAlertDialog(
-//											rootView.getContext(), true, true);
-//								}
-//							} 
-//						});
-
-						
-						// this is the case for the volume on/off button
-						if (hw.getActuationCommand().equalsIgnoreCase("VolumeMute")){
+						if (function.getType().equalsIgnoreCase("VolumeMute")){
 							ImageButton onOff = (ImageButton) rootView.findViewById(buttonId);
 							onOff.setVisibility(View.VISIBLE);
-							boolean isOn = (Integer.parseInt(hw.getStatus()) != 0);
-							if (isOn)
+
+							if (function.getStatus().equalsIgnoreCase("Muted"))
 								onOff.setImageResource(R.drawable.ic_action_volume_muted);
-							else 
+							else
 								onOff.setImageResource(R.drawable.ic_action_volume_on);
 
 							onOff.setOnClickListener(new View.OnClickListener() {
 								@Override
 								public void onClick(View v) {
-									ImageButton onOff = (ImageButton)v;
 									if (HardwareUtilities.isWiFiConnected(context)){
-										String command = hw.getActuationCommand();
-										try{
-											Boolean newIsOn = ActivityCommons.actuateToggleButton(context, device, hw, command, false, proxyWebServices);
-											if (newIsOn != null){
-												if (newIsOn)
-													onOff.setImageResource(R.drawable.ic_action_volume_muted);
-												else 
-													onOff.setImageResource(R.drawable.ic_action_volume_on);
-											}
-										} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
-											SoftwareUtilities.MyErrorDialogFactory(
-													rootView.getContext(), 
-													ErrorUtilities.getExceptionMessage(e));
-										}
+										RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
+										rc.execute(function.getWs());
 									} else {
 										HardwareUtilities.enableInternetConnectionAlertDialog(
 												rootView.getContext(), true, false);
 									}
-								} 
+								}
 							});
 						}
 					} else if (isButton){
@@ -257,14 +218,8 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 							@Override
 							public void onClick(View v) {
 								if (HardwareUtilities.isWiFiConnected(context)){
-									String command = hw.getActuationCommand();
-									try {
-										ActivityCommons.actuateButton(context, device, hw, command, proxyWebServices);
-									} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
-										SoftwareUtilities.MyErrorDialogFactory(
-												rootView.getContext(), 
-												ErrorUtilities.getExceptionMessage(e));
-									}
+									RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
+									rc.execute(function.getWs());
 								} else {
 									HardwareUtilities.enableInternetConnectionAlertDialog(
 											rootView.getContext(), true, false);
@@ -366,20 +321,18 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 				computerSpinner.setSelection(this.computerSpinnerPosition);	
 			}
 
-//			hideButtons();
 			Gson gson = new Gson();
 			this.sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
 			String computersListJson = this.sharedPref.getString(MobileHomeConstants.COMPUTERS_JSON, null);
 
 			HardwareUtilities.enableInternetConnectionAlertDialog(
 					rootView.getContext(), true, false);
-			if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
-				if (computersListJson!=null){
-					Type type = new TypeToken<HashMap<String, ComputerSettings>>(){}.getType();
-					this.computersMap = gson.fromJson(computersListJson, type);
-					this.populateComputersSpinner();
-				}
+			if (computersListJson!=null){
+				Type type = new TypeToken<HashMap<String, ComputerSettings>>(){}.getType();
+				this.computersMap = gson.fromJson(computersListJson, type);
+				this.populateComputersSpinner();
 			}
+
 		}
 	}
 
@@ -389,7 +342,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 				new ArrayAdapter<CharSequence>(rootView.getContext(), android.R.layout.simple_spinner_item);
 		if (this.computersMap != null) {
 			for (ComputerSettings comp : this.computersMap.values())
-				adapter.add(comp.getDescription() + " (ID: " + comp.getLinksmartDescription()+ ")");
+				adapter.add(comp.getDescription() + " (ID: " + comp.getUrl()+ ")");
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			computersSpinner.setAdapter(adapter);
 			try {
@@ -405,9 +358,11 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 	}
 
 
-	private class RetrieveComputer extends AsyncTask<Void, Void, Response<DeviceContent>>{
-		ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.computerActivity_progressBar);
-		Context context;
+	private class RetrieveComputer extends AsyncTask<String, Void, IoTDevice> {
+		private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.computerActivity_progressBar);
+		private Context context;
+		private String errors = "";
+
 
 		public RetrieveComputer (Context context){
 			this.context = context;
@@ -418,26 +373,19 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 			progress.setVisibility(View.VISIBLE);
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
-		protected Response<DeviceContent> doInBackground(Void... params) {
-			Response<DeviceContent> device;
+		protected IoTDevice doInBackground(String... params) {
+			IoTDevice device = null;
 			try {
-				ProxyWebServices shws = new ProxyWebServices(context, true)
-				.setProxyAddress(computerSettings.getUrl())
-				.setLsWebServiceName(computerSettings.getLinksmartDescription())
-				.setPassword(computerSettings.getPassword())
-				.setWsdlName(wsdlName);
-				device = (Response<DeviceContent>)shws.getDeviceWrapp(
-						(new QueryContent()).setDeviceID(""), 
-						new TaskOn<Response<DeviceContent>>() {
-					@Override
-					public Object doTask(Response<DeviceContent> parameter) {
-						return parameter;
-					}
-				});
+
+				String response;
+				HashMap<String, String> httpHeaders = new HashMap<String, String>();
+				httpHeaders.put("Content-Type", "application/json");
+				response = HttpConnection.sendGet(params[0], httpHeaders);
+				device = new Gson().fromJson(response, IoTDevice.class);
+
 			} catch (Exception e) {
-				device = Response.createErrorResponse(e);
+				this.errors += ErrorUtilities.getExceptionMessage(e);
 			}
 
 			return device;
@@ -445,20 +393,15 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 
 		@Override
-		protected void onPostExecute(Response<DeviceContent> results) { 				
-			if(!results.isOk()){
+		protected void onPostExecute(IoTDevice results) {
+			if(results == null){
 				try{
-					SoftwareUtilities.MyErrorDialogFactory(context, results.getErrorMessage());
+					SoftwareUtilities.MyErrorDialogFactory(context, this.errors);
 				} catch (Exception e){
 					Log.e("Error", e.getMessage());
 				}
 			} else {
-				ProxyWebServices shws = new ProxyWebServices(context, true)
-				.setProxyAddress(computerSettings.getUrl())
-				.setLsWebServiceName(computerSettings.getLinksmartDescription())
-				.setWsdlName(wsdlName)
-				.setPassword(computerSettings.getPassword());
-				showButtons(results.getContent(), context, shws);
+				showButtons(results, context);
 			}
 			progress.setVisibility(View.INVISIBLE);
 

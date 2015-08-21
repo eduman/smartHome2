@@ -10,7 +10,6 @@
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="actuationButtonNotFound">Button not found</string>
-    <string name="addressNotFound">Address not found</string>
     <string name="app_developer_email">patti.edoardo@gmail.com</string>
     <string name="app_developer_name">Edoardo Patti</string>
     <string name="app_name">Mobile Home</string>
@@ -44,8 +43,6 @@
     <string name="info">Info</string>
     <string name="internetConnectionErr">The Internet Connection is missing. Please enable it.</string>
     <string name="loadingMsg">Loading</string>
-    <string name="lsDescriptionIsNull">Please insert a valid Linksmart Description for the Computer</string>
-    <string name="mapNotInitialized">Google map is not inizialized</string>
     <string name="menu_item_about">About</string>
     <string name="menu_item_contact_developer">Contact the developer</string>
     <string name="menu_item_refresh">Refresh</string>
@@ -56,7 +53,6 @@
     <string name="noHomeInfo">There is no information about Home</string>
     <string name="noRoomsInfo">There is no information about Rooms</string>
     <string name="nullString"/>
-    <string name="passwordIsWrong">The password must have 16 digits</string>
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
     <eat-comment/>
     <string name="preference_category_applicationSettings_key">preference_category_deviceSettings_key</string>
@@ -84,6 +80,8 @@
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/constants.xml -->
     <eat-comment/>
     <string name="preference_category_smartHomeWebService_key">"preference_category_smartHomeWebService_key"</string>
+    <string name="preference_computer_description_default_value">Description</string>
+    <string name="preference_computer_uri_default_value">http://192.168.1.254:8080/rest/macosx/configuration</string>
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="preference_data_roaming">Mobile Data</string>
@@ -128,7 +126,6 @@
     <string name="preference_wifiSettings_key">preference_wifiSettings_key</string>
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="proximityInfoNotSent">Unable to send proximity information</string>
     <string name="roomsTextView">Rooms: </string>
     <string name="runButton">Run</string>
     <string name="saveButtonStr"> Save </string>
@@ -147,7 +144,7 @@
     <string name="title_videosurveillance">Surveillance</string>
     <string name="title_weather">Weather</string>
     <string name="unknownHome">Unknown Home (ID: Unknown HomeID)</string>
-    <string name="unknownLSDescription">The selected Linksmart description is not valid</string>
+    <string name="unknownUrl">The selected url is not valid</string>
     <string name="urlIsNull">Please insert a valid URL</string>
     <string name="waitMsg">Please wait.</string>
     <string name="weatherCityText">City</string>

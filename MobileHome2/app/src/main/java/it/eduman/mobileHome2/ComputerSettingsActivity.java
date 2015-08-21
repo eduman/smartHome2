@@ -2,7 +2,7 @@ package it.eduman.mobileHome2;
 
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.smartHome.deprecated.computer.ComputerSettings;
+import it.eduman.smartHome.computer.ComputerSettings;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -44,8 +44,6 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 	private HashMap<String, ComputerSettings> computersMap = new HashMap<String, ComputerSettings>();
 	
 	private EditText urlEditText;
-	private EditText passwordEditText;
-	private EditText lsDescriptionEditText;
 	private EditText descriptionEditText;
 	private Button saveComputerButton;
 	private Button removeComputerButton;
@@ -65,7 +63,6 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 
 		setContentView(R.layout.computer_settings_activity);
 		setTitle(R.string.title_activity_computer_settings);
-//		ActivityCommons.updateAfterUserSettingsChanges(this);
 		SoftwareUtilities.shortDebugToast(this, "onCreate");
 		this.init();
         
@@ -84,9 +81,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		super.onRestoreInstanceState(savedInstanceState);
 		this.computerSettingsSpinnerPosition = savedInstanceState.getInt("computerSpinnerPosition");
 		this.urlEditText.setText(savedInstanceState.getString("urlEditText"));
-		this.lsDescriptionEditText.setText(savedInstanceState.getString("lsDescriptionEditText"));
 		this.descriptionEditText.setText(savedInstanceState.getString("descriptionEditText"));
-		this.passwordEditText.setText(savedInstanceState.getString("passwordEditText"));
         Spinner computerSpinner = (Spinner) findViewById(R.id.computerSettingsActivity_computerSpinner);
         try {
         	computerSpinner.setSelection(this.computerSettingsSpinnerPosition);
@@ -121,9 +116,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		// Save the values you need from your textview into "outState"-object
 		outState.putInt("computerSpinnerPosition", this.computerSettingsSpinnerPosition);
 		outState.putString("urlEditText", this.urlEditText.getText().toString());
-		outState.putString("lsDescriptionEditText", this.lsDescriptionEditText.getText().toString());
 		outState.putString("descriptionEditText", this.descriptionEditText.getText().toString());
-		outState.putString("passwordEditText", this.passwordEditText.getText().toString());
 		super.onSaveInstanceState(outState);
 	}
     
@@ -155,8 +148,6 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 					computerSettings = computersMap.get(lsDescriptionStr);
 					urlEditText.setText(computerSettings.getUrl());
 					descriptionEditText.setText(computerSettings.getDescription());
-					lsDescriptionEditText.setText(computerSettings.getLinksmartDescription());
-					passwordEditText.setText(computerSettings.getPassword());
 				}
 		}
 		
@@ -196,33 +187,33 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		
 		urlEditText = new EditText(this);
 		urlEditText.setEms(EDIT_TEXT_EMS);
-		urlEditText.setText(R.string.nullString);
+		urlEditText.setText(R.string.preference_computer_uri_default_value);
 		urlEditText.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		
-		passwordEditText = new EditText(this);
-		passwordEditText.setEms(EDIT_TEXT_EMS);
-		passwordEditText.setText(R.string.nullString);
-		passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		passwordEditText.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		
-		lsDescriptionEditText = new EditText(this);
-		lsDescriptionEditText.setEms(EDIT_TEXT_EMS);
-		lsDescriptionEditText.setText(R.string.nullString);
-		lsDescriptionEditText.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
+				LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
 		
 		descriptionEditText = new EditText(this);
 		descriptionEditText.setEms(EDIT_TEXT_EMS);
-		descriptionEditText.setText(R.string.nullString);
+		descriptionEditText.setText(R.string.preference_computer_description_default_value);
 		descriptionEditText.setLayoutParams(new LayoutParams(
 				LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT));
-		
+
+		tableRow = new TableRow(this);
+		tableRow.setLayoutParams(new LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		textView = new TextView(this);
+		textView.setTextSize(18);
+		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+		textView.setLayoutParams(new LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		textView.setText(R.string.computerDescriptionTextView);
+		tableRow.addView(textView);
+		tableRow.addView(descriptionEditText);
+		tableLayoutEditableSettings.addView(tableRow);
+
 		tableRow = new TableRow(this);
 		tableRow.setLayoutParams(new LayoutParams(
 				LayoutParams.MATCH_PARENT,
@@ -239,51 +230,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		tableLayoutEditableSettings.addView(tableRow);
 		
 		
-		tableRow = new TableRow(this);
-		tableRow.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		textView = new TextView(this);
-		textView.setTextSize(18);
-		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-		textView.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		textView.setText(R.string.computerDescriptionTextView);
-		tableRow.addView(textView);
-		tableRow.addView(descriptionEditText);
-		tableLayoutEditableSettings.addView(tableRow);
-		
-		tableRow = new TableRow(this);
-		tableRow.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		textView = new TextView(this);
-		textView.setTextSize(18);
-		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-		textView.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		textView.setText(R.string.computerLSDescriptionTextView);
-		tableRow.addView(textView);
-		tableRow.addView(lsDescriptionEditText);
-		tableLayoutEditableSettings.addView(tableRow);
-		
-		tableRow = new TableRow(this);
-		tableRow.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		textView = new TextView(this);
-		textView.setTextSize(18);
-		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-		textView.setLayoutParams(new LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		textView.setText(R.string.computerPasswordTextView);
-		tableRow.addView(textView);
-		tableRow.addView(passwordEditText);
-		tableLayoutEditableSettings.addView(tableRow);
-		
+
 		
 		tableRow = new TableRow(this);
 		tableRow.setLayoutParams(new LayoutParams(
@@ -312,17 +259,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 				int errorMessage = R.string.nullString;
 				String urlStr = urlEditText.getText().toString();
 				String descriptionStr = descriptionEditText.getText().toString();
-				String lsDescriptionStr = lsDescriptionEditText.getText().toString();
-				String passwordStr = passwordEditText.getText().toString();
-				
-				if (passwordStr.length() != 16){
-					isOk = false;
-					errorMessage = R.string.passwordIsWrong;
-				}
-				if (lsDescriptionStr == null || lsDescriptionStr.length() < 1){
-					isOk = false;
-					errorMessage = R.string.lsDescriptionIsNull;
-				}
+
 				if (descriptionStr == null || descriptionStr.length() < 1){
 					isOk = false;
 					errorMessage = R.string.descriptionIsNull;
@@ -334,13 +271,12 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 
 				if (isOk){
 					ComputerSettings computerSetting = 
-							new ComputerSettings(urlStr, lsDescriptionStr, passwordStr, descriptionStr);
-					computersMap.put(lsDescriptionStr, computerSetting);
+							new ComputerSettings(urlStr, descriptionStr);
+					computersMap.put(urlStr, computerSetting);
 					Gson gson = new Gson();
 					Editor edit = sharedPref.edit();
 					edit.putString(MobileHomeConstants.COMPUTERS_JSON, gson.toJson(computersMap));
 					edit.commit();
-//					drawStaticGui();
 					populateComputersSpinner();
 				} else {
 					SoftwareUtilities.MyErrorDialogFactory(context, errorMessage);
@@ -361,9 +297,9 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		removeComputerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String lsDescriptionStr = lsDescriptionEditText.getText().toString();
-				if (computersMap.containsKey(lsDescriptionStr)){
-					computersMap.remove(lsDescriptionStr);
+				String urlStr = urlEditText.getText().toString();
+				if (computersMap.containsKey(urlStr)){
+					computersMap.remove(urlStr);
 					Gson gson = new Gson();
 					Editor edit = sharedPref.edit();
 					edit.putString(MobileHomeConstants.COMPUTERS_JSON, gson.toJson(computersMap));
@@ -376,7 +312,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 					clearEditText();
 					populateComputersSpinner();
 				} else {
-					SoftwareUtilities.MyErrorDialogFactory(context, R.string.unknownLSDescription);
+					SoftwareUtilities.MyErrorDialogFactory(context, R.string.unknownUrl);
 				}
 			}
 		});
@@ -401,7 +337,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 				new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
 		if (this.computersMap != null) {
 			for (ComputerSettings comp : this.computersMap.values())
-				adapter.add(comp.getDescription() + " (ID: " + comp.getLinksmartDescription()+ ")");
+				adapter.add(comp.getDescription() + " (ID: " + comp.getUrl()+ ")");
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			computersSpinner.setAdapter(adapter);
 			try {
@@ -417,10 +353,8 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 	}
 	
 	private void clearEditText(){
-		urlEditText.setText(R.string.nullString);
-		descriptionEditText.setText(R.string.nullString);
-		lsDescriptionEditText.setText(R.string.nullString);
-		passwordEditText.setText(R.string.nullString);
+		urlEditText.setText(R.string.preference_computer_uri_default_value);
+		descriptionEditText.setText(R.string.preference_computer_description_default_value);
 	}
 	
 }

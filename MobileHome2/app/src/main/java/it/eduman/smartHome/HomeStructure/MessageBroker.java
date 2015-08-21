@@ -1,4 +1,4 @@
-package it.eduman.smartHome;
+package it.eduman.smartHome.HomeStructure;
 
 
 public class MessageBroker {
