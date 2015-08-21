@@ -150,8 +150,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 				computerSettings = computersMap.get(uniqueComputerKey);
 				if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
 					RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
-					//TODO
-					rc.execute("http://192.168.43.203:8080/rest/macosx/configuration");
+					rc.execute(computerSettings.getUrl());
 				} else {
 					HardwareUtilities.enableInternetConnectionAlertDialog(
 							rootView.getContext(), true, false);
