@@ -5,21 +5,25 @@ import random
 import sys
 import shutil
 import os,sys
+from sys import stdin
+
 
 filename = '/home_structure.json'
 fullpath = (os.path.dirname(os.path.realpath(__file__)) + os.sep) + filename
 
-filename2 = '/home_structure2.json'
-fullpath2 = (os.path.dirname(os.path.realpath(__file__)) + os.sep) + filename2
+#filename2 = '/home_structure2.json'
+#fullpath2 = (os.path.dirname(os.path.realpath(__file__)) + os.sep) + filename2
 
 
-def main(argv):
+def main():
 	
 	try:
 		json_data=open(fullpath).read()
 		localHome = json.loads(json_data)
 
-		remoteHome = json.loads(argv[0])
+		remoteHomeJson = stdin.readline()
+
+		remoteHome = json.loads(remoteHomeJson)
 
 		for localRule in localHome['rules']:
 			for remoteRule in remoteHome['rules']:
@@ -28,8 +32,8 @@ def main(argv):
 				
 		
 
-		f = open(fullpath2,'w')
-		#f = open(fullpath,'w')
+		#f = open(fullpath2,'w')
+		f = open(fullpath,'w')
 		string = json.dumps(localHome)
 		f.write(string)
 		f.close()
@@ -37,4 +41,4 @@ def main(argv):
 		print e
 
 if __name__ == '__main__':
-	main(sys.argv[1:])
+	main()
