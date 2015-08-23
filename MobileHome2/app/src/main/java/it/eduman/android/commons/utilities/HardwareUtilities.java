@@ -1,12 +1,13 @@
 package it.eduman.android.commons.utilities;
 
-import it.eduman.mobileHome2.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import it.eduman.mobileHome2.R;
 
 public class HardwareUtilities {
 	

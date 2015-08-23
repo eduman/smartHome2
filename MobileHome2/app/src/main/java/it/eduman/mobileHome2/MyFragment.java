@@ -1,7 +1,8 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.mobileHome2.commons.MobileHomeConstants;
 import android.support.v4.app.Fragment;
+
+import it.eduman.mobileHome2.commons.MobileHomeConstants;
 
 
 public abstract class MyFragment extends Fragment{

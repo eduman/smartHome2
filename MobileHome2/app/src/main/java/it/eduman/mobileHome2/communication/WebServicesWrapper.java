@@ -1,15 +1,15 @@
 package it.eduman.mobileHome2.communication;
 
-import it.eduman.android.commons.utilities.KeyValue;
-
-import java.io.IOException;
-import java.util.List;
-
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.List;
+
+import it.eduman.android.commons.utilities.KeyValue;
 
 public class WebServicesWrapper {
 

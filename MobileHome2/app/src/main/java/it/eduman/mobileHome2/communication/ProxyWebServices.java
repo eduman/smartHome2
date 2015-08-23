@@ -1,5 +1,20 @@
 package it.eduman.mobileHome2.communication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
+import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 import it.eduman.android.commons.utilities.KeyValue;
 import it.eduman.android.commons.utilities.Response;
 import it.eduman.android.commons.utilities.TaskOn;
@@ -12,21 +27,6 @@ import it.eduman.smartHome.deprecated.security.MyCipher;
 import it.eduman.smartHome.deprecated.security.SecurityException;
 import it.eduman.smartHome.deprecated.userMessage.UserMessageContent;
 import it.eduman.smartHome.deprecated.webServices.QueryContent;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.wifi.WifiManager;
-import android.preference.PreferenceManager;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class ProxyWebServices {
 //	private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";

@@ -1,17 +1,16 @@
 package it.eduman.mobileHome2.communication;
 
-import it.eduman.android.commons.utilities.KeyValue;
-import it.eduman.mobileHome2.R;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import it.eduman.android.commons.utilities.KeyValue;
 
 public class NetworkManagerWebServices {
 	private static final String NAMESPACE = "http://smartHome.eduman.it";

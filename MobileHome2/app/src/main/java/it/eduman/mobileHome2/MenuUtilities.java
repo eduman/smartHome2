@@ -1,12 +1,13 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.SoftwareUtilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 import android.view.Menu;
+
+import it.eduman.android.commons.utilities.SoftwareUtilities;
 
 public class MenuUtilities {
 

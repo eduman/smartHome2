@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -115,7 +114,7 @@ public class HttpConnection {
 
 				int responseCode = con.getResponseCode();
 
-				if (responseCode != 200){
+				if (responseCode != 200 && responseCode != 204){
 					throw new HttpConnectionException(con.getResponseMessage());
 				} else {
 					BufferedReader in = new BufferedReader(

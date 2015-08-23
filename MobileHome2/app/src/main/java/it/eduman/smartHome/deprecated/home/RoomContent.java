@@ -1,8 +1,8 @@
 package it.eduman.smartHome.deprecated.home;
 
-import it.eduman.smartHome.deprecated.device.DeviceContent;
-
 import java.util.HashMap;
+
+import it.eduman.smartHome.deprecated.device.DeviceContent;
 
 public class RoomContent {
 	private String roomID;

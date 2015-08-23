@@ -18,9 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import it.eduman.android.commons.utilities.HttpConnection;
-import it.eduman.smartHome.Contants.ActuatorAndSensorProperties;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,8 +26,10 @@ import java.util.HashMap;
 
 import it.eduman.android.commons.utilities.ErrorUtilities;
 import it.eduman.android.commons.utilities.HardwareUtilities;
+import it.eduman.android.commons.utilities.HttpConnection;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
+import it.eduman.smartHome.Contants.ActuatorAndSensorProperties;
 import it.eduman.smartHome.IoTDevice.ActuationCommands;
 import it.eduman.smartHome.IoTDevice.Function;
 import it.eduman.smartHome.IoTDevice.IoTDevice;

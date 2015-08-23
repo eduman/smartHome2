@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -37,6 +36,7 @@ public class RuleManagerSectionFragment extends MyFragment {
     private SharedPreferences sharedPref;
     private TableLayout tableLayout;
     private Button saveButton;
+    private Button resetButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,9 +77,19 @@ public class RuleManagerSectionFragment extends MyFragment {
                 if (home != null && homeServiceProvider != null){
                     String json = (new Gson()).toJson(home);
                     SendHome sendHome = new SendHome(rootView.getContext());
-
                     sendHome.execute(homeServiceProvider, json);
+                    //TODO send MQTT event for updating control strategies
                 }
+            }
+        });
+
+        resetButton = (Button)rootView.findViewById(R.id.rulemanager_fragment_reset_button);
+        resetButton.setVisibility(View.INVISIBLE);
+        resetButton.setEnabled(false);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                update();
             }
         });
 
@@ -118,6 +128,12 @@ public class RuleManagerSectionFragment extends MyFragment {
     private void showInfo(){
         if (home != null){
 
+            saveButton.setVisibility(View.INVISIBLE);
+            saveButton.setEnabled(true);
+
+            resetButton.setVisibility(View.INVISIBLE);
+            resetButton.setEnabled(true);
+
             tableLayout.removeAllViews();
             for (Rule rule : home.getRules()){
                 TableRow row =new TableRow(rootView.getContext());
@@ -137,6 +153,9 @@ public class RuleManagerSectionFragment extends MyFragment {
 
                         saveButton.setVisibility(View.VISIBLE);
                         saveButton.setEnabled(true);
+
+                        resetButton.setVisibility(View.VISIBLE);
+                        resetButton.setEnabled(true);
                     }
                 });
                 row.addView(checkBox);
@@ -200,6 +219,7 @@ public class RuleManagerSectionFragment extends MyFragment {
     private class SendHome extends AsyncTask<String, Void, Void> {
         private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.rulemanager_framgent_progressBar);
         private String errors = "";
+        private String response = "";
         private Context context;
 
         public SendHome (Context context){
@@ -218,7 +238,7 @@ public class RuleManagerSectionFragment extends MyFragment {
                 if (home != null){
                     HashMap<String, String> httpHeaders = new HashMap<String, String>();
                     httpHeaders.put("Content-Type", "application/json");
-                    String response = HttpConnection.sendPUT(params[0], params[1], httpHeaders);
+                    response = HttpConnection.sendPUT(params[0], params[1], httpHeaders);
                 }
             } catch (Exception e){
                 this.errors += ErrorUtilities.getExceptionMessage(e);
@@ -230,9 +250,13 @@ public class RuleManagerSectionFragment extends MyFragment {
         protected void onPostExecute(Void results) {
 
             if (this.errors.equals("")) {
-                SoftwareUtilities.MyInfoDialogFactory(context, context.getResources().getString(R.string.ruleSettingsSent));
+                SoftwareUtilities.MyInfoDialogFactory(context,
+                        String.format(context.getResources().getString(R.string.ruleSettingsSent), response));
                 saveButton.setVisibility(View.INVISIBLE);
                 saveButton.setEnabled(false);
+                resetButton.setVisibility(View.INVISIBLE);
+                resetButton.setEnabled(false);
+
             } else {
                     SoftwareUtilities.MyErrorDialogFactory(
                             context,

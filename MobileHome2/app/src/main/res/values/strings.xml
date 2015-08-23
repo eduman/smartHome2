@@ -71,11 +71,10 @@
     <string name="computerAddButton">Add</string>
     <string name="computerUrlTextView">URL: </string>
     <string name="computerDescriptionTextView">Description: </string>
-    <string name="computerLSDescriptionTextView">LS Description: </string>
-    <string name="computerPasswordTextView">Password: </string>
     <string name="saveButtonStr"> Save </string>
     <string name="deleteButtonStr">Delete</string>
     <string name="computersTextView">Computers: </string>
+    <string name="resetButtonStr">Reset </string>
 
     <!-- About Weather Fragment -->
     <string name="weatherSearchButton">Search</string>
@@ -92,7 +91,7 @@
     <string name="info">Info</string>
     <string name="waitMsg">Please wait.</string>
     <string name="loadingMsg">Loading</string>
-    <string name="ruleSettingsSent">New rule settings has been sent.</string>
+    <string name="ruleSettingsSent">New rule settings has been sent. %1$s</string>
 
     <!-- Error Messages -->
     <string name="error">Error</string>

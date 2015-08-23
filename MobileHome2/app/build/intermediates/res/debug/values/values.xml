@@ -31,8 +31,6 @@
     <string name="computerCommandVolumeUpButton">Volume Up</string>
     <string name="computerConfigureButton">Config</string>
     <string name="computerDescriptionTextView">Description: </string>
-    <string name="computerLSDescriptionTextView">LS Description: </string>
-    <string name="computerPasswordTextView">Password: </string>
     <string name="computerUrlTextView">URL: </string>
     <string name="computersTextView">Computers: </string>
     <string name="deleteButtonStr">Delete</string>
@@ -126,8 +124,9 @@
     <string name="preference_wifiSettings_key">preference_wifiSettings_key</string>
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="resetButtonStr">Reset </string>
     <string name="roomsTextView">Rooms: </string>
-    <string name="ruleSettingsSent">New rule settings has been sent.</string>
+    <string name="ruleSettingsSent">New rule settings has been sent. %1$s</string>
     <string name="ruleTextView">List of rules: </string>
     <string name="runButton">Run</string>
     <string name="saveButtonStr"> Save </string>

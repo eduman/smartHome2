@@ -1,8 +1,9 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.SoftwareUtilities;
 import android.content.Context;
 import android.preference.PreferenceManager;
+
+import it.eduman.android.commons.utilities.SoftwareUtilities;
 
 public class Debug {
 	public static void setPrintDebugMSG(Context context){

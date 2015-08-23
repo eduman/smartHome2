@@ -1,10 +1,11 @@
 package it.eduman.android.commons.utilities;
 
-import it.eduman.mobileHome2.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Toast;
+
+import it.eduman.mobileHome2.R;
 
 
 public class SoftwareUtilities {

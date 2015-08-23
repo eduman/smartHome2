@@ -1,12 +1,5 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.SoftwareUtilities;
-import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.smartHome.computer.ComputerSettings;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +27,13 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+
+import it.eduman.android.commons.utilities.SoftwareUtilities;
+import it.eduman.mobileHome2.commons.MobileHomeConstants;
+import it.eduman.smartHome.computer.ComputerSettings;
 
 public class ComputerSettingsActivity extends Activity implements AdapterView.OnItemSelectedListener{
 	private SharedPreferences sharedPref;

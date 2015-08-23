@@ -76,6 +76,17 @@
             android:src="@drawable/ic_action_view_as_grid" />
 
         <Button
+            android:id="@+id/rulemanager_fragment_reset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resetButtonStr"
+            android:background="@drawable/my_button"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/rulemanager_fragment_save_button"
+            android:layout_toEndOf="@+id/rulemanager_fragment_save_button"
+            android:layout_marginLeft="10dp"/>
+
+        <Button
             android:id="@+id/rulemanager_fragment_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

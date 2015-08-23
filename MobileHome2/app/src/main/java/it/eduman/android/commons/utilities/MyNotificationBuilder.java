@@ -1,9 +1,5 @@
 package it.eduman.android.commons.utilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import it.eduman.mobileHome2.R;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,6 +10,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import it.eduman.mobileHome2.R;
 
 public class MyNotificationBuilder {
 

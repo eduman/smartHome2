@@ -25,7 +25,6 @@ import java.util.List;
 import it.eduman.android.commons.utilities.ErrorUtilities;
 import it.eduman.android.commons.utilities.HardwareUtilities;
 import it.eduman.android.commons.utilities.HttpConnection;
-import it.eduman.android.commons.utilities.HttpConnectionException;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
 import it.eduman.smartHome.HomeStructure.HomeStructure;

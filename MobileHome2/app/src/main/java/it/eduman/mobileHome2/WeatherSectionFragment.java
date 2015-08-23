@@ -1,28 +1,5 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.ErrorUtilities;
-import it.eduman.android.commons.utilities.HardwareUtilities;
-import it.eduman.android.commons.utilities.HttpConnection;
-import it.eduman.android.commons.utilities.HttpConnectionException;
-import it.eduman.android.commons.utilities.SoftwareUtilities;
-import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.mobileHome2.commons.MobileHomeException;
-import it.eduman.mobileHome2.commons.MobileHomeImageLoader;
-import it.eduman.mobileHome2.weather.City;
-import it.eduman.mobileHome2.weather.ErrorWeather;
-import it.eduman.mobileHome2.weather.Weather;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -52,6 +29,29 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+
+import it.eduman.android.commons.utilities.ErrorUtilities;
+import it.eduman.android.commons.utilities.HardwareUtilities;
+import it.eduman.android.commons.utilities.HttpConnection;
+import it.eduman.android.commons.utilities.HttpConnectionException;
+import it.eduman.android.commons.utilities.SoftwareUtilities;
+import it.eduman.mobileHome2.commons.MobileHomeConstants;
+import it.eduman.mobileHome2.commons.MobileHomeException;
+import it.eduman.mobileHome2.commons.MobileHomeImageLoader;
+import it.eduman.mobileHome2.weather.City;
+import it.eduman.mobileHome2.weather.ErrorWeather;
+import it.eduman.mobileHome2.weather.Weather;
 
 public class WeatherSectionFragment extends MyFragment {
 

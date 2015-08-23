@@ -1,9 +1,5 @@
 package it.eduman.mobileHome2;
 
-import it.eduman.android.commons.utilities.HttpConnection;
-import it.eduman.android.commons.utilities.HttpConnectionException;
-import it.eduman.smartHome.IoTDevice.Function;
-import it.eduman.smartHome.IoTDevice.IoTDevice;
 import android.app.Activity;
 import android.content.Context;
 import android.preference.PreferenceManager;
@@ -12,6 +8,11 @@ import android.view.WindowManager;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+
+import it.eduman.android.commons.utilities.HttpConnection;
+import it.eduman.android.commons.utilities.HttpConnectionException;
+import it.eduman.smartHome.IoTDevice.Function;
+import it.eduman.smartHome.IoTDevice.IoTDevice;
 
 
 
