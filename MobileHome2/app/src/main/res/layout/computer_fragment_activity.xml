@@ -38,7 +38,7 @@
                 android:layout_marginRight="10dp"
                 android:contentDescription="@string/computerConfigureButton"
                 android:src="@drawable/ic_action_settings_small"
-                android:background="@drawable/my_button"/>
+                android:background="@drawable/my_button_blue"/>
 
             <ProgressBar
                 android:id="@+id/computerActivity_progressBar"
@@ -49,18 +49,23 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center" />
 
+            <TextView
+                android:id="@+id/computerActivity_error_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/computerActivity_computerSpinner"/>
+
             <TableLayout
                 android:id="@+id/computerActivity_computerCommandstableLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" >
+                android:layout_below="@+id/computerActivity_error_textview">
 
                 <TableRow
                     android:id="@+id/computerActivity_tableRow6"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
                     android:gravity="center_horizontal" >
 
                     <ImageButton
@@ -70,8 +75,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:contentDescription="@string/computerCommandSleepButton"
-                        android:src="@android:drawable/ic_lock_power_off" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@android:drawable/ic_lock_power_off"
+                        android:background="@drawable/my_button_blue"/>
 
                     <TextView
                         android:id="@+id/computerActivity_vuota8"
@@ -113,8 +118,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandVolumeUpButton"
-                        android:src="@drawable/device_access_volume_on" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/device_access_volume_on"
+                        android:background="@drawable/my_button_blue"/>
 
                     <TextView
                         android:id="@+id/computerActivity_vuota2"
@@ -139,8 +144,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandRewindButton"
-                        android:src="@drawable/av_rewind" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/av_rewind"
+                        android:background="@drawable/my_button_blue"/>
 
                     <ImageButton
                         android:id="@+id/computerActivity_imageButtonPlayPause"
@@ -149,8 +154,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandPlayPauseButton"
-                        android:src="@drawable/av_play_pause" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/av_play_pause"
+                        android:background="@drawable/my_button_blue"/>
 
                     <ImageButton
                         android:id="@+id/computerActivity_imageButtonNext"
@@ -160,8 +165,8 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandForwardButton"
-                        android:src="@drawable/av_fast_forward" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/av_fast_forward"
+                        android:background="@drawable/my_button_blue"/>
                 </TableRow>
 
                 <TableRow
@@ -185,8 +190,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandVolumeDownButton"
-                        android:src="@drawable/device_access_volume_down" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/device_access_volume_down"
+                        android:background="@drawable/my_button_blue"/>
 
                     <TextView
                         android:id="@+id/computerActivity_vuota4"
@@ -211,8 +216,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandVolumeStopButton"
-                        android:src="@drawable/av_stop" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/av_stop"
+                        android:background="@drawable/my_button_blue"/>
 
                     <TextView
                         android:id="@+id/computerActivity_volumeMute"
@@ -222,7 +227,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="16dp"
                         android:text="@string/nullString" />
-                    
+
                     <ImageButton
                         android:id="@+id/computerActivity_imageButtonVolumeMute"
                         android:layout_width="60dp"
@@ -230,8 +235,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandVolumeMuteButton"
-                        android:src="@drawable/ic_action_volume_on" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/ic_action_volume_on"
+                        android:background="@drawable/my_button_blue"/>
 
                     <!-- <ToggleButton
                         android:id="@+id/computerActivity_imageButtonVolumeMute"
@@ -239,9 +244,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
-                        android:contentDescription="@string/computerCommandVolumeMuteButton" 
+                        android:contentDescription="@string/computerCommandVolumeMuteButton"
                         android:textColor="#FFFFFF"
-                        android:background="@drawable/my_button"/> -->
+                        android:background="@drawable/my_button_blue"/> -->
                 </TableRow>
 
                 <TableRow
@@ -258,8 +263,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandBrightnessDownButton"
-                        android:src="@drawable/device_access_brightness_medium" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/device_access_brightness_medium"
+                        android:background="@drawable/my_button_blue"/>
 
                     <TextView
                         android:id="@+id/computerActivity_vuota6"
@@ -279,8 +284,8 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="16dp"
                         android:contentDescription="@string/computerCommandBrightnessUpButton"
-                        android:src="@drawable/device_access_brightness_high" 
-                        android:background="@drawable/my_button"/>
+                        android:src="@drawable/device_access_brightness_high"
+                        android:background="@drawable/my_button_blue"/>
                 </TableRow>
             </TableLayout>
         </RelativeLayout>
@@ -302,7 +307,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/navigation_refresh"
-            android:background="@drawable/my_button"/>
+            android:background="@drawable/my_button_blue"/>
         
         <ImageButton
             android:id="@+id/computer_fragment_home_button"
@@ -315,7 +320,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/ic_action_view_as_grid" 
-            android:background="@drawable/my_button"/>
+            android:background="@drawable/my_button_blue"/>
     </RelativeLayout>
 
 </RelativeLayout>

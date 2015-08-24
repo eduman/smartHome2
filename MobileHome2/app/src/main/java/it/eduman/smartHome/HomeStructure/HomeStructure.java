@@ -9,6 +9,8 @@ public class HomeStructure {
     private String floor;
     private String landlord;
     private String buildingID;
+    private String userPresenceManager;
+    private String ruleUpdater;
     private String thingspeakChannel;
 
     private MessageBroker homeMessageBroker;
@@ -56,6 +58,22 @@ public class HomeStructure {
 
     public void setBuildingID(String buildingID) {
         this.buildingID = buildingID;
+    }
+
+    public String getUserPresenceManager() {
+        return userPresenceManager;
+    }
+
+    public void setUserPresenceManager(String userPresenceManager) {
+        this.userPresenceManager = userPresenceManager;
+    }
+
+    public String getRuleUpdater() {
+        return ruleUpdater;
+    }
+
+    public void setRuleUpdater(String ruleUpdater) {
+        this.ruleUpdater = ruleUpdater;
     }
 
     public String getThingspeakChannel() {

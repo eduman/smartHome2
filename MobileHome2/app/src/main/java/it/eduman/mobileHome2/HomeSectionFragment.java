@@ -1,6 +1,5 @@
 package it.eduman.mobileHome2;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -9,12 +8,14 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -169,7 +170,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 			} else {
 				HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
 				if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
-					RetrieveHome rh = new RetrieveHome(rootView.getContext());
+					RetrieveHome rh = new RetrieveHome();
 					rh.execute(homeServiceProvider);
 				}
 			}
@@ -272,7 +273,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //				Button genericButton = new Button(context);
 //
 //				if (isSwitch || isIswitch){
-//					ToggleButton onOff = new ToggleButton(context, null, R.drawable.my_button);
+//					ToggleButton onOff = new ToggleButton(context, null, R.drawable.my_button_blue);
 //					onOff.setId(index++);
 //					onOff.setTextOff("Off");
 //					onOff.setTextOn("On");
@@ -282,7 +283,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //							100,
 //							LayoutParams.WRAP_CONTENT));
 //					onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
-//					onOff.setBackgroundResource(R.drawable.my_button);
+//					onOff.setBackgroundResource(R.drawable.my_button_blue);
 //					onOff.setOnClickListener(new View.OnClickListener() {
 //						@Override
 //						public void onClick(View v) {
@@ -307,7 +308,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //					});
 //					genericButton = onOff;
 //				} else if (isButton){
-//					Button button = new Button(context, null, R.drawable.my_button);
+//					Button button = new Button(context, null, R.drawable.my_button_blue);
 //					button.setId(index++);
 //					button.setLayoutParams(new LayoutParams(
 //							100,
@@ -315,7 +316,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //					button.setText(R.string.runButton);
 //					button.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 //					button.setTextColor(Color.WHITE);
-//					button.setBackgroundResource(R.drawable.my_button);
+//					button.setBackgroundResource(R.drawable.my_button_blue);
 //					button.setOnClickListener(new View.OnClickListener() {
 //						@Override
 //						public void onClick(View v) {
@@ -393,12 +394,6 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 		Spinner roomsSpinner = (Spinner) rootView.findViewById(R.id.spinnerRooms);
 		ArrayAdapter<CharSequence> adapter;
 		private String errors = "";
-		Context context;
-
-		public RetrieveHome (Context context){
-			this.context = context;
-			this.adapter = new ArrayAdapter<CharSequence>(this.context, android.R.layout.simple_spinner_item);
-		}
 
 		@Override
         protected void onPreExecute() {
@@ -429,14 +424,27 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 
 			if (results == null){
 				TextView homeText = (TextView) rootView.findViewById(R.id.homeID);
-				homeText.setText(context.getResources().getString(R.string.unknownHome));
+				homeText.setText(rootView.getContext().getResources().getString(R.string.unknownHome));
 				this.roomsSpinner.setAdapter(adapter);
 
 
-				SoftwareUtilities.MyErrorDialogFactory(
-						context,
-						context.getResources().getString(R.string.startingInfoErr)
-						+ this.errors);
+//				SoftwareUtilities.MyErrorDialogFactory(
+//						rootView.getContext(),
+//						rootView.getContext().getResources().getString(R.string.startingInfoErr)
+//						+ this.errors);
+
+				tableLayout.removeAllViews();
+
+				TableRow tableRow = new TableRow(rootView.getContext());
+				tableLayout.addView(tableRow);
+				TextView textView = new TextView(rootView.getContext());
+				textView.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+						ViewGroup.LayoutParams.MATCH_PARENT));
+				textView.setTextAppearance(rootView.getContext(), android.R.style.TextAppearance_Medium);
+				textView.setText(rootView.getContext().getString(R.string.error) + ": " + this.errors);
+				textView.setSingleLine(false);
+				textView.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+				tableRow.addView(textView);
 			} else {
 				home = results;
 				showInfo();

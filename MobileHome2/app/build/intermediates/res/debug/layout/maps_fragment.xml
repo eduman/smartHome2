@@ -33,7 +33,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/navigation_refresh" />
 
@@ -46,7 +46,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/map_fragment_refresh_button"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/ic_action_view_as_grid" />
 
@@ -71,7 +71,7 @@
         android:layout_alignBottom="@+id/mapView"
         android:layout_alignLeft="@+id/map_warning_textView"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_button_blue"
         android:src="@drawable/ic_home" />
 
 </RelativeLayout>
@@ -112,7 +112,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_button_blue"
         android:contentDescription="@string/common_refresh"
         android:src="@drawable/navigation_refresh" />
 
@@ -126,7 +126,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/map_fragment_refresh_button"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_button_blue"
         android:contentDescription="@string/common_refresh"
         android:src="@drawable/ic_action_view_as_grid" />
 
@@ -149,7 +149,7 @@
         android:layout_alignBottom="@+id/mapView"
         android:layout_alignLeft="@+id/map_warning_textView"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_button_blue"
         android:src="@drawable/ic_home" />
 
     <ImageButton
@@ -159,7 +159,7 @@
         android:layout_alignTop="@+id/map_fragment_myHomeLocation_button"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/map_fragment_myHomeLocation_button"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_button_blue"
         android:src="@drawable/ic_action_settings" />
 
 </RelativeLayout><!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/layout/maps_fragment.xml -->

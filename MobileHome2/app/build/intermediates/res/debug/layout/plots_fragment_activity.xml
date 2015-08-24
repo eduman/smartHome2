@@ -44,7 +44,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/navigation_refresh"
-            android:background="@drawable/my_button"/>
+            android:background="@drawable/my_button_blue"/>
 
         <ImageButton
             android:id="@+id/plots_fragment_home_button"
@@ -57,7 +57,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/ic_action_view_as_grid"
-            android:background="@drawable/my_button"/>
+            android:background="@drawable/my_button_blue"/>
 
         <ImageButton
             android:id="@+id/plots_fragment_backward_button"
@@ -68,7 +68,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_backward"
             android:src="@drawable/ic_action_previous"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:layout_alignBaseline="@id/plots_fragment_refresh_button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -82,7 +82,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_foreward"
             android:src="@drawable/ic_action_next"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/plots_fragment_backward_button"
             android:layout_toEndOf="@+id/plots_fragment_backward_button" />

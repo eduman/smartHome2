@@ -64,7 +64,7 @@
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/weatherSearchButton"
                 android:src="@drawable/ic_action_search"
-                android:background="@drawable/my_button"/>
+                android:background="@drawable/my_button_blue"/>
 
             <ImageView
                 android:id="@+id/weatherActivity_weatherIcon"
@@ -215,7 +215,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/navigation_refresh" 
-            android:background="@drawable/my_button"/>
+            android:background="@drawable/my_button_blue"/>
 
         <ImageButton
             android:id="@+id/weather_fragment_home_button"
@@ -228,7 +228,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/ic_action_view_as_grid" 
-            android:background="@drawable/my_button"/>
+            android:background="@drawable/my_button_blue"/>
     </RelativeLayout>
 
 </RelativeLayout><!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/layout/weather_fragment_activity.xml -->

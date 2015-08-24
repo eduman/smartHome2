@@ -15,7 +15,7 @@
         android:layout_height="20dip"
         android:layout_alignBottom="@+id/messages_row_date"
         android:layout_alignParentRight="true"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_button_blue"
         android:src="@drawable/ic_action_cancel" />
 
     <TextView

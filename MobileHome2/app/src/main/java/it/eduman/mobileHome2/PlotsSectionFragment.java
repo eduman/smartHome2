@@ -135,13 +135,13 @@ public class PlotsSectionFragment extends MyFragment {
 
 
         //restore
-        if (webViewBundle == null) {
+        if (webViewBundle == null || currentURI.equals("")) {
             if (homeID == null){
                 SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
             } else {
                 HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
                 if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
-                    RetrieveHome rh = new RetrieveHome(rootView.getContext());
+                    RetrieveHome rh = new RetrieveHome();
                     rh.execute(homeID);
                 }
             }
@@ -238,11 +238,7 @@ public class PlotsSectionFragment extends MyFragment {
         ProgressBar homeStructureProgress = (ProgressBar) rootView.findViewById(R.id.plots_fragment_homestructure_progressBar);
 
         private String errors = "";
-        Context context;
 
-        public RetrieveHome (Context context){
-            this.context = context;
-        }
 
         @Override
         protected void onPreExecute() {
@@ -260,8 +256,7 @@ public class PlotsSectionFragment extends MyFragment {
                 HashMap<String, String> httpHeaders = new HashMap<String, String>();
                 httpHeaders.put("Content-Type", "application/json");
                 response = HttpConnection.sendGet(
-                        sharedPref.getString(context.getString(R.string.preference_home_service_provider_key),
-                                context.getString(R.string.preference_home_service_provider_default_value)),
+                        params[0],
                         httpHeaders);
                 homeStructure = new Gson().fromJson(response, HomeStructure.class);
             } catch (HttpConnectionException e){
@@ -277,8 +272,8 @@ public class PlotsSectionFragment extends MyFragment {
 
             if (results == null){
                 SoftwareUtilities.MyErrorDialogFactory(
-                        context,
-                        context.getResources().getString(R.string.startingInfoErr)
+                        rootView.getContext(),
+                        rootView.getContext().getResources().getString(R.string.startingInfoErr)
                                 + this.errors);
             } else {
                 currentURI = results.getThingspeakChannel();

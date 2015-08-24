@@ -33,7 +33,7 @@
                 android:layout_alignParentStart="true" />
 
             <TableLayout
-                android:id="@+id/rulemanager_LinearLayout"
+                android:id="@+id/rulemanager_TableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -58,7 +58,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/navigation_refresh" />
 
@@ -71,7 +71,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/rulemanager_fragment_refresh_button"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/ic_action_view_as_grid" />
 
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/resetButtonStr"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/rulemanager_fragment_save_button"
             android:layout_toEndOf="@+id/rulemanager_fragment_save_button"
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/saveButtonStr"
-            android:background="@drawable/my_button"
+            android:background="@drawable/my_button_blue"
             android:layout_alignBottom="@+id/rulemanager_fragment_home_button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

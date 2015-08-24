@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -44,11 +47,11 @@ import it.eduman.smartHome.computer.ComputerSettings;
 public class ComputerSectionFragment extends MyFragment implements AdapterView.OnItemSelectedListener{
 
 
-	private static View rootView = null;
+	private View rootView = null;
 	private ComputerSettings computerSettings;
 	private int computerSpinnerPosition = 0;
 	private SharedPreferences sharedPref;
-	private HashMap<String, ComputerSettings> computersMap = new HashMap<String, ComputerSettings>();
+	private HashMap<String, ComputerSettings> computersMap = new HashMap<>();
 
 	public ComputerSectionFragment() {}
 
@@ -58,7 +61,6 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 		rootView = inflater.inflate(R.layout.computer_fragment_activity,
 				container, false);
 
-//		ActivityCommons.updateAfterUserSettingsChanges(rootView.getContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
 		
 		try {
@@ -139,7 +141,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 		hideButtons();
 		switch (parent.getId()){
 		case R.id.computerActivity_computerSpinner:
-			String computerSpinnerString = (String)parent.getItemAtPosition(position).toString().replace(")", "");
+			String computerSpinnerString = parent.getItemAtPosition(position).toString().replace(")", "");
 			String uniqueComputerKey = computerSpinnerString.substring(computerSpinnerString.lastIndexOf("(ID: ") + "(ID: ".length(), computerSpinnerString.length());
 			if (computersMap.containsKey(uniqueComputerKey)){
 				this.computerSpinnerPosition = position;
@@ -148,7 +150,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 				edit.commit();
 				computerSettings = computersMap.get(uniqueComputerKey);
 				if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
-					RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
+					RetrieveComputer rc = new RetrieveComputer();
 					rc.execute(computerSettings.getUrl());
 				} else {
 					HardwareUtilities.enableInternetConnectionAlertDialog(
@@ -166,7 +168,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 	}
 
-	protected void showButtons (final IoTDevice device, final Context context){
+	protected void showButtons (final IoTDevice device){
 
 		boolean isSwitch = false, isButton = false;
 		int buttonId = -1;
@@ -199,8 +201,8 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 							onOff.setOnClickListener(new View.OnClickListener() {
 								@Override
 								public void onClick(View v) {
-									if (HardwareUtilities.isWiFiConnected(context)){
-										RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
+									if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+										RetrieveComputer rc = new RetrieveComputer();
 										rc.execute(function.getWs());
 									} else {
 										HardwareUtilities.enableInternetConnectionAlertDialog(
@@ -215,8 +217,8 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 						button.setOnClickListener(new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								if (HardwareUtilities.isWiFiConnected(context)){
-									RetrieveComputer rc = new RetrieveComputer(rootView.getContext());
+								if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+									RetrieveComputer rc = new RetrieveComputer();
 									rc.execute(function.getWs());
 								} else {
 									HardwareUtilities.enableInternetConnectionAlertDialog(
@@ -226,7 +228,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 						});
 					}
 				}
-			} else { SoftwareUtilities.MyErrorDialogFactory(context, R.string.actuationButtonNotFound); }
+			} else { SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.actuationButtonNotFound); }
 		}
 	}
 
@@ -337,7 +339,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 	private void populateComputersSpinner(){
 		Spinner computersSpinner = (Spinner)rootView.findViewById(R.id.computerActivity_computerSpinner);
 		ArrayAdapter<CharSequence> adapter = 
-				new ArrayAdapter<CharSequence>(rootView.getContext(), android.R.layout.simple_spinner_item);
+				new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item);
 		if (this.computersMap != null) {
 			for (ComputerSettings comp : this.computersMap.values())
 				adapter.add(comp.getDescription() + " (ID: " + comp.getUrl()+ ")");
@@ -358,13 +360,8 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 	private class RetrieveComputer extends AsyncTask<String, Void, IoTDevice> {
 		private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.computerActivity_progressBar);
-		private Context context;
 		private String errors = "";
 
-
-		public RetrieveComputer (Context context){
-			this.context = context;
-		}
 
 		@Override
 		protected void onPreExecute() {
@@ -377,7 +374,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 			try {
 
 				String response;
-				HashMap<String, String> httpHeaders = new HashMap<String, String>();
+				HashMap<String, String> httpHeaders = new HashMap<>();
 				httpHeaders.put("Content-Type", "application/json");
 				response = HttpConnection.sendGet(params[0], httpHeaders);
 				device = new Gson().fromJson(response, IoTDevice.class);
@@ -392,14 +389,22 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 		@Override
 		protected void onPostExecute(IoTDevice results) {
+			TextView errorTextView = (TextView) rootView.findViewById(R.id.computerActivity_error_textview);
 			if(results == null){
 				try{
-					SoftwareUtilities.MyErrorDialogFactory(context, this.errors);
+//					SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), this.errors);
+					errorTextView.setTextAppearance(rootView.getContext(), android.R.style.TextAppearance_Medium);
+					errorTextView.setText(rootView.getContext().getString(R.string.error) + ": " + this.errors);
+					errorTextView.setSingleLine(false);
+					errorTextView.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+
 				} catch (Exception e){
 					Log.e("Error", e.getMessage());
 				}
 			} else {
-				showButtons(results, context);
+				errorTextView.setText("");
+				errorTextView.setTextAppearance(rootView.getContext(), android.R.style.TextAppearance_Small);
+				showButtons(results);
 			}
 			progress.setVisibility(View.INVISIBLE);
 

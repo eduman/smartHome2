@@ -67,7 +67,7 @@ package it.eduman.smartHome.deprecated.security;
  * when decompressing and decoding to a byte[] using <tt>decode( String s,
  * boolean gzipCompressed )</tt>. Added the ability to "suspend" encoding in the
  * Output Stream so you can turn on and off the encoding if you need to embed
- * base64 data in an otherwise "normal" stream (like an XML file).</li> <li>v1.5
+ * base64 data in an otherwise "normal_blue" stream (like an XML file).</li> <li>v1.5
  * - Output stream pases on flush() command but doesn't do anything itself. This
  * helps when using GZIP streams. Added the ability to GZip-compress objects
  * before encoding them.</li> <li>v1.4 - Added helper methods to read/write

@@ -136,7 +136,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 				getResources().getString(R.string.waitMsg), false, false);
 		switch (parent.getId()){
 			case R.id.computerSettingsActivity_computerSpinner:
-				String computerSpinnerString = (String)parent.getItemAtPosition(position).toString().replace(")", "");
+				String computerSpinnerString = parent.getItemAtPosition(position).toString().replace(")", "");
 				String lsDescriptionStr = computerSpinnerString.substring(computerSpinnerString.lastIndexOf("(ID: ") + "(ID: ".length(), computerSpinnerString.length());
 				this.clearEditText();
 				if (computersMap.containsKey(lsDescriptionStr)){
@@ -240,8 +240,8 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		saveComputerButton.setText(R.string.saveButtonStr);
 		saveComputerButton.setTextColor(Color.parseColor("#FFFFFF"));
 		
-//		saveComputerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_button));
-		saveComputerButton.setBackgroundResource(R.drawable.my_button);
+//		saveComputerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_button_blue));
+		saveComputerButton.setBackgroundResource(R.drawable.my_button_blue);
 
 		saveComputerButton.setLayoutParams(new LayoutParams(
 				LayoutParams.WRAP_CONTENT,
@@ -259,11 +259,11 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 				String urlStr = urlEditText.getText().toString();
 				String descriptionStr = descriptionEditText.getText().toString();
 
-				if (descriptionStr == null || descriptionStr.length() < 1){
+				if (descriptionStr.length() < 1){
 					isOk = false;
 					errorMessage = R.string.descriptionIsNull;
 				}
-				if (urlStr == null || urlStr.length() < 1){
+				if (urlStr.length() < 1){
 					isOk = false;
 					errorMessage = R.string.urlIsNull;
 				}	
@@ -287,8 +287,8 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 		removeComputerButton = new Button(this);
 		removeComputerButton.setText(R.string.deleteButtonStr);
 		removeComputerButton.setTextColor(Color.parseColor("#FFFFFF"));
-//		removeComputerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_button));
-		removeComputerButton.setBackgroundResource(R.drawable.my_button);
+//		removeComputerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.my_button_blue));
+		removeComputerButton.setBackgroundResource(R.drawable.my_button_blue);
 		
 		removeComputerButton.setLayoutParams(new LayoutParams(
 				LayoutParams.WRAP_CONTENT,
@@ -333,7 +333,7 @@ public class ComputerSettingsActivity extends Activity implements AdapterView.On
 	private void populateComputersSpinner(){
 		Spinner computersSpinner = (Spinner)findViewById(R.id.computerSettingsActivity_computerSpinner);
 		ArrayAdapter<CharSequence> adapter = 
-				new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+				new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
 		if (this.computersMap != null) {
 			for (ComputerSettings comp : this.computersMap.values())
 				adapter.add(comp.getDescription() + " (ID: " + comp.getUrl()+ ")");

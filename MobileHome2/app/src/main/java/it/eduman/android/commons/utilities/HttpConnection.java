@@ -52,7 +52,7 @@ public class HttpConnection {
 				int responseCode = con.getResponseCode();
 
 				if (responseCode != 200){
-					throw new HttpConnectionException(con.getResponseMessage());
+					throw new HttpConnectionException(String.valueOf(responseCode) + " " + con.getResponseMessage());
 				} else {
 					BufferedReader in = new BufferedReader(
 							new InputStreamReader(con.getInputStream()));
@@ -114,8 +114,9 @@ public class HttpConnection {
 
 				int responseCode = con.getResponseCode();
 
+				// code 204: just to be compliant with device connector engine
 				if (responseCode != 200 && responseCode != 204){
-					throw new HttpConnectionException(con.getResponseMessage());
+					throw new HttpConnectionException(String.valueOf(responseCode) + " " + con.getResponseMessage());
 				} else {
 					BufferedReader in = new BufferedReader(
 							new InputStreamReader(con.getInputStream()));

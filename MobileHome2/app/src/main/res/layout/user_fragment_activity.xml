@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/messages_fragment_activity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="top"
@@ -8,35 +7,36 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".WeatherSectionFragment" >
+    tools:context=".HomeSectionFragment" >
 
-    <ProgressBar
-        android:id="@+id/messageActivity_progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/user_fragment_mainScrollView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/user_fragment_footer"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center" />
+        android:fillViewport="true" >
 
-
-
-            <ListView
-                android:id="@+id/messages_ListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/messages_fragment_footer"
-                android:layout_marginBottom="10dp"
- />
+        <TableLayout
+            android:id="@+id/user_TableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/user_fragment_textview">
+        </TableLayout>
+    </ScrollView>
 
     <RelativeLayout
-        android:id="@+id/messages_fragment_footer"
+        android:id="@+id/user_fragment_footer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
         <ImageButton
-            android:id="@+id/messages_fragment_refresh_button"
+            android:id="@+id/user_fragment_refresh_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -48,30 +48,29 @@
             android:src="@drawable/navigation_refresh" />
 
         <ImageButton
-            android:id="@+id/messages_fragment_home_button"
+            android:id="@+id/user_fragment_home_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/messages_fragment_refresh_button"
+            android:layout_alignBaseline="@+id/user_fragment_refresh_button"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@+id/messages_fragment_refresh_button"
+            android:layout_toLeftOf="@+id/user_fragment_refresh_button"
             android:background="@drawable/my_button_blue"
             android:contentDescription="@string/common_refresh"
             android:src="@drawable/ic_action_view_as_grid" />
 
-        <ImageButton
-            android:id="@+id/messages_fragment_clearAll_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/messages_fragment_refresh_button"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/my_button_blue"
-            android:contentDescription="@string/common_delete"
-            android:src="@drawable/ic_action_discard" />
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/user_framgent_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>

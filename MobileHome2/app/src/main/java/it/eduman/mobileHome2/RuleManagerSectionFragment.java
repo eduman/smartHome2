@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -45,7 +47,7 @@ public class RuleManagerSectionFragment extends MyFragment {
         rootView = inflater.inflate(R.layout.rulemanager_fragment_activity, container, false);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
 
-        tableLayout = (TableLayout)rootView.findViewById(R.id.rulemanager_LinearLayout);
+        tableLayout = (TableLayout)rootView.findViewById(R.id.rulemanager_TableLayout);
 
         ImageButton refreshButton = (ImageButton)rootView.findViewById(R.id.rulemanager_fragment_refresh_button);
         refreshButton.setVisibility(View.VISIBLE);
@@ -71,13 +73,14 @@ public class RuleManagerSectionFragment extends MyFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String homeServiceProvider = sharedPref.getString(
-                        rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
-                homeServiceProvider += "/updaterule";
-                if (home != null && homeServiceProvider != null){
+//                String homeServiceProvider = sharedPref.getString(
+//                        rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
+//                homeServiceProvider += "/updaterule";
+//                if (home != null && homeServiceProvider != null){
+                if (home != null){
                     String json = (new Gson()).toJson(home);
-                    SendHome sendHome = new SendHome(rootView.getContext());
-                    sendHome.execute(homeServiceProvider, json);
+                    SendHome sendHome = new SendHome();
+                    sendHome.execute(home.getRuleUpdater(), json);
                     //TODO send MQTT event for updating control strategies
                 }
             }
@@ -188,7 +191,7 @@ public class RuleManagerSectionFragment extends MyFragment {
             HomeStructure homeStructure = null;
             try {
                 String response;
-                HashMap<String, String> httpHeaders = new HashMap<String, String>();
+                HashMap<String, String> httpHeaders = new HashMap<>();
                 httpHeaders.put("Content-Type", "application/json");
                 response = HttpConnection.sendGet(params[0], httpHeaders);
                 homeStructure = new Gson().fromJson(response, HomeStructure.class);
@@ -203,10 +206,17 @@ public class RuleManagerSectionFragment extends MyFragment {
         @Override
         protected void onPostExecute(HomeStructure results) {
             if (results == null){
-                SoftwareUtilities.MyErrorDialogFactory(
-                        context,
-                        context.getResources().getString(R.string.startingInfoErr)
-                                + this.errors);
+                tableLayout.removeAllViews();
+                TableRow tableRow = new TableRow(rootView.getContext());
+                tableLayout.addView(tableRow);
+                TextView textView = new TextView(rootView.getContext());
+                textView.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+                textView.setTextAppearance(rootView.getContext(), android.R.style.TextAppearance_Medium);
+                textView.setText(rootView.getContext().getString(R.string.error) + ": " + this.errors);
+                textView.setSingleLine(false);
+                textView.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                tableRow.addView(textView);
             } else {
                 home = results;
                 showInfo();
@@ -220,11 +230,7 @@ public class RuleManagerSectionFragment extends MyFragment {
         private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.rulemanager_framgent_progressBar);
         private String errors = "";
         private String response = "";
-        private Context context;
 
-        public SendHome (Context context){
-            this.context = context;
-        }
 
         @Override
         protected void onPreExecute() {
@@ -236,7 +242,7 @@ public class RuleManagerSectionFragment extends MyFragment {
         {
             try {
                 if (home != null){
-                    HashMap<String, String> httpHeaders = new HashMap<String, String>();
+                    HashMap<String, String> httpHeaders = new HashMap<>();
                     httpHeaders.put("Content-Type", "application/json");
                     response = HttpConnection.sendPUT(params[0], params[1], httpHeaders);
                 }
@@ -250,8 +256,8 @@ public class RuleManagerSectionFragment extends MyFragment {
         protected void onPostExecute(Void results) {
 
             if (this.errors.equals("")) {
-                SoftwareUtilities.MyInfoDialogFactory(context,
-                        String.format(context.getResources().getString(R.string.ruleSettingsSent), response));
+                SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(),
+                        String.format(rootView.getContext().getResources().getString(R.string.ruleSettingsSent), response));
                 saveButton.setVisibility(View.INVISIBLE);
                 saveButton.setEnabled(false);
                 resetButton.setVisibility(View.INVISIBLE);
@@ -259,8 +265,8 @@ public class RuleManagerSectionFragment extends MyFragment {
 
             } else {
                     SoftwareUtilities.MyErrorDialogFactory(
-                            context,
-                            context.getResources().getString(R.string.startingInfoErr)
+                            rootView.getContext(),
+                            rootView.getContext().getResources().getString(R.string.startingInfoErr)
                                     + this.errors);
                 }
 

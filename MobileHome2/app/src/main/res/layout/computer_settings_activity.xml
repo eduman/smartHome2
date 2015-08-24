@@ -42,7 +42,7 @@
                 android:text="@string/computerAddButton"
                 android:layout_marginRight="10dp"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/my_button"/>
+                android:background="@drawable/my_button_blue"/>
  
             <TableLayout
                 android:id="@+id/computerSettingsActivity_nothingTableLayout"
