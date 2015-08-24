@@ -116,8 +116,8 @@
       <file leaf-file-name="ComputerSectionFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/ComputerSectionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.888889">
-              <caret line="405" column="107" selection-start-line="405" selection-start-column="107" selection-end-line="405" selection-end-column="107" />
+            <state vertical-scroll-proportion="-5.6666665">
+              <caret line="305" column="8" selection-start-line="305" selection-start-column="8" selection-end-line="305" selection-end-column="99" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7941#7973#0" expanded="true" />
@@ -131,15 +131,19 @@
       <file leaf-file-name="PlotsSectionFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/PlotsSectionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.03916449">
-              <caret line="136" column="8" selection-start-line="136" selection-start-column="8" selection-end-line="150" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.15665796">
+              <caret line="33" column="33" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="33" />
               <folding>
-                <element signature="e#1921#2001#0" expanded="true" />
-                <element signature="e#4868#5010#0" expanded="true" />
-                <element signature="e#5009#5010#0" expanded="true" />
-                <element signature="e#5614#5634#0" expanded="true" />
-                <element signature="e#7102#7123#0" expanded="true" />
-                <element signature="e#10106#10178#0" expanded="true" />
+                <element signature="e#3959#4152#0" expanded="true" />
+                <element signature="e#4151#4152#0" expanded="true" />
+                <element signature="e#4872#5014#0" expanded="true" />
+                <element signature="e#5013#5014#0" expanded="true" />
+                <element signature="e#6689#6769#0" expanded="true" />
+                <element signature="e#6890#6910#0" expanded="true" />
+                <element signature="e#7904#7925#0" expanded="true" />
+                <element signature="e#9811#9812#0" expanded="true" />
+                <element signature="e#9889#9890#0" expanded="true" />
+                <element signature="e#10908#10980#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -266,30 +270,6 @@
             <state vertical-scroll-proportion="-4.703704">
               <caret line="96" column="18" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main_fragment_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_fragment_activity.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0689654">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding>
-                <element signature="e#232#267#0" expanded="true" />
-                <element signature="e#293#328#0" expanded="true" />
-                <element signature="e#1842#1862#0" expanded="true" />
-                <element signature="e#2510#2531#0" expanded="true" />
-                <element signature="e#3527#3547#0" expanded="true" />
-                <element signature="e#4213#4246#0" expanded="true" />
-                <element signature="e#5255#5279#0" expanded="true" />
-                <element signature="e#5946#5969#0" expanded="true" />
-                <element signature="e#7084#7111#0" expanded="true" />
-                <element signature="e#7851#7874#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -2459,15 +2439,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/PlotsSectionFragment.java</url>
-          <line>272</line>
+          <line>290</line>
           <properties />
           <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/PlotsSectionFragment.java</url>
+          <line>189</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/PlotsSectionFragment.java</url>
+          <line>174</line>
+          <properties />
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="44" />
+      <option name="time" value="50" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2946,16 +2938,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-22/android/os/AsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33235294">
-          <caret line="652" column="0" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
-          <folding>
-            <element signature="method#onPreExecute#0;class#AsyncTask#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/home_fragment_activity.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3030,19 +3012,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/ComputerSectionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.888889">
-          <caret line="405" column="107" selection-start-line="405" selection-start-column="107" selection-end-line="405" selection-end-column="107" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7941#7973#0" expanded="true" />
-            <element signature="e#13730#13753#0" expanded="true" />
-            <element signature="e#14963#15010#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/plots_fragment_activity.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3054,17 +3023,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-22/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33159268">
+          <caret line="537" column="53" selection-start-line="537" selection-start-column="53" selection-end-line="537" selection-end-column="53" />
+          <folding>
+            <element signature="method#onPreExecute#0;class#AsyncTask#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/ComputerSectionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.6666665">
+          <caret line="305" column="8" selection-start-line="305" selection-start-column="8" selection-end-line="305" selection-end-column="99" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7941#7973#0" expanded="true" />
+            <element signature="e#13730#13753#0" expanded="true" />
+            <element signature="e#14963#15010#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/it/eduman/mobileHome2/PlotsSectionFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03916449">
-          <caret line="136" column="8" selection-start-line="136" selection-start-column="8" selection-end-line="150" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.15665796">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="33" />
           <folding>
-            <element signature="e#1921#2001#0" expanded="true" />
-            <element signature="e#4868#5010#0" expanded="true" />
-            <element signature="e#5009#5010#0" expanded="true" />
-            <element signature="e#5614#5634#0" expanded="true" />
-            <element signature="e#7102#7123#0" expanded="true" />
-            <element signature="e#10106#10178#0" expanded="true" />
+            <element signature="e#3959#4152#0" expanded="true" />
+            <element signature="e#4151#4152#0" expanded="true" />
+            <element signature="e#4872#5014#0" expanded="true" />
+            <element signature="e#5013#5014#0" expanded="true" />
+            <element signature="e#6689#6769#0" expanded="true" />
+            <element signature="e#6890#6910#0" expanded="true" />
+            <element signature="e#7904#7925#0" expanded="true" />
+            <element signature="e#9811#9812#0" expanded="true" />
+            <element signature="e#9889#9890#0" expanded="true" />
+            <element signature="e#10908#10980#0" expanded="true" />
           </folding>
         </state>
       </provider>

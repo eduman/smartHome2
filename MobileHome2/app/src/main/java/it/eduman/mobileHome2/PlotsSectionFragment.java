@@ -49,8 +49,8 @@ public class PlotsSectionFragment extends MyFragment {
         rootView = inflater.inflate(R.layout.plots_fragment_activity, container, false);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
 
-        String homeID = this.sharedPref.getString(
-                rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
+//        String homeID = this.sharedPref.getString(
+//                rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
 
 
 
@@ -134,21 +134,21 @@ public class PlotsSectionFragment extends MyFragment {
         });
 
 
-        //restore
-        if (webViewBundle == null || currentURI.equals("")) {
-            if (homeID == null){
-                SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
-            } else {
-                HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
-                if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
-                    RetrieveHome rh = new RetrieveHome();
-                    rh.execute(homeID);
-                }
-            }
-
-        } else {
-            myWebView.restoreState(webViewBundle);
-        }
+//        //restore
+//        if (webViewBundle == null) {
+//            if (homeID == null){
+//                SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
+//            } else {
+//                HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
+//                if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+//                    RetrieveHome rh = new RetrieveHome();
+//                    rh.execute(homeID);
+//                }
+//            }
+//
+//        } else {
+//            myWebView.restoreState(webViewBundle);
+//        }
 
         return rootView;
     }
@@ -171,8 +171,26 @@ public class PlotsSectionFragment extends MyFragment {
 
     @Override
     public void update() {
-        if (myWebView != null) {
-            loadPage(myWebView.getUrl());
+
+        if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.PLOTS_FRAGMENT_POSITION){
+            String homeID = this.sharedPref.getString(
+                    rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
+
+            if (homeID == null){
+                SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
+            } else {
+                HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
+                if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+                    RetrieveHome rh = new RetrieveHome();
+                    rh.execute(homeID);
+                }
+            }
+
+            //restore
+            if (webViewBundle != null) {
+                myWebView.restoreState(webViewBundle);
+            }
+
         }
     }
 
