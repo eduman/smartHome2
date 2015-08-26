@@ -11,7 +11,7 @@ PORT="8080"
 
 TEMP=$(/opt/vc/bin/vcgencmd measure_temp| egrep "[0-9.]{4,}" -o)
 
-RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"$PORT\",\"description\": \"raspberry pi\",\"isError\": false,\"functions\": [{\"pin\":1,\"type\": \"SoC Temperature\",\"configuredAs\": \"Sensor\",\"status\":\"$TEMP\",\"unit\":\"°C\",\"rest\":\"GET\",\"ws\":\"http://$IP:$PORT/rest/raspberry/temperature\"}]}")
+RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"$PORT\",\"description\": \"raspberry pi\",\"type\": \"raspberry\",\"isError\": false,\"functions\": [{\"pin\":1,\"type\": \"SoC Temperature\",\"configuredAs\": \"Sensor\",\"status\":\"$TEMP\",\"unit\":\"°C\",\"rest\":\"GET\",\"ws\":\"http://$IP:$PORT/rest/raspberry/temperature\"}]}")
 echo "$RESULT"
 
 

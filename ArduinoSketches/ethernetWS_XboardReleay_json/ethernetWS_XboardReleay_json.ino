@@ -59,6 +59,7 @@ EthernetServer server(8082);
 IPAddress remoteServer(192,168,1,254); 
 
 char descriptionStr [] = "Arduino device";
+char typeStr [] = "arduino";
 
 int adc_key_in;
 int key=-1;
@@ -293,6 +294,11 @@ void getPinConfiguration(EthernetClient *client, boolean isError){
   //Printing the description
   (*client).print("\"description\":\"");
   (*client).print(descriptionStr);
+  (*client).print("\",");
+
+  //Printing the type
+  (*client).print("\"type\":\"");
+  (*client).print(typeStr);
   (*client).print("\",");
   
   //(*client).print("\"isError\":" + String (isError) + ",");

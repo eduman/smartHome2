@@ -20,7 +20,7 @@ PORT_WS="8080"
 ETHERNET="eth0"
 
 wsBase = "http://%s:%s/rest/plugwise/%s/%s"
-jsonMsg = '{"configured":true,"ip":"%s","subnet":"","gateway":"","port":"","isError":false,"functions":[%s]}'
+jsonMsg = '{"configured":true,"ip":"%s","subnet":"","gateway":"","port":"","description": "plugwise","type": "plugwise","isError":false,"functions":[%s]}'
 function = '{"pin":%s,"type":"%s","configuredAs":"%s","status":"%s","unit":"%s","rest": "GET","ws":"%s"}'
 appliance = "N/A appliance"
 

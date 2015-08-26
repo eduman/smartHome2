@@ -10,5 +10,5 @@ GATEWAY=$(ip route list | sed -n -e "s/^default.*[[:space:]]\([[:digit:]]\+\.[[:
 PORT="8080"
 
 
-RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"8080\",\"description\": \"scanner\",\"isError\": false,\"functions\": [{\"pin\":1,\"type\": \"Scan\",\"configuredAs\": \"Button\",\"status\":\"\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"http://$IP:$PORT/rest/scanner/scan\"}]}")
+RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"8080\",\"description\": \"scanner\",\"type\": \"scanner\",\"isError\": false,\"functions\": [{\"pin\":1,\"type\": \"Scan\",\"configuredAs\": \"Button\",\"status\":\"\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"http://$IP:$PORT/rest/scanner/scan\"}]}")
 echo "$RESULT"

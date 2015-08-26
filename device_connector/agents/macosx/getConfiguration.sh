@@ -36,7 +36,7 @@ fi
 
 
 
-RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"$PORT\",\"description\": \"macosx\",\"isError\": false,\"functions\": [
+RESULT=("{\"configured\": true,\"ip\": \"$IP\",\"subnet\": \"$NETMASK\",\"gateway\": \"$GATEWAY\",\"port\":\"$PORT\",\"description\": \"macosx\",\"type\": \"macosx\",\"isError\": false,\"functions\": [
 {\"pin\":0,\"type\": \"BrightnessDown\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_DOWN_WS\"},
 {\"pin\":1,\"type\": \"BrightnessUp\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$BRIGHTNESS_UP_WS\"},
 {\"pin\":2,\"type\": \"PlayerNext\",\"configuredAs\": \"Button\",\"status\":\"ok\",\"unit\":\"\",\"rest\":\"GET\",\"ws\":\"$PLAYER_NEXT_WS\"},
