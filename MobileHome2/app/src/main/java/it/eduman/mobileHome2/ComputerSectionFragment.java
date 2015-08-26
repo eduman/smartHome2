@@ -1,6 +1,5 @@
 package it.eduman.mobileHome2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -17,8 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -32,7 +29,7 @@ import it.eduman.android.commons.utilities.HardwareUtilities;
 import it.eduman.android.commons.utilities.HttpConnection;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
-import it.eduman.smartHome.Contants.ActuatorAndSensorProperties;
+import it.eduman.smartHome.Constants.ActuatorAndSensorProperties;
 import it.eduman.smartHome.IoTDevice.ActuationCommands;
 import it.eduman.smartHome.IoTDevice.Function;
 import it.eduman.smartHome.IoTDevice.IoTDevice;

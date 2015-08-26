@@ -117,6 +117,7 @@ public final class R {
         public static final int home_fragment_footer=0x7f0a002b;
         public static final int home_fragment_home_button=0x7f0a0032;
         public static final int home_fragment_refresh_button=0x7f0a0031;
+        public static final int home_fragments_devicesTableLayout=0x7f0a0030;
         public static final int item_about=0x7f0a0081;
         public static final int item_action_settings=0x7f0a007f;
         public static final int item_contact_developer=0x7f0a0080;
@@ -168,7 +169,6 @@ public final class R {
         public static final int rulemanager_framgent_progressBar=0x7f0a0063;
         public static final int rulemanager_mainScrollView=0x7f0a005b;
         public static final int spinnerRooms=0x7f0a002f;
-        public static final int tableLayout=0x7f0a0030;
         public static final int textRooms=0x7f0a002e;
         public static final int userButton=0x7f0a0037;
         public static final int user_TableLayout=0x7f0a0066;

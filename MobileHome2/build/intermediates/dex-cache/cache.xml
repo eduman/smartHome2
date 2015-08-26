@@ -9,6 +9,13 @@
         <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/universal-image-loader-1.8.6-2a0a28dcf6239300df167ef209c08f7aa5ff4737.jar" />
     </item>
     <item
+        jar="/Users/edo/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/gson-2.3.1-4c62d448a5180f1d9ae83a9d12ecc7db984ff5fa.jar" />
+    </item>
+    <item
         jar="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/libs/ksoap2-android-assembly-2.5.8-jar-with-dependencies.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -16,11 +23,11 @@
         <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/ksoap2-android-assembly-2.5.8-jar-with-dependencies-6a03ec4e1cdfc691612cf3a3f4b5f261a8dcd095.jar" />
     </item>
     <item
-        jar="/Users/edo/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jar="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/exploded-aar/de.mrmaffen/vlc-android-sdk/1.0.6/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/gson-2.3.1-4c62d448a5180f1d9ae83a9d12ecc7db984ff5fa.jar" />
+        sha1="8d00bf73dcb32c7b420cfded47e0c2ac8c69a1c3">
+        <dex dex="/Users/edo/Documents/Git/smartHome2/MobileHome2/app/build/intermediates/pre-dexed/debug/classes-7aba649f6fea32487b4455bf6d39dfb03ceec0e4.jar" />
     </item>
     <item
         jar="/Users/edo/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"

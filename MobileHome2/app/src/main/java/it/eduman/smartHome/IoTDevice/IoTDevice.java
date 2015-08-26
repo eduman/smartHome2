@@ -9,6 +9,7 @@ public class IoTDevice {
     public String gateway;
     public String port;
     public String description;
+    public String type;
     public boolean isError;
     public List<Function> functions;
 
@@ -54,6 +55,15 @@ public class IoTDevice {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public boolean isError() {

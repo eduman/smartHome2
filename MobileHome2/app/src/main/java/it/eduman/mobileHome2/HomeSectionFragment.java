@@ -2,24 +2,33 @@ package it.eduman.mobileHome2;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,8 +37,13 @@ import it.eduman.android.commons.utilities.HardwareUtilities;
 import it.eduman.android.commons.utilities.HttpConnection;
 import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
+import it.eduman.smartHome.Constants;
+import it.eduman.smartHome.HomeStructure.Device;
+import it.eduman.smartHome.HomeStructure.DeviceProtocol;
 import it.eduman.smartHome.HomeStructure.HomeStructure;
 import it.eduman.smartHome.HomeStructure.Room;
+import it.eduman.smartHome.IoTDevice.Function;
+import it.eduman.smartHome.IoTDevice.IoTDevice;
 
 
 public class HomeSectionFragment extends MyFragment implements AdapterView.OnItemSelectedListener{
@@ -38,6 +52,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 	private int roomSpinnerPosition = 0;
 	private static View rootView = null;
 	private SharedPreferences sharedPref;
+	private HashMap<String, TableRow> deviceTableRows = new HashMap<>();
 
 
 	@Override
@@ -109,8 +124,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 					{ roomSpinner.setSelection(this.roomSpinnerPosition); }
 			} catch (Exception e){
 				this.roomSpinnerPosition = 0;
-				if (roomSpinner != null)
-					{ roomSpinner.setSelection(this.roomSpinnerPosition); }
+				roomSpinner.setSelection(this.roomSpinnerPosition);
 			}
 		}
 	}
@@ -135,7 +149,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 		Editor edit = sharedPref.edit();
 		switch (parent.getId()) {
 			case R.id.spinnerRooms:
-				String roomSpinnerString = (String)parent.getItemAtPosition(position).toString().replace(")", "");
+				String roomSpinnerString = parent.getItemAtPosition(position).toString().replace(")", "");
 				String roomID = roomSpinnerString.substring(roomSpinnerString.lastIndexOf("(ID: ") + "(ID: ".length(), roomSpinnerString.length());
 				this.roomSpinnerPosition = position;
 				edit.putInt(MobileHomeConstants.HOME_ROOMS_SPINNER_POSITION, this.roomSpinnerPosition);
@@ -145,6 +159,18 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 				for (int i = 0; i < rooms.size() && !found; i++) {
 					if (rooms.get(i).getRoomID().equalsIgnoreCase(roomID)){
 						found = true;
+						TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.home_fragments_devicesTableLayout);
+						tableLayout.removeAllViews();
+
+						Room r = rooms.get(i);
+
+						for(Device device : r.getDevices()) {
+							if (device.getProtocol().size() > 0) {
+								RetrieveDevice retrieveDevice = new RetrieveDevice(device.getDeviceID()+ device.getType());
+								retrieveDevice.execute(device.getProtocol().get(0));
+							}
+						}
+						//TODO
 					}
 				}
 
@@ -191,7 +217,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 	protected void populateRoomSpinner(){
 		Spinner roomsSpinner = (Spinner)rootView.findViewById(R.id.spinnerRooms);
 		ArrayAdapter<CharSequence> adapter =
-				new ArrayAdapter<CharSequence>(rootView.getContext(), android.R.layout.simple_spinner_item);
+				new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item);
 		if (home != null) {
 			List<Room> rooms = home.getRooms();
 			for (Room r : rooms)
@@ -199,12 +225,10 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			roomsSpinner.setAdapter(adapter);
 			try {
-				if (roomsSpinner != null)
-					{ roomsSpinner.setSelection(this.roomSpinnerPosition); }
+				roomsSpinner.setSelection(this.roomSpinnerPosition);
 			} catch (Exception e){
 				this.roomSpinnerPosition = 0;
-				if (roomsSpinner != null)
-					{ roomsSpinner.setSelection(this.roomSpinnerPosition); }
+				roomsSpinner.setSelection(this.roomSpinnerPosition);
 			}
 			roomsSpinner.setOnItemSelectedListener(this);
 		} else {
@@ -238,63 +262,89 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //			SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.noDevicesInfo);
 //		}
 //	}
-//
-//	public void printDeviceSettings (final DeviceContent device, final Context context,
-//			final TableLayout tableLayout,final ProxyWebServices proxyWebServices){
-//
-//		int index = 0;
-//		boolean isSwitch = false, isIswitch = false, isButton = false;
-//		List<HardwarePinStatusContent> sensorsList = new ArrayList<HardwarePinStatusContent>();
-//
-//		for(final HardwarePinStatusContent hw : device.getHardwarePinStatusList()){
-//			isSwitch = false;
-//			isIswitch = false;
-//			isButton = false;
-//			if (hw.getConfiguredAs().equalsIgnoreCase(
-//					DeviceConstants.ActuatorAndSensorProperties.Sensor.toString()))
-//				sensorsList.add(hw);
-//			if (hw.getConfiguredAs().equalsIgnoreCase(
-//					DeviceConstants.ActuatorAndSensorProperties.Button.toString()))
-//				isButton = true;
-//			if (hw.getConfiguredAs().equalsIgnoreCase(
-//					DeviceConstants.ActuatorAndSensorProperties.Switch.toString()))
-//				isSwitch = true;
-//
-//			if (hw.getConfiguredAs().equalsIgnoreCase(
-//					DeviceConstants.ActuatorAndSensorProperties.Iswitch.toString()))
-//				isIswitch = true;
-//
-//			if (isSwitch || isIswitch || isButton){
-//				TableRow tableRow = new TableRow(context);
-//				tableRow.setLayoutParams(new LayoutParams(
-//						LayoutParams.MATCH_PARENT,
-//						LayoutParams.MATCH_PARENT));
-//				TextView textView = new TextView(context);
-//				Button genericButton = new Button(context);
-//
-//				if (isSwitch || isIswitch){
-//					ToggleButton onOff = new ToggleButton(context, null, R.drawable.my_button_blue);
-//					onOff.setId(index++);
-//					onOff.setTextOff("Off");
-//					onOff.setTextOn("On");
-//					onOff.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-//					onOff.setTextColor(Color.WHITE);
-//					onOff.setLayoutParams(new LayoutParams(
-//							100,
-//							LayoutParams.WRAP_CONTENT));
-//					onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
-//					onOff.setBackgroundResource(R.drawable.my_button_blue);
+
+	public void printDeviceSettings (final IoTDevice device, TableLayout mainTableLayout){
+
+		int index = 0;
+		boolean isSwitch = false, isIswitch = false, isButton = false;
+		List<Function> sensorsList = new ArrayList<>();
+
+
+
+		TableRow tableRow = new TableRow(rootView.getContext());
+		tableRow.setLayoutParams(new TableRow.LayoutParams(
+				TableRow.LayoutParams.MATCH_PARENT,
+				TableRow.LayoutParams.MATCH_PARENT));
+		mainTableLayout.addView(tableRow);
+
+		TextView textView = new TextView(rootView.getContext());
+		textView.setId(index++);
+//		textView.setText(device.getDescription());
+//		tableRow.addView(textView);
+
+		for(final Function function : device.getFunctions()){
+			isSwitch = false;
+			isIswitch = false;
+			isButton = false;
+			if (function.getConfiguredAs().equalsIgnoreCase(
+					Constants.ActuatorAndSensorProperties.Sensor.toString()))
+				sensorsList.add(function);
+			if (function.getConfiguredAs().equalsIgnoreCase(
+					Constants.ActuatorAndSensorProperties.Button.toString()))
+				isButton = true;
+			if (function.getConfiguredAs().equalsIgnoreCase(
+					Constants.ActuatorAndSensorProperties.Switch.toString()))
+				isSwitch = true;
+
+			if (function.getConfiguredAs().equalsIgnoreCase(
+					Constants.ActuatorAndSensorProperties.Iswitch.toString()))
+				isIswitch = true;
+
+
+
+			if (isSwitch || isIswitch || isButton){
+
+
+				Button genericButton = new Button(rootView.getContext());
+
+				if (isSwitch || isIswitch){
+					ToggleButton onOff = new ToggleButton(rootView.getContext(), null, R.drawable.my_button_blue);
+					onOff.setId(index++);
+					onOff.setTextOff("Off");
+					onOff.setTextOn("On");
+					onOff.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+					onOff.setTextColor(Color.WHITE);
+					onOff.setLayoutParams(new TableRow.LayoutParams(
+							100,
+							TableRow.LayoutParams.WRAP_CONTENT));
+					onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
+					onOff.setBackgroundResource(R.drawable.my_button_blue);
+
+					onOff.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
+								RetrieveDevice rc = new RetrieveDevice(device.getIp() + device.getType());
+								rc.execute(function.getWs());
+							} else {
+								HardwareUtilities.enableInternetConnectionAlertDialog(
+										rootView.getContext(), true, false);
+							}
+						}
+					});
+
+
 //					onOff.setOnClickListener(new View.OnClickListener() {
 //						@Override
 //						public void onClick(View v) {
 //							ToggleButton onOff = (ToggleButton) v;
-//							if (HardwareUtilities.isWiFiConnected(context)){
-//								String command = hw.getActuationCommand();
+//							if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+//								String command = function.getActuationCommand();
 //								try{
-//									Boolean newIsOn = ActivityCommons.actuateToggleButton(context, device, hw, command, false, proxyWebServices);
-//									onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
+//									Boolean newIsOn = ActivityCommons.actuateToggleButton(rootView.getContext(), device, function, command, false, proxyWebServices);
+//									onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
 //									if (newIsOn != null) onOff.setChecked(newIsOn);
-//									else onOff.setChecked(Integer.parseInt(hw.getStatus()) != 0);
+//									else onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
 //								} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
 //									SoftwareUtilities.MyErrorDialogFactory(
 //										rootView.getContext(),
@@ -302,28 +352,43 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //							}
 //							} else {
 //								HardwareUtilities.enableInternetConnectionAlertDialog(
-//										context, true, false);
+//										rootView.getContext(), true, false);
 //							}
 //						}
 //					});
-//					genericButton = onOff;
-//				} else if (isButton){
-//					Button button = new Button(context, null, R.drawable.my_button_blue);
-//					button.setId(index++);
-//					button.setLayoutParams(new LayoutParams(
-//							100,
-//							LayoutParams.WRAP_CONTENT));
-//					button.setText(R.string.runButton);
-//					button.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-//					button.setTextColor(Color.WHITE);
-//					button.setBackgroundResource(R.drawable.my_button_blue);
+					genericButton = onOff;
+				} else if (isButton){
+					Button button = new Button(rootView.getContext(), null, R.drawable.my_button_blue);
+					button.setId(index++);
+					button.setLayoutParams(new TableRow.LayoutParams(
+							100,
+							TableRow.LayoutParams.WRAP_CONTENT));
+					button.setText(R.string.runButton);
+					button.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+					button.setTextColor(Color.WHITE);
+					button.setBackgroundResource(R.drawable.my_button_blue);
+
+					button.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
+								RetrieveDevice rc = new RetrieveDevice(device.getIp()+device.getType());
+								rc.execute(device);
+							} else {
+								HardwareUtilities.enableInternetConnectionAlertDialog(
+										rootView.getContext(), true, false);
+							}
+						}
+					});
+
+
 //					button.setOnClickListener(new View.OnClickListener() {
 //						@Override
 //						public void onClick(View v) {
-//							if (HardwareUtilities.isWiFiConnected(context)){
-//								String command = hw.getActuationCommand();
+//							if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+//								String command = function.getActuationCommand();
 //								try {
-//									ActivityCommons.actuateButton(context, device, hw, command, proxyWebServices);
+//									ActivityCommons.actuateButton(rootView.getContext(), device, function, command, proxyWebServices);
 //								} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
 //									SoftwareUtilities.MyErrorDialogFactory(
 //											rootView.getContext(),
@@ -331,66 +396,71 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //								}
 //							} else {
 //								HardwareUtilities.enableInternetConnectionAlertDialog(
-//									context, true, false);
+//										rootView.getContext(), true, false);
 //								}
 //						}
 //					});
-//					genericButton = button;
-//				}
-//
-//
-//				SpannableString spanString = new SpannableString(hw.getType());
-//				spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
-//				textView.setId(index++);
-//				textView.setText(hw.getType().replace("_", " ") + "  ");
-//				textView.setTextSize(18);
-//				textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-//				textView.setLayoutParams(new LayoutParams(
-//						LayoutParams.MATCH_PARENT,
-//						LayoutParams.MATCH_PARENT));
-//				tableRow.addView(textView);
-//				tableRow.addView(genericButton);
-//				tableLayout.addView(tableRow);
-//			}
-//		}
-//
-//
-//		for (HardwarePinStatusContent hw : sensorsList){
-//			TableRow tableRow = new TableRow(context);
-//			tableRow.setLayoutParams(new LayoutParams(
-//					LayoutParams.MATCH_PARENT,
-//					LayoutParams.MATCH_PARENT));
-//			TextView textView;
-//			SpannableString spanString = new SpannableString(hw.getType());
-//			spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
-//
-//			textView = new TextView(context);
-//			textView.setId(index++);
-//			textView.setText(hw.getType() + ": ");
-//			textView.setTextSize(18);
-//			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-//			textView.setLayoutParams(new LayoutParams(
-//					LayoutParams.MATCH_PARENT,
-//					LayoutParams.MATCH_PARENT));
-//			tableRow.addView(textView);
-//
-//			textView = new TextView(context);
-//			textView.setId(index++);
-//			textView.setText(hw.getStatus());
-//			textView.setTextSize(18);
-//			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-//			textView.setLayoutParams(new LayoutParams(
-//					LayoutParams.MATCH_PARENT,
-//					LayoutParams.MATCH_PARENT));
-//			tableRow.addView(textView);
-//			tableLayout.addView(tableRow);
-//		}
-//	}
+					genericButton = button;
+				}
+
+
+				SpannableString spanString = new SpannableString(function.getType());
+				spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+				TextView textView2 = new TextView(rootView.getContext());
+				textView2.setId(index++);
+				textView2.setText(function.getType().replace("_", " ") + "  ");
+				textView2.setTextSize(18);
+				textView2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+				textView2.setLayoutParams(new TableRow.LayoutParams(
+						TableRow.LayoutParams.MATCH_PARENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+
+				TableRow tableRow2 = new TableRow(rootView.getContext());
+				tableRow2.setLayoutParams(new TableRow.LayoutParams(
+						TableRow.LayoutParams.MATCH_PARENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+				tableRow2.addView(textView2);
+				tableRow2.addView(genericButton);
+				mainTableLayout.addView(tableRow2);
+			}
+		}
+
+
+		for (Function hw : sensorsList){
+			SpannableString spanString = new SpannableString(hw.getType());
+			spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+
+			textView = new TextView(rootView.getContext());
+			textView.setId(index++);
+			textView.setText(hw.getType() + ": ");
+			textView.setTextSize(18);
+			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+			textView.setLayoutParams(new TableRow.LayoutParams(
+					TableRow.LayoutParams.MATCH_PARENT,
+					TableRow.LayoutParams.MATCH_PARENT));
+			TableRow tableRow3 = new TableRow(rootView.getContext());
+			tableRow3.setLayoutParams(new TableRow.LayoutParams(
+					TableRow.LayoutParams.MATCH_PARENT,
+					TableRow.LayoutParams.MATCH_PARENT));
+			tableRow3.addView(textView);
+
+			textView = new TextView(rootView.getContext());
+			textView.setId(index++);
+			textView.setText(hw.getStatus());
+			textView.setTextSize(18);
+			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+			textView.setLayoutParams(new TableRow.LayoutParams(
+					TableRow.LayoutParams.MATCH_PARENT,
+					TableRow.LayoutParams.MATCH_PARENT));
+			tableRow3.addView(textView);
+			mainTableLayout.addView(tableRow3);
+		}
+	}
 
 
 	private class RetrieveHome extends AsyncTask<String, Void, HomeStructure>{
 		ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.homeActivity_progressBar);
-		TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.tableLayout);
+		TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.home_fragments_devicesTableLayout);
 		Spinner roomsSpinner = (Spinner) rootView.findViewById(R.id.spinnerRooms);
 		ArrayAdapter<CharSequence> adapter;
 		private String errors = "";
@@ -398,6 +468,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 		@Override
         protected void onPreExecute() {
 			this.tableLayout.removeAllViews();
+			deviceTableRows.clear();
 			this.progress.setVisibility(View.VISIBLE);
         }
 
@@ -407,7 +478,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 			HomeStructure homeStructure = null;
 			try {
 				String response;
-				HashMap<String, String> httpHeaders = new HashMap<String, String>();
+				HashMap<String, String> httpHeaders = new HashMap<>();
 				httpHeaders.put("Content-Type", "application/json");
 				response = HttpConnection.sendGet(params[0], httpHeaders);
 				homeStructure = new Gson().fromJson(response, HomeStructure.class);
@@ -427,13 +498,8 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 				homeText.setText(rootView.getContext().getResources().getString(R.string.unknownHome));
 				this.roomsSpinner.setAdapter(adapter);
 
-
-//				SoftwareUtilities.MyErrorDialogFactory(
-//						rootView.getContext(),
-//						rootView.getContext().getResources().getString(R.string.startingInfoErr)
-//						+ this.errors);
-
 				tableLayout.removeAllViews();
+				deviceTableRows.clear();
 
 				TableRow tableRow = new TableRow(rootView.getContext());
 				tableLayout.addView(tableRow);
@@ -455,59 +521,104 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 
 	}
 
+	private class RetrieveDevice extends AsyncTask<Object, Void, IoTDevice> {
+		private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.homeActivity_progressBar);
+		private String errors = "";
+		private DeviceProtocol deviceProtocol;
+		private String deviceID = "";
+
+		public RetrieveDevice(String deviceID){
+			this.deviceID = deviceID;
+		}
 
 
-//	private class RetriveDevice extends AsyncTask<String, Void, Response<DeviceContent> >{
-//		ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.homeActivity_progressBar);
-//		TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.tableLayout);
-////		Spinner deviceSpinner = (Spinner)findViewById(R.id.spinnerDevices);
-////		ArrayAdapter<CharSequence> adapter;
-//
-//		Context context;
-//
-//		public RetriveDevice (Context context){
-//			this.context = context;
-////			this.adapter =
-////					new ArrayAdapter<CharSequence>(this.context, android.R.layout.simple_spinner_item);
-//
-//		}
-//
-//		@Override
-//        protected void onPreExecute() {
-//			tableLayout.removeAllViews();
-//			progress.setVisibility(View.VISIBLE);
-//        }
-//
-//		@SuppressWarnings("unchecked")
-//		@Override
-//		protected Response<DeviceContent> doInBackground(String... params) {
-//			Response<DeviceContent> device;
-//			try {
-//				ProxyWebServices shws = new ProxyWebServices(context, true);
-//				device = (Response<DeviceContent>)shws.getDevice(params[0], new TaskOn<Response<DeviceContent>>() {
-//					@Override
-//					public Object doTask(Response<DeviceContent> parameter) {
-//						return parameter;
-//					}
-//				});
-//			} catch (Exception e) {
-//				device = Response.createErrorResponse(e);
-//			}
-//			return device;
-//		}
-//
-//		@Override
-//        protected void onPostExecute(Response<DeviceContent> results) {
-//			tableLayout.removeAllViews();
-//			if(!results.isOk()){
-////				this.deviceSpinner.setAdapter(adapter);
-//				SoftwareUtilities.MyErrorDialogFactory(context, results.getErrorMessage());
-//			} else {
-//				printDeviceSettings(results.getContent(), context, tableLayout, new ProxyWebServices(context, true));
-//			}
-//			progress.setVisibility(View.INVISIBLE);
-//        }
-//
-//	}
+		@Override
+		protected void onPreExecute() {
+			progress.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected IoTDevice doInBackground(Object... params) {
+			IoTDevice device = null;
+			try {
+
+				String response;
+				HashMap<String, String> httpHeaders = new HashMap<>();
+				httpHeaders.put("Content-Type", "application/json");
+
+				if (params[0] instanceof DeviceProtocol){
+					this.deviceProtocol = (DeviceProtocol)params[0];
+					//TODO manage also other protocols
+					if (this.deviceProtocol.getWs().equalsIgnoreCase(Constants.ProtocoloWS.rest.toString())){
+						if (this.deviceProtocol.getType().equalsIgnoreCase(Constants.ProtocolType.GET.toString())){
+							response = HttpConnection.sendGet(this.deviceProtocol.getUri(), httpHeaders);
+							device = new Gson().fromJson(response, IoTDevice.class);
+						}
+					} 
+
+				} else if (params[0] instanceof String){
+
+					response = HttpConnection.sendGet((String)params[0], httpHeaders);
+					device = new Gson().fromJson(response, IoTDevice.class);
+				}
+
+
+
+
+			} catch (Exception e) {
+				this.errors += ErrorUtilities.getExceptionMessage(e);
+			}
+
+			return device;
+		}
+
+		@Override
+		protected void onPostExecute(IoTDevice results) {
+			TableRow tableRow;
+			TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.home_fragments_devicesTableLayout);
+
+			if (deviceTableRows.containsKey(this.deviceID)){
+				tableRow = deviceTableRows.get(this.deviceID);
+				tableRow.removeAllViews();
+//				tableLayout.removeView(tableRow);
+			} else {
+
+				tableRow = new TableRow(rootView.getContext());
+				tableRow.setLayoutParams(new TableRow.LayoutParams(
+						TableRow.LayoutParams.MATCH_PARENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+				tableLayout.addView(tableRow);
+				deviceTableRows.put(this.deviceID, tableRow);
+
+			}
+
+			if (results == null) {
+				try {
+//					SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), this.errors);
+
+
+					TextView textView = new TextView(rootView.getContext());
+					textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+							TableRow.LayoutParams.MATCH_PARENT));
+					textView.setTextAppearance(rootView.getContext(), android.R.style.TextAppearance_Medium);
+					textView.setText(rootView.getContext().getString(R.string.error) + ": " + this.errors);
+					textView.setSingleLine(false);
+					textView.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+					tableRow.addView(textView);
+
+				} catch (Exception e) {
+					Log.e("Error", e.getMessage());
+				}
+			} else {
+				TableLayout deviceTableLayout = new TableLayout(rootView.getContext());
+				deviceTableLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+				tableRow.addView(deviceTableLayout);
+				printDeviceSettings(results, deviceTableLayout);
+			}
+			progress.setVisibility(View.INVISIBLE);
+
+		}
+	}
 
 }
