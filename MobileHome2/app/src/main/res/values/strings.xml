@@ -52,6 +52,9 @@
     <string name="ruleTextView">List of rules: </string>
     <string name="devicesTextView">Devices: </string>
     <string name="runButton">Run</string>
+    <string name="webcamTextView">Webcam</string>
+    <string name="streemWebcamTextView">To stream the video, slide to Surveillance and select the device with id: %1$s</string>
+
 
     <!-- About Computer Fragment -->
     <string name="computerConfigureButton">Config</string>

@@ -263,12 +263,11 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //		}
 //	}
 
-	public void printDeviceSettings (final IoTDevice device, TableLayout mainTableLayout){
+	public void printDeviceSettings (final IoTDevice device, TableLayout mainTableLayout) {
 
 		int index = 0;
 		boolean isSwitch = false, isIswitch = false, isButton = false;
 		List<Function> sensorsList = new ArrayList<>();
-
 
 
 		TableRow tableRow = new TableRow(rootView.getContext());
@@ -282,178 +281,174 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 //		textView.setText(device.getDescription());
 //		tableRow.addView(textView);
 
-		for(final Function function : device.getFunctions()){
-			isSwitch = false;
-			isIswitch = false;
-			isButton = false;
-			if (function.getConfiguredAs().equalsIgnoreCase(
-					Constants.ActuatorAndSensorProperties.Sensor.toString()))
-				sensorsList.add(function);
-			if (function.getConfiguredAs().equalsIgnoreCase(
-					Constants.ActuatorAndSensorProperties.Button.toString()))
-				isButton = true;
-			if (function.getConfiguredAs().equalsIgnoreCase(
-					Constants.ActuatorAndSensorProperties.Switch.toString()))
-				isSwitch = true;
+		if (device.getType().equalsIgnoreCase(Constants.ProtocoloWS.vlc.toString())) {
+			textView = new TextView(rootView.getContext());
+			textView.setId(index++);
+			textView.setText(rootView.getContext().getString(R.string.webcamTextView));
+			textView.setTextSize(18);
+			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+			textView.setLayoutParams(new TableRow.LayoutParams(
+					TableRow.LayoutParams.MATCH_PARENT,
+					TableRow.LayoutParams.MATCH_PARENT));
+			TableRow tableRow2 = new TableRow(rootView.getContext());
+			tableRow2.setLayoutParams(new TableRow.LayoutParams(
+					TableRow.LayoutParams.MATCH_PARENT,
+					TableRow.LayoutParams.MATCH_PARENT));
+			tableRow2.addView(textView);
 
-			if (function.getConfiguredAs().equalsIgnoreCase(
-					Constants.ActuatorAndSensorProperties.Iswitch.toString()))
-				isIswitch = true;
+			Button button = new Button(rootView.getContext(), null, R.drawable.my_button_blue);
+			button.setId(index++);
+			button.setLayoutParams(new TableRow.LayoutParams(
+					100,
+					TableRow.LayoutParams.WRAP_CONTENT));
+			button.setText(R.string.runButton);
+			button.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+			button.setTextColor(Color.WHITE);
+			button.setBackgroundResource(R.drawable.my_button_blue);
 
-
-
-			if (isSwitch || isIswitch || isButton){
-
-
-				Button genericButton = new Button(rootView.getContext());
-
-				if (isSwitch || isIswitch){
-					ToggleButton onOff = new ToggleButton(rootView.getContext(), null, R.drawable.my_button_blue);
-					onOff.setId(index++);
-					onOff.setTextOff("Off");
-					onOff.setTextOn("On");
-					onOff.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-					onOff.setTextColor(Color.WHITE);
-					onOff.setLayoutParams(new TableRow.LayoutParams(
-							100,
-							TableRow.LayoutParams.WRAP_CONTENT));
-					onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
-					onOff.setBackgroundResource(R.drawable.my_button_blue);
-
-					onOff.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
-								RetrieveDevice rc = new RetrieveDevice(device.getIp() + device.getType());
-								rc.execute(function.getWs());
-							} else {
-								HardwareUtilities.enableInternetConnectionAlertDialog(
-										rootView.getContext(), true, false);
-							}
-						}
-					});
-
-
-//					onOff.setOnClickListener(new View.OnClickListener() {
-//						@Override
-//						public void onClick(View v) {
-//							ToggleButton onOff = (ToggleButton) v;
-//							if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
-//								String command = function.getActuationCommand();
-//								try{
-//									Boolean newIsOn = ActivityCommons.actuateToggleButton(rootView.getContext(), device, function, command, false, proxyWebServices);
-//									onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
-//									if (newIsOn != null) onOff.setChecked(newIsOn);
-//									else onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
-//								} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
-//									SoftwareUtilities.MyErrorDialogFactory(
-//										rootView.getContext(),
-//										ErrorUtilities.getExceptionMessage(e));
-//							}
-//							} else {
-//								HardwareUtilities.enableInternetConnectionAlertDialog(
-//										rootView.getContext(), true, false);
-//							}
-//						}
-//					});
-					genericButton = onOff;
-				} else if (isButton){
-					Button button = new Button(rootView.getContext(), null, R.drawable.my_button_blue);
-					button.setId(index++);
-					button.setLayoutParams(new TableRow.LayoutParams(
-							100,
-							TableRow.LayoutParams.WRAP_CONTENT));
-					button.setText(R.string.runButton);
-					button.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-					button.setTextColor(Color.WHITE);
-					button.setBackgroundResource(R.drawable.my_button_blue);
-
-					button.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
-								RetrieveDevice rc = new RetrieveDevice(device.getIp()+device.getType());
-								rc.execute(device);
-							} else {
-								HardwareUtilities.enableInternetConnectionAlertDialog(
-										rootView.getContext(), true, false);
-							}
-						}
-					});
-
-
-//					button.setOnClickListener(new View.OnClickListener() {
-//						@Override
-//						public void onClick(View v) {
-//							if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
-//								String command = function.getActuationCommand();
-//								try {
-//									ActivityCommons.actuateButton(rootView.getContext(), device, function, command, proxyWebServices);
-//								} catch (it.eduman.smartHome.deprecated.security.SecurityException e) {
-//									SoftwareUtilities.MyErrorDialogFactory(
-//											rootView.getContext(),
-//											ErrorUtilities.getExceptionMessage(e));
-//								}
-//							} else {
-//								HardwareUtilities.enableInternetConnectionAlertDialog(
-//										rootView.getContext(), true, false);
-//								}
-//						}
-//					});
-					genericButton = button;
+			button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SoftwareUtilities.MyInfoDialogFactory(
+							rootView.getContext(),
+							String.format(rootView.getContext().getString(R.string.streemWebcamTextView), device.getIp()));
 				}
+			});
+			tableRow2.addView(button);
+			mainTableLayout.addView(tableRow2);
+
+		} else {
+
+			for (final Function function : device.getFunctions()) {
+				isSwitch = false;
+				isIswitch = false;
+				isButton = false;
+				if (function.getConfiguredAs().equalsIgnoreCase(
+						Constants.ActuatorAndSensorProperties.Sensor.toString()))
+					sensorsList.add(function);
+				if (function.getConfiguredAs().equalsIgnoreCase(
+						Constants.ActuatorAndSensorProperties.Button.toString()))
+					isButton = true;
+				if (function.getConfiguredAs().equalsIgnoreCase(
+						Constants.ActuatorAndSensorProperties.Switch.toString()))
+					isSwitch = true;
+
+				if (function.getConfiguredAs().equalsIgnoreCase(
+						Constants.ActuatorAndSensorProperties.Iswitch.toString()))
+					isIswitch = true;
 
 
-				SpannableString spanString = new SpannableString(function.getType());
-				spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
-				TextView textView2 = new TextView(rootView.getContext());
-				textView2.setId(index++);
-				textView2.setText(function.getType().replace("_", " ") + "  ");
-				textView2.setTextSize(18);
-				textView2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-				textView2.setLayoutParams(new TableRow.LayoutParams(
-						TableRow.LayoutParams.MATCH_PARENT,
-						TableRow.LayoutParams.MATCH_PARENT));
+				if (isSwitch || isIswitch || isButton) {
 
-				TableRow tableRow2 = new TableRow(rootView.getContext());
-				tableRow2.setLayoutParams(new TableRow.LayoutParams(
-						TableRow.LayoutParams.MATCH_PARENT,
-						TableRow.LayoutParams.MATCH_PARENT));
-				tableRow2.addView(textView2);
-				tableRow2.addView(genericButton);
-				mainTableLayout.addView(tableRow2);
+
+					Button genericButton = new Button(rootView.getContext());
+
+					if (isSwitch || isIswitch) {
+						ToggleButton onOff = new ToggleButton(rootView.getContext(), null, R.drawable.my_button_blue);
+						onOff.setId(index++);
+						onOff.setTextOff("Off");
+						onOff.setTextOn("On");
+						onOff.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+						onOff.setTextColor(Color.WHITE);
+						onOff.setLayoutParams(new TableRow.LayoutParams(
+								100,
+								TableRow.LayoutParams.WRAP_CONTENT));
+						onOff.setChecked(Integer.parseInt(function.getStatus()) != 0);
+						onOff.setBackgroundResource(R.drawable.my_button_blue);
+
+						onOff.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
+									RetrieveDevice rc = new RetrieveDevice(device.getIp() + device.getType());
+									rc.execute(function.getWs());
+								} else {
+									HardwareUtilities.enableInternetConnectionAlertDialog(
+											rootView.getContext(), true, false);
+								}
+							}
+						});
+
+						genericButton = onOff;
+					} else if (isButton) {
+						Button button = new Button(rootView.getContext(), null, R.drawable.my_button_blue);
+						button.setId(index++);
+						button.setLayoutParams(new TableRow.LayoutParams(
+								100,
+								TableRow.LayoutParams.WRAP_CONTENT));
+						button.setText(R.string.runButton);
+						button.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+						button.setTextColor(Color.WHITE);
+						button.setBackgroundResource(R.drawable.my_button_blue);
+
+						button.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
+									RetrieveDevice rc = new RetrieveDevice(device.getIp() + device.getType());
+									rc.execute(device);
+								} else {
+									HardwareUtilities.enableInternetConnectionAlertDialog(
+											rootView.getContext(), true, false);
+								}
+							}
+						});
+
+						genericButton = button;
+					}
+
+
+					SpannableString spanString = new SpannableString(function.getType());
+					spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+					TextView textView2 = new TextView(rootView.getContext());
+					textView2.setId(index++);
+					textView2.setText(function.getType().replace("_", " ") + "  ");
+					textView2.setTextSize(18);
+					textView2.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+					textView2.setLayoutParams(new TableRow.LayoutParams(
+							TableRow.LayoutParams.MATCH_PARENT,
+							TableRow.LayoutParams.MATCH_PARENT));
+
+					TableRow tableRow2 = new TableRow(rootView.getContext());
+					tableRow2.setLayoutParams(new TableRow.LayoutParams(
+							TableRow.LayoutParams.MATCH_PARENT,
+							TableRow.LayoutParams.MATCH_PARENT));
+					tableRow2.addView(textView2);
+					tableRow2.addView(genericButton);
+					mainTableLayout.addView(tableRow2);
+				}
 			}
-		}
 
 
-		for (Function hw : sensorsList){
-			SpannableString spanString = new SpannableString(hw.getType());
-			spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+			for (Function hw : sensorsList) {
+				SpannableString spanString = new SpannableString(hw.getType());
+				spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
 
-			textView = new TextView(rootView.getContext());
-			textView.setId(index++);
-			textView.setText(hw.getType() + ": ");
-			textView.setTextSize(18);
-			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-			textView.setLayoutParams(new TableRow.LayoutParams(
-					TableRow.LayoutParams.MATCH_PARENT,
-					TableRow.LayoutParams.MATCH_PARENT));
-			TableRow tableRow3 = new TableRow(rootView.getContext());
-			tableRow3.setLayoutParams(new TableRow.LayoutParams(
-					TableRow.LayoutParams.MATCH_PARENT,
-					TableRow.LayoutParams.MATCH_PARENT));
-			tableRow3.addView(textView);
+				textView = new TextView(rootView.getContext());
+				textView.setId(index++);
+				textView.setText(hw.getType() + ": ");
+				textView.setTextSize(18);
+				textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+				textView.setLayoutParams(new TableRow.LayoutParams(
+						TableRow.LayoutParams.MATCH_PARENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+				TableRow tableRow3 = new TableRow(rootView.getContext());
+				tableRow3.setLayoutParams(new TableRow.LayoutParams(
+						TableRow.LayoutParams.MATCH_PARENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+				tableRow3.addView(textView);
 
-			textView = new TextView(rootView.getContext());
-			textView.setId(index++);
-			textView.setText(hw.getStatus());
-			textView.setTextSize(18);
-			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-			textView.setLayoutParams(new TableRow.LayoutParams(
-					TableRow.LayoutParams.MATCH_PARENT,
-					TableRow.LayoutParams.MATCH_PARENT));
-			tableRow3.addView(textView);
-			mainTableLayout.addView(tableRow3);
+				textView = new TextView(rootView.getContext());
+				textView.setId(index++);
+				textView.setText(hw.getStatus());
+				textView.setTextSize(18);
+				textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+				textView.setLayoutParams(new TableRow.LayoutParams(
+						TableRow.LayoutParams.MATCH_PARENT,
+						TableRow.LayoutParams.MATCH_PARENT));
+				tableRow3.addView(textView);
+				mainTableLayout.addView(tableRow3);
+			}
 		}
 	}
 
@@ -554,16 +549,17 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 							response = HttpConnection.sendGet(this.deviceProtocol.getUri(), httpHeaders);
 							device = new Gson().fromJson(response, IoTDevice.class);
 						}
-					} 
+					} else if (this.deviceProtocol.getWs().equalsIgnoreCase(Constants.ProtocoloWS.vlc.toString())) {
+						device = new IoTDevice();
+						device.setType(Constants.ProtocoloWS.vlc.toString());
+						device.setIp(this.deviceID.replace(Constants.DeviceType.vlc.toString(), ""));
+					}
 
 				} else if (params[0] instanceof String){
 
 					response = HttpConnection.sendGet((String)params[0], httpHeaders);
 					device = new Gson().fromJson(response, IoTDevice.class);
 				}
-
-
-
 
 			} catch (Exception e) {
 				this.errors += ErrorUtilities.getExceptionMessage(e);
@@ -594,9 +590,6 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 
 			if (results == null) {
 				try {
-//					SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), this.errors);
-
-
 					TextView textView = new TextView(rootView.getContext());
 					textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
 							TableRow.LayoutParams.MATCH_PARENT));

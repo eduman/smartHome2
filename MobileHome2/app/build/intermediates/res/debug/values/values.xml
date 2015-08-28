@@ -134,6 +134,7 @@
     <string name="send_email_subject">user feedback</string>
     <string name="setHomeInfo">Please set the Home Service Provider from \"Settings Window\" and try again</string>
     <string name="startingInfoErr">Error while getting initial information:\n</string>
+    <string name="streemWebcamTextView">To stream the video, slide to Surveillance and select the device with id: %1$s</string>
     <string name="title_activity_computer">My Computer</string>
     <string name="title_activity_computer_settings">Computer Settings</string>
     <string name="title_computer">Computer</string>
@@ -158,6 +159,7 @@
     <string name="weatherTemperatureText">%1$s°C</string>
     <string name="weatherTemperatureTextMaxMin">Max: %1$s°C  Min: %2$s°C</string>
     <string name="webPageError">Unable to load the required web page</string>
+    <string name="webcamTextView">Webcam</string>
     <!-- From: file:/Users/edo/Documents/Git/smartHome2/MobileHome2/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">

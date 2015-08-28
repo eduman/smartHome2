@@ -1,17 +1,18 @@
 package it.eduman.smartHome.IoTDevice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IoTDevice {
-    public boolean configured;
-    public String ip;
-    public String subnet;
-    public String gateway;
-    public String port;
-    public String description;
-    public String type;
-    public boolean isError;
-    public List<Function> functions;
+    public boolean configured = false;
+    public String ip = "";
+    public String subnet = "";
+    public String gateway = "";
+    public String port = "";
+    public String description = "";
+    public String type = "";
+    public boolean isError = false;
+    public List<Function> functions = new ArrayList<>();
 
     public boolean isConfigured() {
         return configured;
