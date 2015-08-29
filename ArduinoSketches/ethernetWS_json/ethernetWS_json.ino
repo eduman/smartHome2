@@ -55,6 +55,7 @@ EthernetServer server(8082);
 IPAddress remoteServer(192,168,3,254); 
 
 char descriptionStr [] = "Arduino device";
+char typeStr [] = "arduino";
 
 const unsigned int buttonDelay = 600;
 const unsigned int motionDelay = 100;
@@ -268,6 +269,11 @@ void getPinConfiguration(EthernetClient *client, boolean isError){
   //Printing the description
   (*client).print("\"description\":\"");
   (*client).print(descriptionStr);
+  (*client).print("\",");
+
+  //Printing the type
+  (*client).print("\"type\":\"");
+  (*client).print(typeStr);
   (*client).print("\",");
   
   //(*client).print("\"isError\":" + String (isError) + ",");
