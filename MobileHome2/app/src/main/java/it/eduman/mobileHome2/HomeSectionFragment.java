@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import it.eduman.android.commons.utilities.ActionTask;
 import it.eduman.android.commons.utilities.ErrorUtilities;
 import it.eduman.android.commons.utilities.HardwareUtilities;
 import it.eduman.android.commons.utilities.HttpConnection;
@@ -77,9 +78,35 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 		homeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((MainActivity)getActivity()).nextPage(MobileHomeConstants.MAIN_FRAGMENT_POSITION);
+				((MainActivity) getActivity()).nextPage(MobileHomeConstants.MAIN_FRAGMENT_POSITION);
 			}
 		});
+
+		Button turnoffButton = (Button)rootView.findViewById(R.id.home_fragment_switchoff_button);
+		turnoffButton.setVisibility(View.VISIBLE);
+		turnoffButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(), R.string.turn_off_message, true, new ActionTask() {
+					@Override
+					public void onPositiveResponse() {
+						//TODO send MQTT message
+						SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(), "TODO");
+					}
+
+					@Override
+					public void onNegativeResponse() {
+
+					}
+
+					@Override
+					public void onNeutralResponse() {
+
+					}
+				});
+			}
+		});
+
 
 		return rootView;
 	}

@@ -11,8 +11,10 @@ import os, sys
 lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
 
-from myMqtt import MQTTPayload 
-from myMqtt.MQTTClient import MyMQTTClass
+#from myMqtt import MQTTPayload 
+#from myMqtt.MQTTClient import MyMQTTClass
+from commons.myMqtt import MQTTPayload 
+from commons.myMqtt.MQTTClient import MyMQTTClass
 
 
 DEFAULT_BROKER_URI = "localhost"

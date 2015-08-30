@@ -25,9 +25,11 @@ done
 
 #run the publishers
 cd ..
-cd './publisher'
-echo "running mainPublisher.py..."
-screen -d -m python mainPublisher.py; 
+#cd './publisher'
+#echo "running mainPublisher.py..."
+#screen -d -m python mainPublisher.py;
+echo "running myWebServices.py..."
+screen -d -m python myWebServices.py; 
 
 
 #run the control strategies

@@ -145,6 +145,8 @@
     <string name="title_user">User</string>
     <string name="title_videosurveillance">Surveillance</string>
     <string name="title_weather">Weather</string>
+    <string name="turn_off_button">Turn off</string>
+    <string name="turn_off_message">This will turn off all the devices. Do you want to proceed?</string>
     <string name="unknownHome">Unknown Home (ID: Unknown Home Service Provider)</string>
     <string name="unknownUrl">The selected url is not valid</string>
     <string name="urlIsNull">Please insert a valid URL</string>

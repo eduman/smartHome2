@@ -6,7 +6,8 @@ import os, sys
 lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
 
-from myMqtt import EventTopics
+#from myMqtt import EventTopics
+from commons.myMqtt import EventTopics
 from AbstractPublisher import AbstractPublisher 
 
 

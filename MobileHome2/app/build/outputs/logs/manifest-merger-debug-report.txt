@@ -17,6 +17,7 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:2:11
 uses-sdk
 ADDED from AndroidManifest.xml:8:5
+MERGED from de.mrmaffen:vlc-android-sdk:1.0.6:8:5
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:10:9
 		INJECTED from AndroidManifest.xml:0:0
