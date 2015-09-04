@@ -126,7 +126,7 @@
     <eat-comment/>
     <string name="resetButtonStr">Reset </string>
     <string name="roomsTextView">Rooms: </string>
-    <string name="ruleSettingsSent">New rule settings has been sent. %1$s</string>
+    <string name="ruleSettingsSent">New rule settings has been sent.</string>
     <string name="ruleTextView">List of rules: </string>
     <string name="runButton">Run</string>
     <string name="saveButtonStr"> Save </string>

@@ -50,44 +50,44 @@ public class ActivityCommons {
 		Debug.setPrintDebugMSG(context);
 	}
 
-	public static String actuateButton (final Context context, final IoTDevice device,
-									   final Function function, final String commandWS) throws HttpConnectionException{
-		return actuateGenerciButton(context, device, function, commandWS, false);
-	}
-
-	public static String actuateToggleButton (final Context context, final IoTDevice device,
-									  final Function function, final String commandWS) throws HttpConnectionException{
-		return actuateGenerciButton(context, device, function, commandWS, true);
-	}
-
-	protected static String actuateGenerciButton (final Context context, final IoTDevice device,
-			final Function function, final String commandWS, final boolean isInvertedSwitch) throws  HttpConnectionException{
-
-		String result = "";
-		try {
-			String response;
-			HashMap<String, String> httpHeaders = new HashMap<String, String>();
-			httpHeaders.put("Content-Type", "application/json");
-			response = HttpConnection.sendGet(commandWS, httpHeaders);
-
-			IoTDevice deviceResponse = new Gson().fromJson(response, IoTDevice.class);
-
-			for (Function newFunc : deviceResponse.getFunctions()){
-				if (newFunc.getPin() == function.getPin()){
-					function.setConfiguredAs(newFunc.getConfiguredAs());
-					function.setRest(newFunc.getRest());
-					function.setStatus(newFunc.getStatus());
-					function.setType(newFunc.getType());
-					function.setUnit(newFunc.getUnit());
-					function.setWs(newFunc.getWs());
-					result = newFunc.getStatus();
-				}
-			}
-		} catch (Exception e){
-			throw new HttpConnectionException(e);
-		}
-
-		return result;
-
-	}
+//	public static String actuateButton (final Context context, final IoTDevice device,
+//									   final Function function, final String commandWS) throws HttpConnectionException{
+//		return actuateGenerciButton(context, device, function, commandWS, false);
+//	}
+//
+//	public static String actuateToggleButton (final Context context, final IoTDevice device,
+//									  final Function function, final String commandWS) throws HttpConnectionException{
+//		return actuateGenerciButton(context, device, function, commandWS, true);
+//	}
+//
+//	protected static String actuateGenerciButton (final Context context, final IoTDevice device,
+//			final Function function, final String commandWS, final boolean isInvertedSwitch) throws  HttpConnectionException{
+//
+//		String result = "";
+//		try {
+//			String response;
+//			HashMap<String, String> httpHeaders = new HashMap<String, String>();
+//			httpHeaders.put("Content-Type", "application/json");
+//			response = HttpConnection.sendGet(commandWS, httpHeaders);
+//
+//			IoTDevice deviceResponse = new Gson().fromJson(response, IoTDevice.class);
+//
+//			for (Function newFunc : deviceResponse.getFunctions()){
+//				if (newFunc.getPin() == function.getPin()){
+//					function.setConfiguredAs(newFunc.getConfiguredAs());
+//					function.setRest(newFunc.getRest());
+//					function.setStatus(newFunc.getStatus());
+//					function.setType(newFunc.getType());
+//					function.setUnit(newFunc.getUnit());
+//					function.setWs(newFunc.getWs());
+//					result = newFunc.getStatus();
+//				}
+//			}
+//		} catch (Exception e){
+//			throw new HttpConnectionException(e);
+//		}
+//
+//		return result;
+//
+//	}
 }

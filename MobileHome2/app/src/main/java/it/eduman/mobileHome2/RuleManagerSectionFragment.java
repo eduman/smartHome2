@@ -73,14 +73,15 @@ public class RuleManagerSectionFragment extends MyFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String homeServiceProvider = sharedPref.getString(
-//                        rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
-//                homeServiceProvider += "/updaterule";
-//                if (home != null && homeServiceProvider != null){
-                if (home != null){
+                String homeServiceProvider = sharedPref.getString(
+                        rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
+                homeServiceProvider += "/updaterule";
+                if (home != null && homeServiceProvider != null){
+//                if (home != null){
                     String json = (new Gson()).toJson(home);
                     SendHome sendHome = new SendHome();
-                    sendHome.execute(home.getRuleUpdater(), json);
+//                    sendHome.execute(home.getRuleUpdater(), json);
+                    sendHome.execute(homeServiceProvider, json);
                     //TODO send MQTT event for updating control strategies
                 }
             }
@@ -257,7 +258,8 @@ public class RuleManagerSectionFragment extends MyFragment {
 
             if (this.errors.equals("")) {
                 SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(),
-                        String.format(rootView.getContext().getResources().getString(R.string.ruleSettingsSent), response));
+                        rootView.getContext().getResources().getString(R.string.ruleSettingsSent));
+
                 saveButton.setVisibility(View.INVISIBLE);
                 saveButton.setEnabled(false);
                 resetButton.setVisibility(View.INVISIBLE);

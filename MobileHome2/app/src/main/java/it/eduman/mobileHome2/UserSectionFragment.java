@@ -28,7 +28,7 @@ import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
 import it.eduman.smartHome.HomeStructure.HomeStructure;
 import it.eduman.smartHome.HomeStructure.Rule;
-import it.eduman.smartHome.UserPresence;
+import it.eduman.smartHome.user.UserPresence;
 
 
 //TODO Manage MQTT events both publish and subscribes only for known users

@@ -10,7 +10,7 @@ public class HomeStructure {
     private String landlord;
     private String buildingID;
     private String userPresenceManager;
-    private String ruleUpdater;
+//    private String ruleUpdater;
     private String thingspeakChannel;
 
     private MessageBroker homeMessageBroker;
@@ -67,14 +67,14 @@ public class HomeStructure {
     public void setUserPresenceManager(String userPresenceManager) {
         this.userPresenceManager = userPresenceManager;
     }
-
-    public String getRuleUpdater() {
-        return ruleUpdater;
-    }
-
-    public void setRuleUpdater(String ruleUpdater) {
-        this.ruleUpdater = ruleUpdater;
-    }
+//
+//    public String getRuleUpdater() {
+//        return ruleUpdater;
+//    }
+//
+//    public void setRuleUpdater(String ruleUpdater) {
+//        this.ruleUpdater = ruleUpdater;
+//    }
 
     public String getThingspeakChannel() {
         return thingspeakChannel;

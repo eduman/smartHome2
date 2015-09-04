@@ -1,4 +1,4 @@
-package it.eduman.smartHome;
+package it.eduman.smartHome.user;
 
 
 public class UserPresence {

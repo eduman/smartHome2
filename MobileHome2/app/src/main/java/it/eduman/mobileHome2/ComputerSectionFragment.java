@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.computer_fragment_activity,
 				container, false);
-
+		
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());
 		
 		try {
@@ -164,6 +165,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 		// TODO Auto-generated method stub
 
 	}
+
 
 	protected void showButtons (final IoTDevice device){
 

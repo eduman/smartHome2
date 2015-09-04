@@ -97,7 +97,7 @@
     <string name="info">Info</string>
     <string name="waitMsg">Please wait.</string>
     <string name="loadingMsg">Loading</string>
-    <string name="ruleSettingsSent">New rule settings has been sent. %1$s</string>
+    <string name="ruleSettingsSent">New rule settings has been sent.</string>
 
     <!-- Error Messages -->
     <string name="error">Error</string>
