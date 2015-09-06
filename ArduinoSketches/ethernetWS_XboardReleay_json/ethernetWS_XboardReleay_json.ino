@@ -146,9 +146,9 @@ void loop(){
       String s= "";
       s.concat (moteid);
       if (motion.boolStatus) {
-      sendData("/ArduinoProxy?moteID=" + s + "&measureType=Motion&measureValue=true");
+      sendData("/rest/arduino/publisher?deviceID" + s + "&measureType=Motion&measureValue=True");
     } else {
-      sendData("/ArduinoProxy?moteID=" + s + "&measureType=Motion&measureValue=false");
+      sendData("/rest/arduino/publisher?deviceID" + s + "&measureType=Motion&measureValue=False");
     }
     }
   }
@@ -164,11 +164,13 @@ void loop(){
     String s = "";
     s.concat (moteid);
     if (motion.boolStatus) {
-      sendData("/ArduinoProxy?moteID=" + s + "&measureType=Motion&measureValue=true");
+      sendData("/rest/arduino/publisher?deviceID" + s + "&measureType=Motion&measureValue=True");
     } else {
-      sendData("/ArduinoProxy?moteID=" + s + "&measureType=Motion&measureValue=false");
+      sendData("/rest/arduino/publisher?deviceID" + s + "&measureType=Motion&measureValue=False");
     }
   }*/
+
+  
   
   EthernetClient client = server.available();
   if (client) {
@@ -221,7 +223,7 @@ void loop(){
 
 void sendData(String url){
   EthernetClient sendClient;
-  if (sendClient.connect(remoteServer, 8082)) {
+  if (sendClient.connect(remoteServer, 8084)) {
     //Serial.println("connected");
     // Make a HTTP request:
     sendClient.println("GET " + url + " HTTP/1.1");

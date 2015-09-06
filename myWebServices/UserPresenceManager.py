@@ -62,6 +62,8 @@ class UserPresenceManager(object):
 						self.userList[userDict['user']] = str(userDict['isPresent']).lower()
 			except Exception, e:
 				pass
+
+		self.logger.info("Started")
 			
 	def stop(self):
 		if hasattr (self, "mqtt"):
@@ -70,6 +72,8 @@ class UserPresenceManager(object):
 				self.mqtt.disconnect()
 			except Exception, e:
 				self.logger.error("Error on stop(): %s" % (e))
+
+		self.logger.info("Ended")
 
 
 	def start (self, cherrypyEngine, brokerUri=DEFAULT_BROKER_URI, brokerPort=DEFAULT_BROKER_PORT):
@@ -93,7 +97,7 @@ class UserPresenceManager(object):
 			self.userList[data['device']] = str(data['value']).lower()
 			self.writeConfiguration(self.toJson())
 		except Exception, e:
-			self.logger.error("Error on ArduinoSubscriber.notifyJsonEvent() %s: " % e)
+			self.logger.error("Error on UserPresenceManager.notifyJsonEvent() %s: " % e)
 
 	def writeConfiguration(self, jsonStr):
 		if not os.path.exists(self.confPath):
@@ -123,16 +127,32 @@ class UserPresenceManager(object):
 		return result
 
 
-	def GET(self, **params):
-		return self.toJson()
+	def GET(self, *ids):
+		result = ""
+		if len(ids) > 0:
+			param_0 = str(ids[0]).lower()
+			if param_0 == "presence":			
+				result += self.toJson()
+			else:
+				self.logger.error("Command not found")
+				raise cherrypy.HTTPError("404 Not found", "command not found")
+
+		else:
+			self.logger.error("Command not found")
+			raise cherrypy.HTTPError("404 Not found", "command not found")
+
+		return result
 		
 
 		
-	def POST(self, **params):
-		raise NotImplementedError('subclasses must override notifyJsonEvent(topic, jsonEventString)!')
+	def POST(self, *ids):
+		self.logger.error('Subclasses must override POST(self, *ids)!')
+		raise NotImplementedError('subclasses must override POST(self, *ids)!')
 		
-	def PUT(self, **params):
-		raise NotImplementedError('subclasses must override notifyJsonEvent(topic, jsonEventString)!')
+	def PUT(self, *ids):
+		self.logger.error('Subclasses must override PUT(self, *ids)!')
+		raise NotImplementedError('subclasses must override PUT(self, *ids)!')
 		
-	def DELETE(self, **params):
-		raise NotImplementedError('subclasses must override notifyJsonEvent(topic, jsonEventString)!')
+	def DELETE(self, *ids):
+		self.logger.error('Subclasses must override DELETE(self, *ids)!')
+		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')

@@ -9,12 +9,16 @@ fi
 cd '/home/pi/smartHome2/'
 
 #run the device connector 
-cd './device_connector'
-echo "running device_connector..."
-screen -d -m ./device-gateway
+#cd './device_connector'
+#echo "running device_connector..."
+#screen -d -m ./device-gateway
+
+#run myWebServices
+echo "running myWebServices.py..."
+screen -d -m python myWebServices.py; 
 
 #run the subscribers
-cd ..
+#cd ..
 cd './subscribers'
 #for f in *.py; do screen -d -m python "$f"; done
 for f in *.py; do 
@@ -24,12 +28,11 @@ done
 
 
 #run the publishers
-cd ..
+#cd ..
 #cd './publisher'
 #echo "running mainPublisher.py..."
 #screen -d -m python mainPublisher.py;
-echo "running myWebServices.py..."
-screen -d -m python myWebServices.py; 
+
 
 
 #run the control strategies

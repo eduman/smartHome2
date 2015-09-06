@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 
 import cherrypy
 import logging
@@ -8,7 +9,8 @@ import logging
 import httplib
 import json
 import time
-
+import socket
+import ConfigParser
 import os, sys
 #lib_path = os.path.abspath(os.path.join('..', 'commons'))
 #sys.path.append(lib_path)
@@ -18,18 +20,32 @@ from commons.myMqtt.MQTTClient import MyMQTTClass
 
 from publisher.ArduinoPublisher import ArduinoPublisher
 from myWebServices.UserPresenceManager import UserPresenceManager
+from myWebServices.MacosxAgent import MacosxAgent
+from myWebServices.HomeAgent import HomeAgent
+from myWebServices.RaspberryAgent import RaspberryAgent
+from myWebServices.ScannerAgent import ScannerAgent
+from myWebServices.PlugwiseAgent import PlugwiseAgent
+import myWebServices.WebServicesConfigurationConstants as WSConstants
 
-httpPort = 8084
-ArduinoServiceName = "ArduinoPublisher"
+
+httpPort = 8080
 logLevel = logging.DEBUG
 
 
 
 def start():
-	#homeWSUri = "http://localhost:8080/rest/home/configuration"
-	homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+	logger = makeLogger("myWebServices")
+	configPath = os.path.join(os.getcwd(), "conf/myWebService.conf")
+	config = ConfigParser.SafeConfigParser()
 
-	logger = makeLogger("mainPublisher")
+	try: 
+		if not os.path.exists(configPath):
+			makeDefaultConfigFile(configPath)
+
+		config.read(configPath)
+	except Exception, e:
+		logger.error ("Error on myWebService.start(): %s" % (e))
+		raise Exception("Error on myWebService.start(): %s" % (e))
 
 	conf = {
 	        '/': {
@@ -49,6 +65,40 @@ def start():
 		cherrypy.engine.signal_handler.subscribe()
 
 
+	ipAddress = ([(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
+
+	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getHomeAgent()):
+		home = HomeAgent("HomeAgent", logLevel)
+		home.start(cherrypy.engine)
+		cherrypy.tree.mount(home, '/rest/home', conf)
+
+	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getRaspberryAgent()):
+		raspberry = RaspberryAgent("RaspberryAgent", logLevel, ipAddress, httpPort)
+		raspberry.start(cherrypy.engine)
+		cherrypy.tree.mount(raspberry, '/rest/raspberry', conf)
+
+	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getScannerAgent()):
+		imageFolder = config.get(WSConstants.getScannerAgentSettings(), WSConstants.getScannerFolder())
+		#imageFolder = '/home/pi/smartHome2/scanner/images'
+		scanner = ScannerAgent("ScannerAgent", logLevel, ipAddress, httpPort)
+		scanner.start(cherrypy.engine, imageFolder)
+		cherrypy.tree.mount(scanner, '/rest/scanner', conf)
+
+	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getDropboxAgent()):
+		#TODO
+		pass
+
+	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getMacosxAgent()):
+		macosx = MacosxAgent("MacosxAgent", logLevel, ipAddress, httpPort)
+		macosx.start(cherrypy.engine)
+		cherrypy.tree.mount(macosx, '/rest/macosx', conf)
+
+
+	#start serving pages
+	cherrypy.engine.start()
+
+
+	homeWSUri = config.get(WSConstants.getAgentsSettings(), WSConstants.getHomeURI())
 	resp, isOk = invokeWebService(homeWSUri)
 	while (not isOk):
 		logger.error ("Unable to find the home proxy. I will try again in a while...")
@@ -59,23 +109,34 @@ def start():
 	brokerUri = myhome["homeMessageBroker"]["address"]
 	brokerPort = myhome["homeMessageBroker"]["port"]
 	if (brokerUri != None and brokerUri != "") and (brokerPort != None and brokerPort != ""):
-		arduinoPublisher = ArduinoPublisher(ArduinoServiceName, logLevel)
-		arduinoPublisher.start(cherrypy.engine, brokerUri, brokerPort)
-		cherrypy.tree.mount(arduinoPublisher, '/ArduinoPublisher', conf)
+		if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getArduinoPublisher()):
+			arduinoPublisher = ArduinoPublisher("ArduinoPublisher", logLevel)
+			arduinoPublisher.start(cherrypy.engine, brokerUri, brokerPort)
+			cherrypy.tree.mount(arduinoPublisher, '/rest/arduino/publisher', conf)
 
-		upm = UserPresenceManager(myhome, logLevel)
-		upm.start(cherrypy.engine, brokerUri, brokerPort)
-		cherrypy.tree.mount(upm, '/UserPresenceManager', conf)
+		if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getUserPresenceManager()):
+			upm = UserPresenceManager(myhome, logLevel)
+			upm.start(cherrypy.engine, brokerUri, brokerPort)
+			cherrypy.tree.mount(upm, '/rest/userpresence', conf)
 
 	else:
 		logger.error ("The message broker address is not valid. Web Services are not running...")
-
-
-
 	
 
-    #start serving pages
-	cherrypy.engine.start()
+	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getPlugwiseAgent()):
+		plugwiseSerialPort = config.get(WSConstants.getPlugwiseAgentSettings(), WSConstants.getPlugwiseSerialPort())
+		#plugwiseSerialPort = "/dev/ttyUSB0"
+		appliances = {}
+		for room in myhome['rooms']:
+			for device in room['devices']:
+				if device['type'].lower() == "plugwise":
+					appliances[device['deviceID']] = device['description']
+		plugwise = PlugwiseAgent("PlugwiseAgent", logLevel, ipAddress, httpPort)
+		plugwise.start(cherrypy.engine, appliances, plugwiseSerialPort)
+		cherrypy.tree.mount(plugwise, '/rest/plugwise', conf)
+
+
+#	cherrypy.engine.start()
 	cherrypy.engine.block()
 
 
@@ -114,6 +175,44 @@ def makeLogger(serviceName):
 	consoleHandler.setFormatter(formatter)
 	logger.addHandler(consoleHandler)
 	return logger
+
+
+def makeDefaultConfigFile(configPath):
+	try:
+		os.makedirs(os.path.dirname(configPath))
+	except Exception, e:
+		pass
+
+	f = open(configPath, "w+")
+	section = WSConstants.getAgentsSettings()
+
+	
+	ConfigParser.SafeConfigParser.add_comment = lambda self, section, option, value: self.set(section, '\n; '+option, value)
+	config = ConfigParser.SafeConfigParser()
+	config.add_section(section)
+
+	config.add_comment(section, "Enable your agents eg." + WSConstants.getHomeAgent(), "True")
+	for key in WSConstants.getAgents():
+		config.set(section, key, "True")
+	
+	config.set(section, WSConstants.getHomeURI(), "http://localhost:8080/rest/home/configuration")
+	
+
+	section = WSConstants.getScannerAgentSettings()
+	config.add_section(section)
+	config.set(section, WSConstants.getScannerFolder(), "/home/pi/smartHome2/scanner/images")
+
+	section = WSConstants.getDropboxAgentSettings()
+	config.add_section(section)
+	config.set(section, WSConstants.getDropboxRemoteFolder(), "/scanner")
+	config.set(section, WSConstants.getDropboxUserID(), WSConstants.getDefaultDropboxUserID())
+	config.set(section, WSConstants.getDropboxAccessToken(), WSConstants.getDefaultDropboxAccessToken())
+	
+	section = WSConstants.getPlugwiseAgentSettings()
+	config.add_section(section)
+	config.set(section, WSConstants.getPlugwiseSerialPort(),  "/dev/ttyUSB0")
+
+	config.write(f)
 
 
 if __name__ == "__main__":
