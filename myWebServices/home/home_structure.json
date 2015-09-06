@@ -4,7 +4,7 @@
 	"floor":"2",
 	"landlord":"my landlord",
 	"buildingID":"1",
-	"userPresenceManager":"http://192.168.1.254:8084/rest/userpresence/presence",
+	"userPresenceManager":"http://192.168.1.254:8080/rest/userpresence/presence",
 	"thingspeakChannel": "https://thingspeak.com/channels/212",
 	"homeMessageBroker":{
 		"address":"home.message.broker.address",
