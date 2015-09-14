@@ -84,6 +84,9 @@ class FreeboardAgent(object):
 				except Exception, e:
 					self.logger.error("Unable to save: %s" % e)
 					raise cherrypy.HTTPError("404 Not found", "Unable to save: %s" % e)
+			else:
+				self.logger.error("Resource not found")
+				raise cherrypy.HTTPError("404 Not found", "resource not found")
 		return
 		
 	def PUT(self, *ids):
