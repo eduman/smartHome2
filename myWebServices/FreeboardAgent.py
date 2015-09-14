@@ -72,11 +72,18 @@ class FreeboardAgent(object):
 		return resurce
 	
 	def POST(self, *ids, **params):
-		print ids
-		print params
-		#open(os.path.join(self.freeboardRoot, 'dashboard/dashboard.json'), 'w').close()
-		open(self.dashboardJsonPath, 'w').close()
-		#return open(os.path.join(self.freeboardRoot, "index.html"))
+		if len(ids) > 1:
+			param_0 = str(ids[0]).lower()
+			param_1 = str(ids[1])
+			if param_0 == "static" and param_1 == "saveDashboard":	
+				try:
+					with open(self.dashboardJsonPath, 'w') as outfile:
+						#print params['json_string']
+						outfile.write(params['json_string'])
+						outfile.close()
+				except Exception, e:
+					self.logger.error("Unable to save: %s" % e)
+					raise cherrypy.HTTPError("404 Not found", "Unable to save: %s" % e)
 		return
 		
 	def PUT(self, *ids):
