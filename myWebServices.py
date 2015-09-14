@@ -24,8 +24,9 @@ from myWebServices.MacosxAgent import MacosxAgent
 from myWebServices.HomeAgent import HomeAgent
 from myWebServices.RaspberryAgent import RaspberryAgent
 from myWebServices.ScannerAgent import ScannerAgent
-from myWebServices.PlugwiseAgent import PlugwiseAgent
+#from myWebServices.PlugwiseAgent import PlugwiseAgent
 import myWebServices.WebServicesConfigurationConstants as WSConstants
+from myWebServices.FreeboardAgent import FreeboardAgent
 
 
 httpPort = 8080
@@ -47,11 +48,45 @@ def start():
 		logger.error ("Error on myWebService.start(): %s" % (e))
 		raise Exception("Error on myWebService.start(): %s" % (e))
 
+
+	
 	conf = {
 	        '/': {
 	            'request.dispatch': cherrypy.dispatch.MethodDispatcher()
 	        }
 	    }
+
+
+	FREEBOARD_ROOT = 'myWebServices/static/freeboard/'
+	path = os.path.abspath(os.path.dirname(__file__))
+	freeboard = os.path.join(path, FREEBOARD_ROOT)
+	dashboard = os.path.join(freeboard, 'dashboard')
+	dashboardJsonPath = os.path.join(dashboard, 'dashboard.json')
+	freeboard_conf = {
+			'/': {
+	            'request.dispatch': cherrypy.dispatch.MethodDispatcher()
+	        },
+			'/static/js':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': os.path.join(freeboard, 'js')
+	        },'/static/css':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': os.path.join(freeboard, 'css')
+	        },'/static/dashboard':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': dashboard
+	        },'/static/img':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': os.path.join(freeboard, 'img')
+	        },'/static/plugins/freeboard':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': os.path.join(freeboard, 'plugins/freeboard')
+	        },'/static/plugins/thirdparty':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': os.path.join(freeboard, 'plugins/thirdparty')
+	        }
+
+	}
 
 	cherrypy.config.update({'server.socket_host': '0.0.0.0'})
 	cherrypy.config.update({'server.socket_port': httpPort})
@@ -66,6 +101,10 @@ def start():
 
 
 	ipAddress = ([(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
+
+	freeboardAgent = FreeboardAgent("FreeboardAgent", logLevel, FREEBOARD_ROOT, dashboardJsonPath)
+	freeboardAgent.start(cherrypy.engine)
+	cherrypy.tree.mount(freeboardAgent, '/', freeboard_conf)
 
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getHomeAgent()):
 		home = HomeAgent("HomeAgent", logLevel)
@@ -124,6 +163,7 @@ def start():
 	
 
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getPlugwiseAgent()):
+		from myWebServices.PlugwiseAgent import PlugwiseAgent
 		plugwiseSerialPort = config.get(WSConstants.getPlugwiseAgentSettings(), WSConstants.getPlugwiseSerialPort())
 		#plugwiseSerialPort = "/dev/ttyUSB0"
 		appliances = {}

@@ -51,7 +51,8 @@ class HomeAgent(object):
 		self.logger.info("Ended")
 
 	def copyDefaultFile(self):
-		newtFile = os.path.join(os.getcwd(), "conf/home_structure.json")
+		newtFile = os.path.join(os.getcwd(), "conf")
+		print newtFile
 		if not os.path.exists(newtFile):
 			try:
 				os.makedirs(newtFile)
@@ -61,6 +62,8 @@ class HomeAgent(object):
 		
 		if not os.path.isfile(newtFile):
 			try:
+				newtFile =  os.path.join(newtFile, "home_structure.json")
+				print newtFile
 				defaultFile = os.path.join(os.getcwd(), "myWebServices/home/home_structure.json")
 				shutil.copy2(defaultFile, newtFile)
 			except Exception, e:
