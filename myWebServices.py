@@ -32,6 +32,8 @@ from myWebServices.FreeboardAgent import FreeboardAgent
 httpPort = 8080
 logLevel = logging.DEBUG
 
+FREEBOARD_ROOT = 'myWebServices/static/freeboard/'
+
 
 
 def start():
@@ -57,7 +59,6 @@ def start():
 	    }
 
 
-	FREEBOARD_ROOT = 'myWebServices/static/freeboard/'
 	path = os.path.abspath(os.path.dirname(__file__))
 	freeboard = os.path.join(path, FREEBOARD_ROOT)
 	dashboard = os.path.join(freeboard, 'dashboard')

@@ -1,0 +1,253 @@
+{
+	"homeID":"1",
+	"description":"my home",
+	"floor":"2",
+	"landlord":"my landlord",
+	"buildingID":"1",
+	"userPresenceManager":"http://192.168.1.254:8080/rest/userpresence/presence",
+	"thingspeakChannel": "https://thingspeak.com/channels/212",
+	"homeMessageBroker":{
+		"address":"home.message.broker.address",
+		"port" : "1883"
+	},
+	"externalMessageBroker": {
+		"address":"external.message.broker.address",
+		"port" : "1883"
+	},
+	"rooms": [
+		{
+			"roomID":"1",
+			"description":"living room",
+			"devices": [
+				{
+					"deviceID":"192.168.1.2",
+					"description":"arduino device description",
+					"isActive":true,
+					"type":"arduino",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.2:8082/?getConfiguration"
+						}
+					]
+				},{
+					"deviceID":"192.168.1.3",
+					"description":"arduino device description",
+					"isActive":true,
+					"type":"arduino",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.3:8082/?getConfiguration"
+						}
+					]
+				}
+
+			] 
+		},{
+			"roomID":"2",
+			"description":"guest room",
+			"devices": [
+				{
+					"deviceID":"192.168.1.4",
+					"description":"scanner",
+					"isActive":true,
+					"type":"scanner",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.4:8080/rest/scanner/configuration"
+						}
+					]
+				},{
+					"deviceID":"192.168.1.4",
+					"description":"raspberry pi",
+					"isActive":true,
+					"type":"raspberry",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.4:8080/rest/raspberry/configuration"
+						}
+					]
+				}
+			]
+		},{
+			"roomID":"3",
+			"description":"kitchen",
+			"devices": [
+
+				{
+					"deviceID":"000d6f0000af5093",
+					"description":"washing machine",
+					"isActive":true,
+					"type":"plugwise",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.4:8080/rest/plugwise/000d6f0000af5093/configuration"
+						}
+					]
+				}
+			]
+		},{
+			"roomID":"4",
+			"description":"entrance",
+			"devices": [
+				{
+					"deviceID":"192.168.1.5",
+					"description":"vlc",
+					"isActive":true,
+					"type":"vlc",
+					"protocol": [
+						{	
+							"ws":"vlc",
+							"type":"STREAM",
+							"uri":"http://192.168.1.5:8090"
+						}
+					]
+				},{
+					"deviceID":"192.168.1.5",
+					"description":"raspberry pi",
+					"isActive":true,
+					"type":"raspberry",
+					"protocol": [
+						{	
+							"ws":"rest",
+							"type":"GET",
+							"uri":"http://192.168.1.5:8080/rest/raspberry/configuration"
+						}
+					]
+				}
+			]
+		}
+
+	], 
+	"rules" : [
+		{
+			"ruleSID": "TimerControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "TimerControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "1",
+			"presencetimer": 5,
+			"absencetimer": 10,
+			"actuatorList":[
+				{
+					"deviceID": "192.168.1.3_7",
+					"type": "arduino"
+				},{
+					"deviceID": "000d6f0000af5093",
+					"type": "plugwise"
+				}
+			],
+			"userList":["user1", "user2", "user3"],
+			"sensorList":["192.168.1.3","192.168.1.4"],
+			"buttonList":["192.168.1.3_5", "192.168.1.3_6"],
+			"timeShifts":[]
+		},{
+			"ruleSID": "TimeShiftControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "TimeShiftControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "0",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[
+				{
+					"deviceID": "000d6f0000af5093",
+					"type": "plugwise"
+				},{
+					"deviceID": "192.168.1.3_8",
+					"type": "arduino"
+				}
+			],
+			"userList":[],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[
+				{
+					"day":"Monday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Tuesday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Wednesday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Thursday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Friday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Saturday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				},{
+					"day":"Sunday_off",
+					"start_time": "07:00",
+					"end_time": "19:00"
+				}
+			]
+		},{
+			"ruleSID": "VideSurveillanceControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "VideSurveillanceControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "4",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[
+				{
+					"deviceID": "192.168.1.5",
+					"type": "vlc"
+				}
+			],
+			"userList":[],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[]
+		},{
+			"ruleSID": "LookOnPresence:UnknownOwner:Strategy",
+			"ruleDescription": "LookOnPresence Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "0",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[],
+			"userList":["user1", "user2", "user3"],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[]
+		},{
+			"ruleSID": "SwitchOffAllControlStrategy:UnknownOwner:Strategy",
+			"ruleDescription": "SwitchOffAllControlStrategy Rule Description", 
+			"isRuleEnabled": true,
+			"roomID": "0",
+			"presencetimer": 0,
+			"absencetimer": 0,
+			"actuatorList":[
+				{
+					"deviceID": "000d6f0000af5093",
+					"type": "plugwise"
+				},{
+					"deviceID": "192.168.1.3_8",
+					"type": "arduino"
+				}
+			],
+			"userList":[],
+			"sensorList":[],
+			"buttonList":[],
+			"timeShifts":[]
+		}
+	]
+}
