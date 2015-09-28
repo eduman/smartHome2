@@ -195,9 +195,16 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 							if (device.getProtocol().size() > 0) {
 								RetrieveDevice retrieveDevice = new RetrieveDevice(device.getDeviceID()+ device.getType());
 								retrieveDevice.execute(device.getProtocol().get(0));
+
+								//TODO
+								try {
+									Thread.sleep(500);                 //1000 milliseconds is one second.
+								} catch(InterruptedException ex) {
+									Thread.currentThread().interrupt();
+								}
 							}
 						}
-						//TODO
+
 					}
 				}
 
