@@ -4,11 +4,11 @@ SmartHome version 2 is compatible with the LinkSmart LocalConnect (https://links
 
 It includes:
 - agents and example of configuration files for the linksmart device connector, which is part of the LinkSmart LocalConnect 
-- myWebServices,a web services conteinar for the smartHome agents. It is an alternative to LinkSmart LocalConnect 
+- myWebServices, a web services conteinar for smartHome agents. It is an alternative to LinkSmart LocalConnect 
 - control strategies
 - mqtt publishers and subscribers wrappers for not mqtt-compliant IoT devices
 - smartHome v2 commons libraries python version ("commons" folder)
-- scketches for Arduino (xboard relay)
+- sketches for Arduino (xboard relay)
 - bash script to run smartHome v2
 - command examples
 - mobileHome2 (Android GUI)
