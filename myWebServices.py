@@ -85,6 +85,9 @@ def start():
 	        },'/static/plugins/thirdparty':{
 	        'tools.staticdir.on': True,
 	        'tools.staticdir.dir': os.path.join(freeboard, 'plugins/thirdparty')
+	        },'/static/plugins/mqtt':{
+	        'tools.staticdir.on': True,
+	        'tools.staticdir.dir': os.path.join(freeboard, 'plugins/mqtt')
 	        }
 
 	}

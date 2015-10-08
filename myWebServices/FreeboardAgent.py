@@ -87,7 +87,7 @@ class FreeboardAgent(object):
 			else:
 				self.logger.error("Resource not found")
 				raise cherrypy.HTTPError("404 Not found", "resource not found")
-		return
+		return open(os.path.join(self.freeboardRoot, "index.html"))
 		
 	def PUT(self, *ids):
 		self.logger.error("Must override PUT(self, *ids)!")

@@ -11,12 +11,14 @@
     <script src="js/freeboard.thirdparty.min.js"></script>
     <script type="text/javascript">
         head.js("js/freeboard+plugins.min.js",
+                "plugins/mqtt/paho.mqtt.plugin.js",
                 // *** Load more plugins here ***
                 function(){
                     $(function()
                     { //DOM Ready
                         // Initialization
                         freeboard.initialize(true);
+                        freeboard.setEditing(false);
                         // Load default dashboard configuration
                         $.ajax("/static/dashboard/dashboard.json", {
                             'async': true,
