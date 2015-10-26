@@ -59,9 +59,9 @@ class HomeAgent(object):
 				self.logger.error("unable to make \"conf\" directory: %s" % (e))
 
 		
+		newtFile =  os.path.join(newtFile, "home_structure.json")
 		if not os.path.isfile(newtFile):
 			try:
-				newtFile =  os.path.join(newtFile, "home_structure.json")
 				defaultFile = os.path.join(os.getcwd(), "myWebServices/home/home_structure.json")
 				shutil.copy2(defaultFile, newtFile)
 			except Exception, e:
