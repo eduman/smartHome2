@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 
 import cherrypy
 import logging
@@ -79,7 +80,7 @@ class FreeboardAgent(object):
 				try:
 					with open(self.dashboardJsonPath, 'w') as outfile:
 						#print params['json_string']
-						outfile.write(params['json_string'])
+						outfile.write(params['json_string'].encode('utf-8'))
 						outfile.close()
 				except Exception, e:
 					self.logger.error("Unable to save: %s" % e)

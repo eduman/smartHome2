@@ -21,6 +21,7 @@ class MyMQTTClass:
         self._mqttc.on_publish = self.mqtt_on_publish
         self._mqttc.on_subscribe = self.mqtt_on_subscribe
         self._mqttc.on_unsubscribe = self.mqtt_on_unsubscribe
+        self.__lock = threading.Lock()
 
     def mqtt_on_connect(self, mqttc, obj, flags, rc):
         self.logger.debug("Connected to message broker with result code: "+str(rc))
@@ -90,6 +91,11 @@ class MyMQTTClass:
 
     def publish(self, eventTopic, payload, qos=2):
         self._mqttc.publish(eventTopic, payload, qos)
+
+    def syncPublish(self, eventTopic, payload, qos=2):
+        self.__lock.acquire()
+        self._mqttc.publish(eventTopic, payload, qos)
+        self.__lock.release()
 
     def connect(self, uri="localhost", port=1883, userdata=60):
         try:

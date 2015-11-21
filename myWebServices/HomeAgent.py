@@ -133,7 +133,7 @@ class HomeAgent(object):
 									localRule['isRuleEnabled'] = remoteRule['isRuleEnabled'] 
 
 						f = open(fullpath,'w')
-						string = json.dumps(localHome)
+						string = json.dumps(localHome, intent=4)
 						f.write(string)
 						f.close()
 					except Exception, e:

@@ -9,6 +9,8 @@ import os, sys
 import optparse
 import logging
 from serial.serialutil import SerialException
+import threading
+
 
 from plugwise import *
 import plugwise.util
@@ -27,6 +29,7 @@ class PlugwiseAgent(object):
 		self.serviceName = serviceName
 		self.ipAddress = ipAddress
 		self.port = port
+		self.__lock = threading.Lock()
 		logPath = "log/%s.log" % (self.serviceName)
 		
 		if not os.path.exists(logPath):
@@ -109,8 +112,9 @@ class PlugwiseAgent(object):
 
 
 	def GET(self, *ids):
-
+		self.__lock.acquire()
 		result = ""
+		error = None
 		try: 
 			if len(ids) > 1:
 				plugwiseID = str(ids[0]).lower() 
@@ -131,16 +135,22 @@ class PlugwiseAgent(object):
 				
 				else:
 					self.logger.error("Command not found")
-					raise cherrypy.HTTPError("404 Not found", "command not found")
+					error = "Command not found"
+					#raise cherrypy.HTTPError("404 Not found", "command not found")
 
 			else:
 				self.logger.error("Command not found")
-				raise cherrypy.HTTPError("404 Not found", "command not found")
+				error = "Command not found"
+				#raise cherrypy.HTTPError("404 Not found", "command not found")
 		except (TimeoutException, SerialException) as reason:
-			self.logger.error("Error: %s" % (reason)) 
-			raise cherrypy.HTTPError("404 Not found", ("Error: %s" % (reason)))
+			self.logger.error("Error: %s" % (reason))
+			error =  "Error: %s" % (reason)
+			#raise cherrypy.HTTPError("404 Not found", ("Error: %s" % (reason)))
 
-	
+		self.__lock.release()
+
+		if error is not None:
+			raise cherrypy.HTTPError("404 Not found", ("Error: %s" % (error)))
 		return result	
 
 		
