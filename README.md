@@ -24,3 +24,4 @@ the following libraries or external programs are needed:
 - python-plugwise library (https://bitbucket.org/hadara/python-plugwise/wiki/Home)
 - pyserial library (sudo pip install pyserial)
 - cherrypy library (sudo pip install cherrypy)
+- dropbox python SDK (sudo pip install dropbox)
