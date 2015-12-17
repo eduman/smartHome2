@@ -27,6 +27,7 @@ from myWebServices.ScannerAgent import ScannerAgent
 #from myWebServices.PlugwiseAgent import PlugwiseAgent
 import myWebServices.WebServicesConfigurationConstants as WSConstants
 from myWebServices.FreeboardAgent import FreeboardAgent
+from myWebServices.DropboxAgent import DropboxAgent
 
 
 httpPort = 8080
@@ -127,9 +128,20 @@ def start():
 		scanner.start(cherrypy.engine, imageFolder)
 		cherrypy.tree.mount(scanner, '/rest/scanner', conf)
 
+
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getDropboxAgent()):
-		#TODO
-		pass
+		# it get the same localFolder for the scanner
+		localFolder = config.get(WSConstants.getScannerAgentSettings(), WSConstants.getScannerFolder())
+		# run DropboxAgent (python DropboxAgent.py) to retrieve your userID and accessToken
+		accessToken = config.get(WSConstants.getDropboxAgentSettings(), WSConstants.getDropboxAccessToken())
+		userID = config.get(WSConstants.getDropboxAgentSettings(), WSConstants.getDropboxUserID())
+		remoteFolder = config.get(WSConstants.getDropboxAgentSettings(), WSConstants.getDropboxRemoteFolder())
+
+			
+
+		dropbox = DropboxAgent ("DropboxAgent", logLevel, userID, accessToken)
+		dropbox.start(localFolder, remoteFolder)
+		
 
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getMacosxAgent()):
 		macosx = MacosxAgent("MacosxAgent", logLevel, ipAddress, httpPort)
