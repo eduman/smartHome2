@@ -84,8 +84,8 @@ class ScannerAgent(object):
 			self.logger.error("Script not found")
 			raise cherrypy.HTTPError("404 Not found", "script not found")
 
-		return '{"event":"Scanning result","value":"Scanning the image","unit":""}'
-
+		#return '{"event":"Scanning result","value":"Scanning the image","unit":""}'
+		return self.getConfiguration()
 
 	def GET(self, *ids):
 
