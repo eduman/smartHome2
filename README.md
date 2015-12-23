@@ -25,3 +25,14 @@ the following libraries or external programs are needed:
 - pyserial library (sudo pip install pyserial)
 - cherrypy library (sudo pip install cherrypy)
 - dropbox python SDK (sudo pip install dropbox)
+- Adafruit_Python_DHT (for raspberry pi)
+
+### Howto install Adafruit_Python_DHT library on a raspberry pi
+
+- sudo apt-get update
+- sudo apt-get install build-essential python-dev 
+- git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+- cd Adafruit_Python_DHT
+- (if you want to execute dht driver as normal user change "/dev/mem" into "/dev/gpiomem" in Adafruit_Python_DHT/source/Raspberry_Pi/pi_mmio.c and Adafruit_Python_DHT/source/Raspberry_Pi_2/pi_2_mmio.c)
+- sudo python setup.py install
+

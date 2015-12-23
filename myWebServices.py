@@ -116,10 +116,6 @@ def start():
 		home.start(cherrypy.engine)
 		cherrypy.tree.mount(home, '/rest/home', conf)
 
-	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getRaspberryAgent()):
-		raspberry = RaspberryAgent("RaspberryAgent", logLevel, ipAddress, httpPort)
-		raspberry.start(cherrypy.engine)
-		cherrypy.tree.mount(raspberry, '/rest/raspberry', conf)
 
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getScannerAgent()):
 		imageFolder = config.get(WSConstants.getScannerAgentSettings(), WSConstants.getScannerFolder())
@@ -174,9 +170,18 @@ def start():
 			upm.start(cherrypy.engine, brokerUri, brokerPort)
 			cherrypy.tree.mount(upm, '/rest/userpresence', conf)
 
+	   	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getRaspberryAgent()):
+                	raspberry = RaspberryAgent("RasberryAgent", logLevel, ipAddress, httpPort, 900)
+                	raspberry.setDHTInstalled(True)
+	                raspberry.setDHTPin(18)
+	                raspberry.setDHTType(22)
+	                raspberry.setPirInstalled(True)
+	                raspberry.setPirPin(7)
+	                raspberry.start(cherrypy.engine, brokerUri, brokerPort)
+	                cherrypy.tree.mount(raspberry, '/rest/raspberry', conf)
+
 	else:
-		logger.error ("The message broker address is not valid. Web Services are not running...")
-	
+		logger.error ("The message broker address is not valid. Web Services are not running...")	
 
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getPlugwiseAgent()):
 		from myWebServices.PlugwiseAgent import PlugwiseAgent
@@ -192,7 +197,7 @@ def start():
 		cherrypy.tree.mount(plugwise, '/rest/plugwise', conf)
 
 
-#	cherrypy.engine.start()
+	cherrypy.engine.start()
 	cherrypy.engine.block()
 
 
