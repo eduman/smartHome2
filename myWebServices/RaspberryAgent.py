@@ -176,7 +176,10 @@ class RaspberryAgent(object):
 
 	def makeEvent (self, event, value):
 		#payload=('{"event":"SoC Temperature","value":"%s","unit":"°C"}' % (self.getSocTemperature()))
-		topic = EventTopics.getSensorMeasurementEvent() + "/" + str(self.ipAddress) + "/" + event
+		if event is "motion":
+			topic = EventTopics.getBehaviourMotion() + "/" + str(self.ipAddress)
+		else:
+			topic = EventTopics.getSensorMeasurementEvent() + "/" + str(self.ipAddress) + "/" + event
 		timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 		payload = (MQTTPayload.getActuationPayload() %  (str(topic), str(value), str(event), str(self.ipAddress), str(timestamp)))
 		return topic, payload

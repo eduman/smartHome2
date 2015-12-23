@@ -5,10 +5,14 @@ mosquitto_pub -t BEHAVIOURS/PROXIMITY/guest -m '{"topic":"BEHAVIOURS/PROXIMITY/g
 
 
 
-MQTT generic sensor
+MQTT motion sensor
 mosquitto_pub -t BEHAVIOURS/MOTION/sensor2 -m '{"topic":"BEHAVIOURS/MOTION/sensor2", "value":"True", "event":"MOTION", "device":"sensor2", "timestamp":"2015-05-05 14:44:28"}' -q 2
 
+MQTT humidity sensor
+mosquitto_pub -t MEASUREMENT/SENSOR/192.168.1.6/humidity -m '{"topic":"MEASUREMENT/SENSOR/192.168.1.6/humidity", "value":"35.4", "event":"humidity", "device":"192.168.1.6", "timestamp":"2015-12-24 00:03:59"}'
 
+MQTT temperature sensor
+mosquitto_pub -t MEASUREMENT/SENSOR/192.168.1.6/temperature -m '{"topic":"MEASUREMENT/SENSOR/192.168.1.6/temperature", "value":"26.2", "event":"temperature", "device":"192.168.1.6", "timestamp":"2015-12-24 00:10:12"}'
 
 MQTT PLUGWISE 000d6f0000998ab5
 mosquitto_pub -t ACTION/ACTUATOR/000d6f0000998ab5 -m '{"topic":"ACTION/ACTUATOR/000d6f0000998ab5", "value":"switchOn", "event":"switchOn", "device":"000d6f0000998ab5", "timestamp":"2015-05-05 14:44:28"}' -q 2
