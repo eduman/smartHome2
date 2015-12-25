@@ -31,7 +31,6 @@ class RaspberryAgent(object):
 		self.dhtPin = 18
 		self.timer = timer
 		self.isDHTInstalled = False
-#		self.isLoop = True
 		self.dhtType = Adafruit_DHT.DHT22
 
 
@@ -132,6 +131,7 @@ class RaspberryAgent(object):
 	def pirCallback (self, pin):
 		topic, payload = self.makeEvent("motion", "True")
 		self.mqtt.syncPublish(topic, payload, 2)
+		time.sleep(60)
 
 	def stop(self):
 		if (hasattr(self, "dhtThread")):
