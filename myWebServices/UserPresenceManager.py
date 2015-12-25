@@ -10,6 +10,11 @@ sys.path.append(lib_path)
 
 from commons.myMqtt import MQTTPayload 
 from commons.myMqtt.MQTTClient import MyMQTTClass
+from commons.myMqtt import EventTopics
+import datetime
+import time
+
+
 
 
 DEFAULT_BROKER_URI = "localhost"
@@ -58,8 +63,8 @@ class UserPresenceManager(object):
 				json_data=open(self.confPath).read()
 				data = json.loads(json_data)
 				for userDict in data:	
-					if userDict['user'] in self.userList:
-						self.userList[userDict['user']] = str(userDict['isPresent']).lower()
+#					if userDict['user'] in self.userList:
+					self.userList[userDict['user']] = str(userDict['isPresent']).lower()
 			except Exception, e:
 				pass
 
@@ -127,12 +132,32 @@ class UserPresenceManager(object):
 		return result
 
 
-	def GET(self, *ids):
+	def GET(self, *ids, **params):
 		result = ""
 		if len(ids) > 0:
-			param_0 = str(ids[0]).lower()
-			if param_0 == "presence":			
+			ids_0 = str(ids[0]).lower()
+			if ids_0 == "presence" and len(params) == 0:			
 				result += self.toJson()
+			elif ids_0 == "presence" and len(params) == 2:
+				isOk = False
+				userName = params["user"]
+				presenceValue = params["isPresent"]
+
+				if userName is not None and presenceValue is not None:
+					if (presenceValue.lower() == "true" or presenceValue.lower() == "1"):
+						presenceValue = "True"
+						isOk = True
+					elif (presenceValue.lower() == "false" or presenceValue.lower() == "0"):
+						presenceValue = "False"
+						isOk = True
+				if isOk:
+					timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+					topic = EventTopics.getBehaviourProximity() + "/" + userName
+					payload = MQTTPayload.getActuationPayload() % (topic, presenceValue, "Proximity", userName, timestamp)
+					self.mqtt.syncPublish(topic, payload, 2)
+				else:
+					self.logger.error("Parameters not valid")
+					raise cherrypy.HTTPError("404 Not found", "Parameters not valid")
 			else:
 				self.logger.error("Command not found")
 				raise cherrypy.HTTPError("404 Not found", "command not found")
