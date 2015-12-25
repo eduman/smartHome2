@@ -15,7 +15,7 @@ cd '/home/pi/smartHome2/'
 
 #run myWebServices
 echo "running myWebServices.py..."
-screen -d -m python myWebServices.py; 
+screen -d -m sudo python myWebServices.py; 
 
 #run the subscribers
 #cd ..
