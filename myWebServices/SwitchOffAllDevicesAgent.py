@@ -47,11 +47,8 @@ class SwitchOffAllDevicesAgent(object):
 
 
 	def start (self, cherrypyEngine, brokerUri=DEFAULT_BROKER_URI, brokerPort=DEFAULT_BROKER_PORT):
-		#self.brokerUri = brokerUri
-		#self.brokerPort = brokerPort
-
-		self.brokerUri = "192.168.1.5"
-		self.brokerPort = "1883"
+		self.brokerUri = brokerUri
+		self.brokerPort = brokerPort
 
 		if hasattr(cherrypyEngine, 'signal_handler'):
 			cherrypyEngine.signal_handler.subscribe()	
