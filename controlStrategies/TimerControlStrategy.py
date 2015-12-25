@@ -88,9 +88,14 @@ class TimerControlStrategy(AbstractControlStategy):
 				
 				self.setRuleEngine()
 
-				self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
-				self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullSensorList()), EventTopics.getBehaviourMotion())
-				#self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullButtonList()), EventTopics.getBehaviourButtonPushed())
+				if self.context.getProperty(ConfigurationConstants.getFullUserList()) is not None:
+					self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
+				
+				if  self.context.getProperty(ConfigurationConstants.getFullSensorList()) is not None:
+					self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullSensorList()), EventTopics.getBehaviourMotion())
+				
+				#if elf.context.getProperty(ConfigurationConstants.getFullButtonList()) is not None:
+				#	self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullButtonList()), EventTopics.getBehaviourButtonPushed())
 				
 				self.loop()
 		except KeyboardInterrupt, e:
