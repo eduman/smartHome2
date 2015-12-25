@@ -24,12 +24,19 @@ def getPlugwiseAgent():
 def getUserPresenceManager():
 	return "userp_presence_manager"
 
+def getSwitchOffAllDevicesAgent():
+	return "switch_off_all_devices_agent"
+
+def getFreeboardAgent():
+	return "freeboard_agent"
+
 def getArduinoPublisher():
 	return "arduino_publisher"
 
 def getAgents():
 	return [getHomeAgent(), getRaspberryAgent(), getScannerAgent(), getMacosxAgent(), 
-	getDropboxAgent(), getPlugwiseAgent(), getUserPresenceManager(), getArduinoPublisher()]
+	getDropboxAgent(), getPlugwiseAgent(), getUserPresenceManager(), getSwitchOffAllDevicesAgent(), 
+	getFreeboardAgent(), getArduinoPublisher()]
 
 def getHomeURI():
 	return "home_uri"

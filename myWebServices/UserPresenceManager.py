@@ -27,13 +27,13 @@ userJson = '{"user": "%s", "isPresent": %s}'
 class UserPresenceManager(object):
 	exposed = True
 
-	def __init__(self, myHome, logLevel):
-		self.serviceName = "UserPresenceManager"
+	def __init__(self, serviceName, logLevel, myHome):
+		self.serviceName = serviceName
 		self.myHome = myHome
 		self.userList = {}
 		logPath = "log/%s.log" % (self.serviceName)
 		self.confPath = "conf/%s.conf" % (self.serviceName)
-		self.event = "BEHAVIOURS/PROXIMITY"
+		self.event = EventTopics.getBehaviourProximity()
 		
 
 		if not os.path.exists(logPath):
