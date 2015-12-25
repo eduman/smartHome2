@@ -22,13 +22,11 @@ from publisher.ArduinoPublisher import ArduinoPublisher
 from myWebServices.UserPresenceManager import UserPresenceManager
 from myWebServices.MacosxAgent import MacosxAgent
 from myWebServices.HomeAgent import HomeAgent
-from myWebServices.RaspberryAgent import RaspberryAgent
 from myWebServices.ScannerAgent import ScannerAgent
 #from myWebServices.PlugwiseAgent import PlugwiseAgent
 import myWebServices.WebServicesConfigurationConstants as WSConstants
 from myWebServices.FreeboardAgent import FreeboardAgent
 from myWebServices.DropboxAgent import DropboxAgent
-
 
 httpPort = 8080
 logLevel = logging.DEBUG
@@ -170,7 +168,8 @@ def start():
 			upm.start(cherrypy.engine, brokerUri, brokerPort)
 			cherrypy.tree.mount(upm, '/rest/userpresence', conf)
 
-	   	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getRaspberryAgent()):
+	   	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getRaspberryAgent()) and (os.uname()[4].startswith("arm")):
+                	from myWebServices.RaspberryAgent import RaspberryAgent
                 	raspberry = RaspberryAgent("RasberryAgent", logLevel, ipAddress, httpPort, 900)
                 	raspberry.setDHTInstalled(True)
 	                raspberry.setDHTPin(18)
