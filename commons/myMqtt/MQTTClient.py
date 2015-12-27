@@ -90,7 +90,8 @@ class MyMQTTClass:
 
 
     def publish(self, eventTopic, payload, qos=2):
-        self._mqttc.publish(eventTopic, payload, qos)
+        #self._mqttc.publish(eventTopic, payload, qos)
+        self.syncPublish(eventTopic, payload, qos)
 
     def syncPublish(self, eventTopic, payload, qos=2):
         self.__lock.acquire()

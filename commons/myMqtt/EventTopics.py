@@ -16,6 +16,9 @@ def getSwitchOffAll():
 
 def getSystemNotificationMessage():
 	return "SYSTEM/NOTIFICATION"
+
+def getRuleEnabler():
+	return "RULE_ENABLER"
 	
 # About Behaviours
 def getBehaviourProximity():
