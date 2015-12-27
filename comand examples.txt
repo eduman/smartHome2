@@ -37,6 +37,14 @@ mosquitto_pub -t ACTION/ACTUATOR/192.168.1.3_7 -m '{"topic":"ACTION/ACTUATOR/192
 
 
 
+MQTT Rule Enabler
+mosquitto_pub -t RULE_ENABLER/TimerControlStrategy:UnknownOwner:Strategy -m '{"topic":"RULE_ENABLER/TimerControlStrategy:UnknownOwner:Strategy", "value":"true", "event":"RULE_ENABLER", "device":"TimerControlStrategy:UnknownOwner:Strategy", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+mosquitto_pub -t RULE_ENABLER/TimerControlStrategy:UnknownOwner:Strategy -m '{"topic":"RULE_ENABLER/TimerControlStrategy:UnknownOwner:Strategy", "value":"false", "event":"RULE_ENABLER", "device":"TimerControlStrategy:UnknownOwner:Strategy", "timestamp":"2015-05-05 14:44:28"}' -q 2
+
+
+
+
 MQTT videosurveillance
 mosquitto_pub -t ACTION/LOOK/192.168.1.6 -m '{"topic":"ACTION/LOOK/192.168.1.6", "value":"true", "event":"look", "device":"192.168.1.6", "timestamp":"2015-05-05 14:44:28"}' -q 2
 

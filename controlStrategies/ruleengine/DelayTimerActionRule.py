@@ -33,7 +33,7 @@ class DelayTimerActionRule(AbstractActionRule):
 		try:
 			isRuleEnabled = Utilities.to_bool (self.context.getProperty(ConfigurationConstants.getIsRuleEnabled()))
 		except ValueError, e:
-					self.logger.error("Error on DelayTimerActionRule.run(): %s. Setting True as defalut value for isRuleEnabled" % (e))
+			self.logger.error("Error on DelayTimerActionRule.run(): %s. Setting True as defalut value for isRuleEnabled" % (e))
 
 		fullActuatorList = self.context.getProperty(ConfigurationConstants.getFullActuatorList())
 		if isRuleEnabled and fullActuatorList:

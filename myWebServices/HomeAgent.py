@@ -8,7 +8,12 @@ import time
 import os, sys
 import shutil
 import json
+from commons.myMqtt import MQTTPayload 
+from commons.myMqtt import EventTopics
+from commons.myMqtt.MQTTClient import MyMQTTClass
 
+DEFAULT_BROKER_URI = "localhost"
+DEFAULT_BROKER_PORT = "1883"
 
 class HomeAgent(object):
 	exposed = True
@@ -45,9 +50,25 @@ class HomeAgent(object):
 		cherrypyEngine.subscribe('stop', self.stop())
 
 		self.copyDefaultFile()
+
+		myhome = json.loads(self.getConfiguration())
+		self.brokerUri = myhome["homeMessageBroker"]["address"]
+		self.brokerPort = myhome["homeMessageBroker"]["port"]
+		if (self.brokerUri is None and self.brokerUri == "") and (self.brokerPort is None and self.brokerPort == ""):
+			self.brokerUri = DEFAULT_BROKER_URI
+			self.brokerPort = DEFAULT_BROKER_PORT
+
+		self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
+		self.mqtt.connect(self.brokerUri, self.brokerPort)
+
 		self.logger.info("Started")
 
 	def stop(self):
+		if (hasattr (self, "mqtt")):
+			try:
+				self.mqtt.disconnect()
+			except Exception, e:
+				self.logger.error("Error on stop(): %s" % (e))
 		self.logger.info("Ended")
 
 	def copyDefaultFile(self):
@@ -127,13 +148,17 @@ class HomeAgent(object):
 						remoteHomeJson = cherrypy.request.body.read()
 						remoteHome = json.loads(remoteHomeJson)
 
+						timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 						for localRule in localHome['rules']:
 							for remoteRule in remoteHome['rules']:
 								if localRule['ruleSID'] == remoteRule['ruleSID']:
 									localRule['isRuleEnabled'] = remoteRule['isRuleEnabled'] 
+									topic = EventTopics.getRuleEnabler() + "/" + localRule['ruleSID'] 
+									payload = (MQTTPayload.getActuationPayload() %  (str(topic), str(localRule['isRuleEnabled']), EventTopics.getRuleEnabler(), localRule['ruleSID'], str(timestamp)))
+									self.mqtt.syncPublish(topic, payload, 2)
 
 						f = open(fullpath,'w')
-						string = json.dumps(localHome, intent=4)
+						string = json.dumps(localHome)
 						f.write(string)
 						f.close()
 					except Exception, e:

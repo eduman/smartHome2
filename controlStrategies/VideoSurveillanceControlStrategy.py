@@ -69,8 +69,14 @@ class VideoSurveillanceControlStrategy(AbstractControlStategy):
 				self.ruleUpdater = RuleUpdater(self.ruleEngine, self.logger)
 				
 				self.setRuleEngine()
-				self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullActuatorList()), EventTopics.getLookAction())
+
+				self.RuleEnablerTopic = EventTopics.getRuleEnabler() + "/" + ruleSID
+				self.subscribedEventList += self.mqtt.subscribeEvent(None, self.RuleEnablerTopic)
+
+				if self.context.getProperty(ConfigurationConstants.getFullActuatorList()) is not None
+					self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullActuatorList()), EventTopics.getLookAction())
 				self.subscribedEventList += self.mqtt.subscribeEvent("alldevices/" + ActuationCommands.getLook(), EventTopics.getLookAction())
+				
 				self.loop()
 		except KeyboardInterrupt, e:
 			self.exit()
@@ -102,7 +108,11 @@ class VideoSurveillanceControlStrategy(AbstractControlStategy):
 	def notifyJsonEvent(self, topic, jsonEventString):
 		self.logger.debug ("received topic: \"%s\" with msg: \"%s\"" % (topic, jsonEventString))
 		data = json.loads(jsonEventString)
-		if (data["event"].lower() == ActuationCommands.getLook()):	
+		
+		if (topic == self.RuleEnablerTopic):
+			# updating the context without processing the rules
+			self.context.updateProperty (ConfigurationConstants.getIsRuleEnabled(), data["value"])
+		elif (data["event"].lower() == ActuationCommands.getLook()):	
 			self.ruleEngine.updateProperty(ConfigurationConstants.getIsLooked(), data["value"])
 
 

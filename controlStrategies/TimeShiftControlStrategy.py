@@ -54,6 +54,8 @@ class TimeShiftControlStrategy(AbstractControlStategy):
 			
 			self.setRuleEngine()
 
+			self.RuleEnablerTopic = EventTopics.getRuleEnabler() + "/" + ruleSID
+			self.subscribedEventList += self.mqtt.subscribeEvent(None, self.RuleEnablerTopic)
 			# subscribes for events
 			#self.subscribedEventList += self.mqtt.subscribeEvent(self.context.getProperty(ConfigurationConstants.getFullUserList()), EventTopics.getBehaviourProximity())
 
@@ -83,7 +85,12 @@ class TimeShiftControlStrategy(AbstractControlStategy):
 	def notifyJsonEvent(self, topic, jsonEventString):
 		self.logger.debug ("received topic: \"%s\" with msg: \"%s\"" % (topic, jsonEventString))
 		data = json.loads(jsonEventString)
-		self.ruleEngine.updateProperty(data["device"], data["value"])
+
+		if (topic == self.RuleEnablerTopic):
+			# updating the context without processing the rules
+			self.context.updateProperty (ConfigurationConstants.getIsRuleEnabled(), data["value"])
+		else:
+			self.ruleEngine.updateProperty(data["device"], data["value"])
 
 if __name__ == "__main__":
 	t = TimeShiftControlStrategy()

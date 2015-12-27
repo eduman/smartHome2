@@ -55,7 +55,7 @@ class SwitchOffAllActionRule(AbstractActionRule):
 							self.publishEvent(eventTopic, dev, ActuationCommands.getSwitchOff(), ActuationCommands.getSwitchOff())
 							self.context.updateProperty(ConfigurationConstants.getSwitchOffAll(), "False")
 						except Exception, e:
-							self.logger.error("Error on SwitchOffAllActionRule.process():")
+							self.logger.error("Error on SwitchOffAllActionRule.process(): %s" % (e))
 
 
 	def stop(self):

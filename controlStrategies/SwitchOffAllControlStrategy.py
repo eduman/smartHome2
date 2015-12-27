@@ -70,6 +70,8 @@ class SwitchOffAllControlStrategy(AbstractControlStategy):
 				
 				self.setRuleEngine()
 
+				self.RuleEnablerTopic = EventTopics.getRuleEnabler() + "/" + ruleSID
+				self.subscribedEventList += self.mqtt.subscribeEvent(None, self.RuleEnablerTopic)
 				self.subscribedEventList += self.mqtt.subscribeEvent(None, EventTopics.getSwitchOffAll())
 				
 				self.loop()
@@ -102,7 +104,11 @@ class SwitchOffAllControlStrategy(AbstractControlStategy):
 	def notifyJsonEvent(self, topic, jsonEventString):
 		self.logger.debug ("received topic: \"%s\" with msg: \"%s\"" % (topic, jsonEventString))
 		data = json.loads(jsonEventString)
-		if (data["event"] == ActuationCommands.getSwitchOffAll()) and (data["value"].lower() == "true"):
+
+		if (topic == self.RuleEnablerTopic):
+			# updating the context without processing the rules
+			self.context.updateProperty (ConfigurationConstants.getIsRuleEnabled(), data["value"])
+		elif (data["event"] == ActuationCommands.getSwitchOffAll()) and (data["value"].lower() == "true"):
 			self.ruleEngine.updateProperty(ConfigurationConstants.getSwitchOffAll(), data["value"])
 		else:
 			self.logger.error ('Event "%s" with value "%s" is not valid. The valid event is "%s" with value "True"' 
