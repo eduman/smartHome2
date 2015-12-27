@@ -13,6 +13,8 @@ from commons.myMqtt.MQTTClient import MyMQTTClass
 from commons.myMqtt import EventTopics
 import datetime
 import time
+from  threading import Thread
+
 
 
 
@@ -34,6 +36,7 @@ class UserPresenceManager(object):
 		logPath = "log/%s.log" % (self.serviceName)
 		self.confPath = "conf/%s.conf" % (self.serviceName)
 		self.event = EventTopics.getBehaviourProximity()
+		self.timer = 300
 		
 
 		if not os.path.exists(logPath):
@@ -78,6 +81,13 @@ class UserPresenceManager(object):
 			except Exception, e:
 				self.logger.error("Error on stop(): %s" % (e))
 
+		if (hasattr(self, "periodicUpdateThread")):
+			if self.periodicUpdateThread.isAlive():
+				try:
+					self.periodicUpdateThread._Thread__stop()
+				except:
+					self.logger.error(str(self.periodicUpdateThread.getName()) + ' (periodic update send event thread) could not terminated')
+
 		self.logger.info("Ended")
 
 
@@ -93,6 +103,18 @@ class UserPresenceManager(object):
 		self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
 		self.mqtt.connect(self.brokerUri, self.brokerPort)
 		self.mqtt.subscribeEvent(None, self.event)
+
+		self.periodicUpdateThread = Thread (target = self.loop)
+		self.periodicUpdateThread.start()
+
+	def loop (self):		
+		while (True):
+			for userName, presenceValue in self.userList.iteritems():
+				timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+				topic = EventTopics.getBehaviourProximity() + "/" + userName
+				payload = MQTTPayload.getActuationPayload() % (topic, str(presenceValue), "Proximity", userName, timestamp)
+				self.mqtt.syncPublish(topic, payload, 2)				
+			time.sleep(self.timer)
 
 	def notifyJsonEvent(self, topic, jsonEventString):
 		self.logger.debug ("received topic: \"%s\" with msg: \"%s\"" % (topic, jsonEventString))
