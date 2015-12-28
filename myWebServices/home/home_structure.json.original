@@ -4,8 +4,21 @@
 	"floor":"2",
 	"landlord":"my landlord",
 	"buildingID":"1",
-	"userPresenceManager":"http://192.168.1.254:8080/rest/userpresence/presence",
-	"thingspeakChannel": "https://thingspeak.com/channels/212",
+	"dashboard":"http://192.168.1.254:8080/static/index.html",
+	"switchOffAllDevicesAgent" : "http://192.168.1.254:8080/rest/switchoffall/actuate",
+	"userPresenceManager": {
+		"getStatus":"http://192.168.1.254:8080/rest/userpresence/presence",
+		"updateStatus": "http://192.168.1.254:8080/rest/userpresence/presence?user=%s&isPresent=%s"
+	},
+	"thingspeakChannel": [{
+		"device": "192.168.1.6",
+		"measureType": "Temperature",
+		"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field1=%s"
+	},{
+		"device": "192.168.1.6",
+		"measureType": "Humidity",
+		"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field2=%s"
+	}],
 	"homeMessageBroker":{
 		"address":"home.message.broker.address",
 		"port" : "1883"
