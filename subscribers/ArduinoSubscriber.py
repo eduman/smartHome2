@@ -16,7 +16,7 @@ from smartHomeDevice import ActuationCommands
 
 
 
-subscriberName = "ArduinoSubscriber2"
+subscriberName = "ArduinoSubscriber"
 deviceType = "arduino"
 
 #homeWSUri = "http://localhost:8080/rest/home/configuration"
