@@ -87,7 +87,7 @@ class ThingspeakSubscriber (AbstractSubscriber):
 			try:
 				if (len(self.msgQueue) > 0):
 					resp, isOk = self.invokeWebService(self.msgQueue[0])
-					if isOk:						
+					if isOk and resp is not "0":						
 						self.__lock.acquire()
 						deleted = self.msgQueue[0]
 						del self.msgQueue[0]
@@ -108,7 +108,8 @@ class ThingspeakSubscriber (AbstractSubscriber):
 			self.__lock.acquire()
 			data = json.loads(jsonEventString)
 			if topic in self.eventChannelMap:
-				uri = (self.eventChannelMap[topic] % (data["value"]))
+				timestamp = data["timestamp"].replace(" ", "T")
+				uri = (self.eventChannelMap[topic] % (data["value"], timestamp))
 				self.msgQueue.append(uri)
 			else:
 				self.logger.error("Feed not fond for topic %s: " % topic)

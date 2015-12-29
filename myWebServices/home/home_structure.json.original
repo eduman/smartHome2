@@ -13,11 +13,11 @@
 	"thingspeakChannel": [{
 		"device": "192.168.1.6",
 		"measureType": "Temperature",
-		"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field1=%s"
+		"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field1=%s&created_at=%s&offset=<integer depending on your timezone>"
 	},{
 		"device": "192.168.1.6",
 		"measureType": "Humidity",
-		"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field2=%s"
+		"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field2=%s&created_at=%s&offset=<integer depending on your timezone>"
 	}],
 	"homeMessageBroker":{
 		"address":"home.message.broker.address",
