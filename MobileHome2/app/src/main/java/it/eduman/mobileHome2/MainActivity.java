@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		this.mainFragment = new MainSectionFragment();
 		this.homeFragment = new HomeSectionFragment();
-		this.plotsFragment = new PlotsSectionFragment();
+		this.plotsFragment = new DashboardSectionFragment();
 		this.userFragment = new UserSectionFragment();
 		this.videosurveillanceFragment = new VideoSurveillanceSectionFragment();
 		this.computerFragment = new ComputerSectionFragment();
@@ -312,7 +312,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				case MobileHomeConstants.HOME_FRAGMENT_POSITION:
 					return this.context.getString(R.string.title_home).toUpperCase(l);
 				case MobileHomeConstants.PLOTS_FRAGMENT_POSITION:
-					return this.context.getString(R.string.title_plots).toUpperCase(l);
+					return this.context.getString(R.string.title_dashboard).toUpperCase(l);
 				case MobileHomeConstants.USER_FRAGMENT_POSITION:
 					return this.context.getString(R.string.title_user).toUpperCase(l);
 				case MobileHomeConstants.VIDEOSURVEILLANCE_FRAGMENT_POSITION:

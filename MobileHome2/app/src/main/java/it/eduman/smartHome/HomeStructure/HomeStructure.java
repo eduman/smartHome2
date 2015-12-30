@@ -9,9 +9,11 @@ public class HomeStructure {
     private String floor;
     private String landlord;
     private String buildingID;
-    private String userPresenceManager;
-//    private String ruleUpdater;
-    private String thingspeakChannel;
+    private UserPresenceManager userPresenceManager;
+    private String switchOffAllDevicesAgent;
+    private String dashboard;
+
+    private List<ThingspeakChannel> thingspeakChannels;
 
     private MessageBroker homeMessageBroker;
     private MessageBroker externalMessageBroker;
@@ -60,28 +62,20 @@ public class HomeStructure {
         this.buildingID = buildingID;
     }
 
-    public String getUserPresenceManager() {
+    public UserPresenceManager getUserPresenceManager() {
         return userPresenceManager;
     }
 
-    public void setUserPresenceManager(String userPresenceManager) {
+    public void setUserPresenceManager(UserPresenceManager userPresenceManager) {
         this.userPresenceManager = userPresenceManager;
     }
-//
-//    public String getRuleUpdater() {
-//        return ruleUpdater;
-//    }
-//
-//    public void setRuleUpdater(String ruleUpdater) {
-//        this.ruleUpdater = ruleUpdater;
-//    }
 
-    public String getThingspeakChannel() {
-        return thingspeakChannel;
+    public String getDashboard() {
+        return dashboard;
     }
 
-    public void setThingspeakChannel(String thingspeakChannel) {
-        this.thingspeakChannel = thingspeakChannel;
+    public void setDashboard(String dashboard) {
+        this.dashboard = dashboard;
     }
 
     public MessageBroker getHomeMessageBroker() {
@@ -114,5 +108,21 @@ public class HomeStructure {
 
     public void setRules(List<Rule> rules) {
         this.rules = rules;
+    }
+
+    public String getSwitchOffAllDevicesAgent() {
+        return switchOffAllDevicesAgent;
+    }
+
+    public void setSwitchOffAllDevicesAgent(String switchOffAllDevicesAgent) {
+        this.switchOffAllDevicesAgent = switchOffAllDevicesAgent;
+    }
+
+    public List<ThingspeakChannel> getThingspeakChannels() {
+        return thingspeakChannels;
+    }
+
+    public void setThingspeakChannels(List<ThingspeakChannel> thingspeakChannels) {
+        this.thingspeakChannels = thingspeakChannels;
     }
 }

@@ -38,6 +38,7 @@
     <string name="devicesTextView">Devices: </string>
     <string name="error">Error</string>
     <string name="homeID">Home ID: </string>
+    <string name="homeServiceProviderUnreachable">The home service provider is unreachable</string>
     <string name="info">Info</string>
     <string name="internetConnectionErr">The Internet Connection is missing. Please enable it.</string>
     <string name="loadingMsg">Loading</string>
@@ -138,15 +139,16 @@
     <string name="title_activity_computer">My Computer</string>
     <string name="title_activity_computer_settings">Computer Settings</string>
     <string name="title_computer">Computer</string>
+    <string name="title_dashboard">Dashboard</string>
     <string name="title_home">Home</string>
     <string name="title_main">Menù</string>
-    <string name="title_plots">Plots</string>
     <string name="title_rulemanager">Rules</string>
     <string name="title_user">User</string>
     <string name="title_videosurveillance">Surveillance</string>
     <string name="title_weather">Weather</string>
     <string name="turn_off_button">Turn off</string>
     <string name="turn_off_message">This will turn off all the devices. Do you want to proceed?</string>
+    <string name="turn_off_positive_response">Command sent. All devices will be turned off in a while.</string>
     <string name="unknownHome">Unknown Home (ID: Unknown Home Service Provider)</string>
     <string name="unknownUrl">The selected url is not valid</string>
     <string name="urlIsNull">Please insert a valid URL</string>

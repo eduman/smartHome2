@@ -53,7 +53,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="40dp"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/title_plots"
+                        android:contentDescription="@string/title_dashboard"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_action_plot"

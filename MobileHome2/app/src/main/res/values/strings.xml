@@ -7,7 +7,7 @@
     <string name="menu_settings">Settings</string>
     <string name="title_main">Menù</string>
     <string name="title_home">Home</string>
-    <string name="title_plots">Plots</string>
+    <string name="title_dashboard">Dashboard</string>
     <string name="title_user">User</string>
     <string name="title_videosurveillance">Surveillance</string>
     <string name="title_rulemanager">Rules</string>
@@ -56,6 +56,7 @@
     <string name="webcamTextView">Webcam</string>
     <string name="streemWebcamTextView">To stream the video, slide to Surveillance and select the device with id: %1$s</string>
     <string name="turn_off_message">This will turn off all the devices. Do you want to proceed?</string>
+    <string name="turn_off_positive_response">Command sent. All devices will be turned off in a while.</string>
 
 
 
@@ -114,6 +115,7 @@
     <string name="webPageError">Unable to load the required web page</string>
     <string name="descriptionIsNull">Please insert a valid Description for the Computer</string>
     <string name="unknownUrl">The selected url is not valid</string>
+    <string name="homeServiceProviderUnreachable">The home service provider is unreachable</string>
 
     <!-- Temporary Strings -->
     <string name="choseActionActivity">Choose what to do:</string>

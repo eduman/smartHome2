@@ -258,10 +258,7 @@ public class WeatherSectionFragment extends MyFragment {
 		private final static String HTML_ERROR 
 			= "<html><head><title>Open Weather</title></head><body><h3>ERROR</h3></body></html>";
 		private final static String CURRENT_WHEATHER_DATA_URL = 
-				"http://api.openweathermap.org/data/2.5/weather?q=%s&mode=json&units=metric&lang=%s";
-//		private final static String CURRENT_WHEATHER_DATA_URL_JSON_OPTION = "&mode=json";
-//		private final static String CURRENT_WHEATHER_DATA_URL_METRIC_OPTION = "&units=metric";
-//		private final static String CURRENT_WHEATHER_DATA_URL_LANGUAGE_OPTION = "&lang=";
+				"http://api.openweathermap.org/data/2.5/weather?q=%s&mode=json&units=metric&lang=%s&appid=2de143494c0b295cca9337e1e96b00e0";
 		private final static String CURRENT_WHEATHER_ICON_URL = "http://openweathermap.org/img/w/%s.png";
 		private final static String CURRENT_WEATHER_ERROR = "{\"message\":\"Error:";
 		private final static String CURRENT_WEATHER_EXCEPTION = "\"exceptionCod\":";		

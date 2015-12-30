@@ -91,7 +91,17 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 					@Override
 					public void onPositiveResponse() {
 						//TODO send MQTT message
-						SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(), "TODO");
+						String homeServiceProvider = sharedPref.getString(
+								rootView.getResources().getString(R.string.preference_home_service_provider_key), null);
+						if (homeServiceProvider == null){
+							SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
+						} else {
+							HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
+							if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
+								SwitchOffAll switchOffAll = new SwitchOffAll();
+								switchOffAll.execute(homeServiceProvider);
+							}
+						}
 					}
 
 					@Override
@@ -420,7 +430,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 							public void onClick(View v) {
 								if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
 									RetrieveDevice rc = new RetrieveDevice(device.getIp() + device.getType());
-									rc.execute(device);
+									rc.execute(function.getWs());
 								} else {
 									HardwareUtilities.enableInternetConnectionAlertDialog(
 											rootView.getContext(), true, false);
@@ -547,6 +557,55 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 
 			progress.setVisibility(View.INVISIBLE);
         }
+
+	}
+
+	private class SwitchOffAll extends AsyncTask<String, Void, String>{
+		private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.homeActivity_progressBar);
+		String homeUnreachableError = rootView.getContext().getString(R.string.homeServiceProviderUnreachable);
+
+		@Override
+		protected void onPreExecute() {
+			this.progress.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			String error = "ok";
+			Gson gson = new Gson();
+			try {
+				String response;
+				HashMap<String, String> httpHeaders = new HashMap<>();
+				httpHeaders.put("Content-Type", "application/json");
+				response = HttpConnection.sendGet(params[0], httpHeaders);
+				home = gson.fromJson(response, HomeStructure.class);
+
+				if (home != null){
+					response = HttpConnection.sendGet( home.getSwitchOffAllDevicesAgent(), httpHeaders);
+				} else {
+					error = homeUnreachableError;
+				}
+
+
+			} catch (Exception e){
+				error = e.getMessage();
+			}
+
+			return error;
+		}
+
+		@Override
+		protected void onPostExecute(String results) {
+			if (!results.equalsIgnoreCase("ok")){
+
+				SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(),
+						rootView.getContext().getString(R.string.error) + ": " + results);
+			} else {
+				SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(),
+						rootView.getContext().getString(R.string.turn_off_positive_response));
+			}
+			this.progress.setVisibility(View.INVISIBLE);
+		}
 
 	}
 

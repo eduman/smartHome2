@@ -31,13 +31,13 @@ import it.eduman.smartHome.HomeStructure.Rule;
 import it.eduman.smartHome.user.UserPresence;
 
 
-//TODO Manage MQTT events both publish and subscribes only for known users
 public class UserSectionFragment extends MyFragment {
 
     private static View rootView = null;
     private SharedPreferences sharedPref;
     private HashMap<String, UserPresence> usersList = new HashMap<>();
     private HomeStructure home = null;
+    protected String homeServiceProvider = null;
 //    private HashMap<String, ImageButton> userButtonsList = new HashMap<>();
     float scale;
 
@@ -106,6 +106,7 @@ public class UserSectionFragment extends MyFragment {
             if (homeServiceProvider == null){
                 SoftwareUtilities.MyErrorDialogFactory(rootView.getContext(), R.string.setHomeInfo);
             } else {
+                this.homeServiceProvider = homeServiceProvider;
                 HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
                 if (HardwareUtilities.isWiFiConnected(rootView.getContext())){
                     RetrieveHome rh = new RetrieveHome();
@@ -243,16 +244,13 @@ public class UserSectionFragment extends MyFragment {
                     Button button = (Button) v;
                     String username = button.getText().toString();
                     if (usersList.containsKey(username)) {
-                        //TODO send here the MQTT event
-                        SoftwareUtilities.MyInfoDialogFactory(rootView.getContext(), "TODO");
-                        boolean newUserPresence = !usersList.get(username).isPresent();
 
-                        //TODO this must be managed when the subscribed event is received
-//                        if (userPresence.isPresent()){
-//                            button.setBackgroundResource(R.drawable.my_button_blue);
-//                        } else {
-//                            button.setBackgroundResource(R.drawable.my_button_red);
-//                        }
+                        HardwareUtilities.enableInternetConnectionAlertDialog(rootView.getContext(), true, false);
+                        if (HardwareUtilities.isWiFiConnected(rootView.getContext())) {
+                            boolean newUserPresence = !usersList.get(username).isPresent();
+                            UpdateUser userUpdate = new UpdateUser();
+                            userUpdate.execute(homeServiceProvider, username, String.valueOf(newUserPresence));
+                        }
 
                     }
                 }
@@ -260,6 +258,91 @@ public class UserSectionFragment extends MyFragment {
             buttonTableRow.addView(button);
         }
     }
+
+    private class UpdateUser extends  AsyncTask<String, Void, String>{
+        private ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.user_framgent_progressBar);
+
+        @Override
+        protected void onPreExecute() {
+            this.progress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String error = "ok";
+            Gson gson = new Gson();
+            try {
+                String response;
+                HashMap<String, String> httpHeaders = new HashMap<>();
+                httpHeaders.put("Content-Type", "application/json");
+                response = HttpConnection.sendGet(params[0], httpHeaders);
+                home = gson.fromJson(response, HomeStructure.class);
+//                usersList.clear();
+//                for ( Rule rule : home.getRules()){
+//                    for (String user : rule.getUserList()){
+//                        usersList.put(user, (new UserPresence(user)));
+//                    }
+//                }
+
+                if (home != null){
+                    String uri = home.getUserPresenceManager().getUpdateStatus();
+                    String finalUri = String.format(uri, params[1], params[2]);
+                    response = HttpConnection.sendGet(finalUri, httpHeaders);
+                }
+
+                //TODO: verify if sleeping is really needed
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException ie) {
+//                    //Handle exception
+//                }
+
+                if (home != null) {
+                    response = HttpConnection.sendGet(home.getUserPresenceManager().getStatus(), httpHeaders);
+                    List<UserPresence> updatedUsers= gson.fromJson(response, new TypeToken<List<UserPresence>>(){}.getType());
+                    for (UserPresence u : updatedUsers){
+                        if (usersList.containsKey(u.getUser())){
+                            usersList.put(u.getUser(), u);
+                        }
+                    }
+                }
+
+            } catch (Exception e){
+//                error = ErrorUtilities.getExceptionMessage(e);
+                error = e.getMessage();
+            }
+
+
+            return error;
+        }
+
+        @Override
+        protected void onPostExecute(String results) {
+            if (!results.equalsIgnoreCase("ok")){
+                tableLayout.removeAllViews();
+
+                TableRow tableRow = new TableRow(rootView.getContext());
+                tableLayout.addView(tableRow);
+                TextView textView = new TextView(rootView.getContext());
+                textView.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+                textView.setTextAppearance(rootView.getContext(), android.R.style.TextAppearance_Medium);
+                textView.setText(rootView.getContext().getString(R.string.error) + ": " + results);
+                textView.setSingleLine(false);
+                textView.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                tableRow.addView(textView);
+
+            } else {
+                tableLayout.removeAllViews();
+                showInfo();
+            }
+            this.progress.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+
+
 
 
     private class RetrieveHome extends AsyncTask<String, Void, String> {
@@ -289,7 +372,7 @@ public class UserSectionFragment extends MyFragment {
                 }
 
                 if (home != null) {
-                    response = HttpConnection.sendGet(home.getUserPresenceManager(), httpHeaders);
+                    response = HttpConnection.sendGet(home.getUserPresenceManager().getStatus(), httpHeaders);
                     List<UserPresence> updatedUsers= gson.fromJson(response, new TypeToken<List<UserPresence>>(){}.getType());
                     for (UserPresence u : updatedUsers){
                         if (usersList.containsKey(u.getUser())){

@@ -1,6 +1,5 @@
 package it.eduman.mobileHome2;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ClipDrawable;
@@ -31,7 +30,7 @@ import it.eduman.android.commons.utilities.SoftwareUtilities;
 import it.eduman.mobileHome2.commons.MobileHomeConstants;
 import it.eduman.smartHome.HomeStructure.HomeStructure;
 
-public class PlotsSectionFragment extends MyFragment {
+public class DashboardSectionFragment extends MyFragment {
 
     private static View rootView = null;
     private WebView myWebView;
@@ -100,7 +99,7 @@ public class PlotsSectionFragment extends MyFragment {
         myWebView.setWebViewClient(new MyWebViewClient());
         myWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
-                PlotsSectionFragment.this.progress.setProgress(progress);
+                DashboardSectionFragment.this.progress.setProgress(progress);
             }
         });
         myWebView.getSettings().setJavaScriptEnabled(true);
@@ -220,34 +219,34 @@ public class PlotsSectionFragment extends MyFragment {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            PlotsSectionFragment.this.progress.setProgress(100);
+            DashboardSectionFragment.this.progress.setProgress(100);
             super.onPageFinished(view, url);
 
-            PlotsSectionFragment.this.backwardButton.setEnabled(view.canGoBack());
+            DashboardSectionFragment.this.backwardButton.setEnabled(view.canGoBack());
             if(view.canGoBack()){
-                PlotsSectionFragment.this.backwardButton.setAlpha(1.0f);
+                DashboardSectionFragment.this.backwardButton.setAlpha(1.0f);
             } else {
-                PlotsSectionFragment.this.backwardButton.setAlpha(.5f);
+                DashboardSectionFragment.this.backwardButton.setAlpha(.5f);
             }
 
-            PlotsSectionFragment.this.forwardButton.setEnabled(view.canGoForward());
+            DashboardSectionFragment.this.forwardButton.setEnabled(view.canGoForward());
             if(view.canGoForward()){
-                PlotsSectionFragment.this.forwardButton.setAlpha(1.0f);
+                DashboardSectionFragment.this.forwardButton.setAlpha(1.0f);
             } else {
-                PlotsSectionFragment.this.forwardButton.setAlpha(.5f);
+                DashboardSectionFragment.this.forwardButton.setAlpha(.5f);
             }
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            PlotsSectionFragment.this.progress.setProgress(0);
+            DashboardSectionFragment.this.progress.setProgress(0);
             super.onPageStarted(view, url, favicon);
         }
 
         @Override
         public void onReceivedError(WebView view, int errorCod, String description, String failingUrl) {
             SoftwareUtilities.MyErrorDialogFactory
-                    (PlotsSectionFragment.rootView.getContext(), "Your Internet Connection May not be active Or " + description);
+                    (DashboardSectionFragment.rootView.getContext(), "Your Internet Connection May not be active Or " + description);
 
         }
     }
@@ -294,7 +293,7 @@ public class PlotsSectionFragment extends MyFragment {
                         rootView.getContext().getResources().getString(R.string.startingInfoErr)
                                 + this.errors);
             } else {
-                currentURI = results.getThingspeakChannel();
+                currentURI = results.getDashboard();
             }
 
             this.homeStructureProgress.setVisibility(View.INVISIBLE);
