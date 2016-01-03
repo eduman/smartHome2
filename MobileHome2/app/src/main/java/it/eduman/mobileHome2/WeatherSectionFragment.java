@@ -186,7 +186,7 @@ public class WeatherSectionFragment extends MyFragment {
 
 
 	@Override
-	public void update() {
+	public synchronized void update() {
 		hideViews();
 		if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.WEATHER_FRAGMENT_POSITION){
 			if (HardwareUtilities.isWiFiConnected(rootView.getContext()))

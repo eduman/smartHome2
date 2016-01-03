@@ -229,7 +229,7 @@ public class HomeSectionFragment extends MyFragment implements AdapterView.OnIte
 	}
 
 	@Override
-	public void update(){
+	public synchronized void update(){
 		if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.HOME_FRAGMENT_POSITION){
 			if (this.sharedPref == null)
 				this.sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());

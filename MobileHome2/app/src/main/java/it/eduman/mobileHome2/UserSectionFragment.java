@@ -40,7 +40,8 @@ public class UserSectionFragment extends MyFragment {
     protected String homeServiceProvider = null;
 //    private HashMap<String, ImageButton> userButtonsList = new HashMap<>();
     float scale;
-
+    private int updateInterval = 60000;
+    private UIUpdater mUIUpdater;
     TableLayout tableLayout;
     TableLayout.LayoutParams layoutRow =
             new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -84,6 +85,13 @@ public class UserSectionFragment extends MyFragment {
         scale = rootView.getContext().getResources().getDisplayMetrics().density;
         layoutButton = new TableRow.LayoutParams((int)(150*scale), (int)(150*scale));
 
+        this.mUIUpdater = new UIUpdater(new Runnable() {
+            @Override
+            public void run() {
+                update();
+            }
+        }, this.updateInterval);
+
         return rootView;
     }
 
@@ -91,11 +99,18 @@ public class UserSectionFragment extends MyFragment {
     public void onResume(){
         super.onResume();
         ActivityCommons.updateAfterUserSettingsChanges(rootView.getContext());
-        update();
+        //update();
+        this.mUIUpdater.startUpdates();
     }
 
     @Override
-    public void update() {
+    public void onPause(){
+        this.mUIUpdater.stopUpdates();
+        super.onPause();
+    }
+
+    @Override
+    public synchronized void update() {
         if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.USER_FRAGMENT_POSITION){
             tableLayout.removeAllViews();
 

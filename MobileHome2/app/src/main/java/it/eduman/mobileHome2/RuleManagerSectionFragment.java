@@ -110,7 +110,7 @@ public class RuleManagerSectionFragment extends MyFragment {
 
 
     @Override
-    public void update() {
+    public synchronized void update() {
         if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.RULEMANAGER_FRAGMENT_POSITION){
             if (this.sharedPref == null)
                 this.sharedPref = PreferenceManager.getDefaultSharedPreferences(rootView.getContext());

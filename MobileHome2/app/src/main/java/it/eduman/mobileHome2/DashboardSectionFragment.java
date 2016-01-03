@@ -160,7 +160,7 @@ public class DashboardSectionFragment extends MyFragment {
     }
 
     @Override
-    public void onPause(){
+    public synchronized void onPause(){
         super.onPause();
         if (myWebView != null) {
             webViewBundle = new Bundle();

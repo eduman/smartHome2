@@ -300,7 +300,7 @@ public class ComputerSectionFragment extends MyFragment implements AdapterView.O
 
 
 	@Override
-	public void update(){
+	public synchronized void update(){
 		hideButtons();
 		if (MyFragment.CURRENT_VISIBLE_FRAGMENT == MobileHomeConstants.COMPUTER_FRAGMENT_POSITION){
 
