@@ -30,7 +30,8 @@ from myWebServices.FreeboardAgent import FreeboardAgent
 from myWebServices.DropboxAgent import DropboxAgent
 
 httpPort = 8080
-logLevel = logging.DEBUG
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 
 FREEBOARD_ROOT = 'myWebServices/static/freeboard/'
 
@@ -177,7 +178,7 @@ def start():
 
 	   	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getRaspberryAgent()) and (os.uname()[4].startswith("arm")):
                 	from myWebServices.RaspberryAgent import RaspberryAgent
-                	raspberry = RaspberryAgent("RasberryAgent", logLevel, ipAddress, httpPort, 900)
+                	raspberry = RaspberryAgent("RaspberryAgent", logLevel, ipAddress, httpPort, 900)
                 	raspberry.setDHTInstalled(True)
 	                raspberry.setDHTPin(18)
 	                raspberry.setDHTType(22)

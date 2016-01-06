@@ -53,7 +53,7 @@ class MyMQTTClass:
 
     def disconnect(self):
         try:
-            self.logger.debug("Disconnecting from message broker")
+            self.logger.info("Disconnecting from message broker")
             self._mqttc.disconnect()
             self._mqttc.loop_stop(force=False)
             self.timer.cancel()
@@ -70,21 +70,21 @@ class MyMQTTClass:
                     try: 
                         self._mqttc.subscribe(event)
                         subscribedEvents.append(event)
-                        self.logger.debug("Subscribed for the event: %s " % event)
+                        self.logger.info("Subscribed for the event: %s " % event)
                     except Exception, e:
                         self.logger.error("Error on subscribeEvent() %s", e)
         else:
             event = topic + "/#"
             self._mqttc.subscribe(event)
             subscribedEvents.append(event)
-            self.logger.debug("Subscribed for the event: %s " % event)
+            self.logger.info("Subscribed for the event: %s " % event)
 
         return subscribedEvents
 
     def unsubscribeEvent(self, event):
         try:
             self._mqttc.unsubscribe(event)
-            self.logger.debug("Unsubscribed for the event: %s " % event)
+            self.logger.info("Unsubscribed for the event: %s " % event)
         except Exception, e:
             self.logger.error("Error on unsubscribeEvent() %s", e)
 
@@ -97,6 +97,7 @@ class MyMQTTClass:
         self.__lock.acquire()
         self._mqttc.publish(eventTopic, payload, qos)
         self.__lock.release()
+        self.logger.info('Publishing topic: "%s" with msg: %s ' % (eventTopic, payload))
 
     def connect(self, uri="localhost", port=1883, userdata=60):
         try:

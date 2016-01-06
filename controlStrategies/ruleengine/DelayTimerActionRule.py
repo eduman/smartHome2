@@ -125,6 +125,7 @@ class DelayTimerActionRule(AbstractActionRule):
 			
 			self.setPresenceValue(presence)
 			self.setMotionValue(motion)
+			self.resetAllMotionSensors()
 
 	def stop(self):
 		try:
@@ -172,6 +173,19 @@ class DelayTimerActionRule(AbstractActionRule):
 			self.logger.error("Error on DelayTimerActionRule.setPresenceValue(). Setting defalut Presence = %s mills. %s" %(boolValue, e))
 
 		self.context.updateProperty(ConfigurationConstants.getPresence(), str(boolValue))
+
+	def resetAllMotionSensors(self):
+		fullSensorList = self.context.getProperty(ConfigurationConstants.getFullSensorList())
+		if fullSensorList:
+			sensors =  ''.join(fullSensorList.split()).split(';')
+			for sensor in sensors:
+				if sensor:
+					try:
+						self.context.updateProperty(sensor, str(False))
+					except Exception, e:
+						self.logger.error("Error on DelayTimerActionRule.resetMotionSensors(): Malformed boolean exception for sensorId = %s. %s." % (sensor, e))
+
+					
 
 
 if __name__ == "__main__":
