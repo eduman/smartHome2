@@ -93,7 +93,9 @@ class RaspberryAgent(object):
 		if self.isPirInstalled:
 			gpio.setmode(gpio.BOARD)
 			gpio.setup(self.pirPin, gpio.IN)
-			gpio.add_event_detect(self.pirPin, gpio.RISING, callback=self.pirCallback, bouncetime=200)
+			gpio.add_event_detect(self.pirPin, gpio.BOTH, callback=self.pirCallback, bouncetime=200)
+
+
 
 		if self.isDHTInstalled:
 			self.dhtThread = Thread (target = self.loop)
@@ -129,9 +131,14 @@ class RaspberryAgent(object):
 
 
 	def pirCallback (self, pin):
-		topic, payload = self.makeEvent("motion", "True")
-		self.mqtt.syncPublish(topic, payload, 2)
-		time.sleep(60)
+		if gpio.input(self.pirPin):
+			topic, payload = self.makeEvent("motion", "True")
+			self.mqtt.syncPublish(topic, payload, 2)
+			time.sleep(60)
+		else:
+			topic, payload = self.makeEvent("motion", "False")
+			self.mqtt.syncPublish(topic, payload, 2)
+
 
 	def stop(self):
 		if (hasattr(self, "dhtThread")):
@@ -140,6 +147,7 @@ class RaspberryAgent(object):
 					self.dhtThread._Thread__stop()
 				except:
 					self.logger.error(str(self.dhtThread.getName()) + ' (dht send event thread) could not terminated')
+
 
 		if (hasattr (self, "mqtt")):
 			try:
