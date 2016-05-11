@@ -25,3 +25,5 @@ gen/
 #.classpath
 #.project
 
+# certificates
+*.pem

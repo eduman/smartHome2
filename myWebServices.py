@@ -12,11 +12,13 @@ import time
 import socket
 import ConfigParser
 import os, sys
+import ssl
 #lib_path = os.path.abspath(os.path.join('..', 'commons'))
 #sys.path.append(lib_path)
 
 from commons.myMqtt import EventTopics
 from commons.myMqtt.MQTTClient import MyMQTTClass
+from commons.mySSLUtil import MySSLUtil
 
 from publisher.ArduinoPublisher import ArduinoPublisher
 from myWebServices.UserPresenceManager import UserPresenceManager
@@ -30,6 +32,7 @@ from myWebServices.FreeboardAgent import FreeboardAgent
 from myWebServices.DropboxAgent import DropboxAgent
 
 httpPort = 8080
+#httpPort = 443
 #logLevel = logging.DEBUG
 logLevel = logging.INFO
 
@@ -63,6 +66,16 @@ def start():
 	
 	cherrypy.config.update({'server.socket_host': '0.0.0.0'})
 	cherrypy.config.update({'server.socket_port': httpPort})
+
+	# Uncomment the following line to enable ssl 
+	#cherrypy.config.update({'server.ssl_module':'pyopenssl'})
+	#cherrypy.config.update({'server.ssl_certificate':'/Users/edo/Documents/Git/smartHome2/keys/cert.pem'})
+	#cherrypy.config.update({'server.ssl_private_key':'/Users/edo/Documents/Git/smartHome2/keys/key.pem'})
+
+	#logging files
+	cherrypy.config.update({'log.error_file':'log/Web.log'})
+	cherrypy.config.update({'log.access_file' : 'log/Access.log'})
+
 	#does not print tracebacks on web page
 	cherrypy.config.update({'request.show_tracebacks': True})
 	#disable cherrypy console log 
@@ -149,7 +162,6 @@ def start():
 	#start serving pages
 	cherrypy.engine.start()
 
-
 	homeWSUri = config.get(WSConstants.getAgentsSettings(), WSConstants.getHomeURI())
 	resp, isOk = invokeWebService(homeWSUri)
 	while (not isOk):
@@ -203,7 +215,6 @@ def start():
 		plugwise.start(cherrypy.engine, appliances, plugwiseSerialPort)
 		cherrypy.tree.mount(plugwise, '/rest/plugwise', conf)
 
-
 	cherrypy.engine.start()
 	cherrypy.engine.block()
 
@@ -213,6 +224,8 @@ def invokeWebService (uri):
 		req = urllib2.Request(uri)
 		req.add_header('Content-Type', 'application/json')
 		resp = urllib2.urlopen(req).read()
+		# Uncomment the following line to enable ssl 
+		#resp = urllib2.urlopen(req, context=MySSLUtil.makeDefaultSSLContext()).read()
 		return resp, True
 
 	except urllib2.HTTPError, e:

@@ -134,7 +134,7 @@ class RaspberryAgent(object):
 		if gpio.input(self.pirPin):
 			topic, payload = self.makeEvent("motion", "True")
 			self.mqtt.syncPublish(topic, payload, 2)
-			time.sleep(60)
+			time.sleep(30)
 		else:
 			topic, payload = self.makeEvent("motion", "False")
 			self.mqtt.syncPublish(topic, payload, 2)
