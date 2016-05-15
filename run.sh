@@ -33,6 +33,16 @@ done
 #echo "running mainPublisher.py..."
 #screen -d -m python mainPublisher.py;
 
+#run other services
+#cd ..
+cd './services'
+#for f in *.py; do screen -d -m python "$f"; done
+for f in *.py; do 
+	echo "running $f..."
+	screen -d -m python "$f"; 
+done
+
+
 
 
 #run the control strategies
