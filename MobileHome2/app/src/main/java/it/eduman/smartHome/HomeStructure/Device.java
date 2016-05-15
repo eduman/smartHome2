@@ -9,6 +9,8 @@ public class Device {
     private boolean isActive;
     private String type;
     private List<DeviceProtocol> protocol;
+    private List<ThingspeakChannel> thingspeakChannels;
+
 
 
     public String getDeviceID() {
@@ -49,5 +51,13 @@ public class Device {
 
     public void setProtocol(List<DeviceProtocol> protocol) {
         this.protocol = protocol;
+    }
+
+    public List<ThingspeakChannel> getThingspeakChannels() {
+        return thingspeakChannels;
+    }
+
+    public void setThingspeakChannels(List<ThingspeakChannel> thingspeakChannels) {
+        this.thingspeakChannels = thingspeakChannels;
     }
 }

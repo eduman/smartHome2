@@ -13,8 +13,6 @@ public class HomeStructure {
     private String switchOffAllDevicesAgent;
     private String dashboard;
 
-    private List<ThingspeakChannel> thingspeakChannels;
-
     private MessageBroker homeMessageBroker;
     private MessageBroker externalMessageBroker;
 
@@ -116,13 +114,5 @@ public class HomeStructure {
 
     public void setSwitchOffAllDevicesAgent(String switchOffAllDevicesAgent) {
         this.switchOffAllDevicesAgent = switchOffAllDevicesAgent;
-    }
-
-    public List<ThingspeakChannel> getThingspeakChannels() {
-        return thingspeakChannels;
-    }
-
-    public void setThingspeakChannels(List<ThingspeakChannel> thingspeakChannels) {
-        this.thingspeakChannels = thingspeakChannels;
     }
 }
