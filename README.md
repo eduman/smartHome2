@@ -26,6 +26,7 @@ the following libraries or external programs are needed:
 - cherrypy library (sudo pip install cherrypy)
 - dropbox python SDK (sudo pip install dropbox)
 - Adafruit_Python_DHT (for raspberry pi)
+- twx.botapi - Telegram Unofficial Library (sudo pip install -i https://testpypi.python.org/pypi twx.botapi)
 
 ### Howto install Adafruit_Python_DHT library on a raspberry pi
 
