@@ -16,8 +16,9 @@ from threading import Thread
 import urllib
 import urllib2
 import httplib
+import requests
 
-
+requests.packages.urllib3.disable_warnings()
 
 logLevel = logging.INFO
 homeWSUri = "http://localhost:8080/rest/home/configuration"
@@ -60,6 +61,7 @@ class SmartHomeBot:
 
 	# Starts the communication with the bot
 	def start_bot(self):
+		self.logger.info("SmartHomeBot started")
 		self.retrieveHomeSettings()
 
 		if (self.botToken is None):
@@ -92,11 +94,13 @@ class SmartHomeBot:
 			self.logger.error ("Unable to find the home proxy. I will try again in a while...")
 			resp, isOk = self.invokeWebService(homeWSUri)
 			time.sleep(10) #sleep 10 seconds
-
-		self.myhome = json.loads(resp)
-		self.botToken = self.myhome["TelegramBot"]["telegramToken"]
-		self.validUsers = self.myhome["TelegramBot"]["allowedUserID"]	
-		self.makeKeyboards()
+		try:
+			self.myhome = json.loads(resp)
+			self.botToken = self.myhome["TelegramBot"]["telegramToken"]
+			self.validUsers = self.myhome["TelegramBot"]["allowedUserID"]	
+			self.makeKeyboards()
+		except (Exception, e):
+			self.logger.error ("Error on retrieveHomeSettings: %s" % (e))
 
 	def makeKeyboards(self):
 		# Rooms keyboard
