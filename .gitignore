@@ -27,3 +27,29 @@ gen/
 
 # certificates
 *.pem
+
+.idea/.name
+
+.idea/encodings.xml
+
+.idea/workspace.xml
+
+.idea/vcs.xml
+
+.idea/smartHome2.iml
+
+.idea/modules.xml
+
+.idea/misc.xml
+
+conf/home_structure.json
+
+conf/home_structure.json
+
+conf/myWebService.conf
+
+MobileHome2/.gradle/2.4/taskArtifacts/cache.properties.lock
+
+MobileHome2/.idea/misc.xml
+
+MobileHome2/.idea/workspace.xml

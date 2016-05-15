@@ -10,6 +10,10 @@
 		"getStatus":"http://192.168.1.254:8080/rest/userpresence/presence",
 		"updateStatus": "http://192.168.1.254:8080/rest/userpresence/presence?user=%s&isPresent=%s"
 	},
+	"TelegramBot": {
+		"telegramToken": "<your_bot_token>",
+		"allowedUserID": [<client_id>, <client_id>]
+	},
 	"thingspeakChannel": [{
 		"device": "192.168.1.6",
 		"measureType": "Temperature",
