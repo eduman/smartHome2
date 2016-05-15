@@ -24,8 +24,8 @@ import time
 
 subscriberName = "ThingspeakSubscriber"
 
-#homeWSUri = "http://localhost:8080/rest/home/configuration"
-homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
+homeWSUri = "http://localhost:8080/rest/home/configuration"
+#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
 
 
 #logLevel = logging.INFO
@@ -57,11 +57,13 @@ class ThingspeakSubscriber (AbstractSubscriber):
 		if (brokerUri != None and brokerUri != "") and (brokerPort != None and brokerPort != ""):
 			self.mqttc = MyMQTTClass(self.subscriberName, self.logger, self)
 			self.mqttc.connect(brokerUri,brokerPort)
-			for i, channel in enumerate(myhome['thingspeakChannel']):
-				topic = self.mekeTopic(channel['device'], channel['measureType'])
-				self.eventChannelMap[topic] = channel['feed']
-				event = self.mqttc.subscribeEvent(None, topic)
-				self.subscribedEventList +=  event
+			for a, room in enumerate(myhome["rooms"]):
+				for b, device in enumerate(room["devices"]):
+					for c, channel in enumerate(device['thingspeakChannels']):
+						topic = self.mekeTopic(device["deviceID"], channel['measureType'])
+						self.eventChannelMap[topic] = channel['feed']
+						event = self.mqttc.subscribeEvent(None, topic)
+						self.subscribedEventList +=  event
 
 		else:
 			self.logger.error ("The message broker address is not valid")
