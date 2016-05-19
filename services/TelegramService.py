@@ -77,11 +77,12 @@ class SmartHomeBot:
 				while self.isRunning:
 					#The get_updates method returns the earliest 100 unconfirmed updates
 					updates = self.bot.get_updates(offset = self.lastUpdateID + 1).wait()
-					cont1=len(updates)
-					if cont1 != 0:
-						replyThread = Thread (target = self.reply, args=[updates[-1]])
-						replyThread.start()
-						self.lastUpdateID = updates[-1].update_id
+					if (updates is not None):
+						cont1=len(updates)
+						if cont1 != 0:
+							replyThread = Thread (target = self.reply, args=[updates[-1]])
+							replyThread.start()
+							self.lastUpdateID = updates[-1].update_id
 
 					time.sleep(1)
 			except KeyboardInterrupt:
