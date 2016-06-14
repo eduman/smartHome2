@@ -18,6 +18,7 @@ SmartHome v2 integrates freeboard.io dashboard (http://freeboard.io/), which is 
 ## External dependencies
 the following libraries or external programs are needed:
 
+- simplejson library (sudo pip install simplejson)
 - paho mqtt library python version. (sudo pip install paho-mqtt)
 - python-plugwise library (https://bitbucket.org/hadara/python-plugwise/wiki/Home)
 - pyserial library (sudo pip install pyserial)
