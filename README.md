@@ -1,12 +1,10 @@
 # SmartHome v2
 
-SmartHome version 2 is compatible with the LinkSmart LocalConnect (https://linksmart.eu/redmine/projects/linksmart-local-connect).
-
-It includes:
-- agents and example of configuration files for the linksmart device connector, which is part of the LinkSmart LocalConnect 
-- myWebServices, a web services conteinar for smartHome agents. It is an alternative to LinkSmart LocalConnect 
+SmartHome version 2  includes:
+- myWebServices, a web services conteinar for smartHome agents.
 - control strategies
 - mqtt publishers and subscribers wrappers for not mqtt-compliant IoT devices
+- telegram service
 - smartHome v2 commons libraries python version ("commons" folder)
 - sketches for Arduino (xboard relay)
 - bash script to run smartHome v2
@@ -25,8 +23,8 @@ the following libraries or external programs are needed:
 - pyserial library (sudo pip install pyserial)
 - cherrypy library (sudo pip install cherrypy)
 - dropbox python SDK (sudo pip install dropbox)
-- Adafruit_Python_DHT (for raspberry pi)
 - twx.botapi - Telegram Unofficial Library (sudo pip install -i https://testpypi.python.org/pypi twx.botapi)
+- Adafruit_Python_DHT (for raspberry pi)
 
 ### Howto install Adafruit_Python_DHT library on a raspberry pi
 
