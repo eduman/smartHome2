@@ -51,6 +51,10 @@ class MyMQTTClass:
             self.logger.error("Erron on loop() %s", e)
 
 
+    def setUserAuthentication(self, username, password=None):
+        self._mqttc.username_pw_set(username, password)
+
+
     def disconnect(self):
         try:
             self.logger.info("Disconnecting from message broker")
@@ -59,6 +63,25 @@ class MyMQTTClass:
             self.timer.cancel()
         except Exception, e:
             self.logger.error("Erron on mqttDisconnect() %s", e)
+
+
+    def connect(self, uri="localhost", port=1883, userdata=60):
+        try:
+            self._mqttc.connect(str(uri), str(port), userdata)
+            t1 = threading.Thread(target=self.loop)
+            t1.start()
+            self.timer = threading.Timer(300.0, self.mqttReconnect)
+            self.timer.start()
+        except Exception, e:
+            self.logger.error("Erron on registerMQTT() %s", e)
+
+    def mqttReconnect(self):
+        try:
+            self._mqttc.reconnect()
+            self.timer = threading.Timer(300.0, self.mqttReconnect)
+            self.timer.start()
+        except Exception, e:
+            self.logger.error("Erron on mqttReconnect() %s", e) 
 
     def subscribeEvent(self, fullString, topic):
         subscribedEvents = []
@@ -99,20 +122,3 @@ class MyMQTTClass:
         self.__lock.release()
         self.logger.info('Publishing topic: "%s" with msg: %s ' % (eventTopic, payload))
 
-    def connect(self, uri="localhost", port=1883, userdata=60):
-        try:
-            self._mqttc.connect(str(uri), str(port), userdata)
-            t1 = threading.Thread(target=self.loop)
-            t1.start()
-            self.timer = threading.Timer(300.0, self.mqttReconnect)
-            self.timer.start()
-        except Exception, e:
-            self.logger.error("Erron on registerMQTT() %s", e)
-
-    def mqttReconnect(self):
-        try:
-            self._mqttc.reconnect()
-            self.timer = threading.Timer(300.0, self.mqttReconnect)
-            self.timer.start()
-        except Exception, e:
-            self.logger.error("Erron on mqttReconnect() %s", e) 
