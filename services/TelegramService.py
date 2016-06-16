@@ -48,7 +48,7 @@ class SmartHomeBot:
 		self.upnp = miniupnpc.UPnP()
 		self.upnp.discoverdelay = 200
 		self.minUPnPPort = 1024
-		self.maxUPnPPort = self.minUPnPPort + 10
+		self.maxUPnPPort = self.minUPnPPort + 20
 
 		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
 			signal.signal(sig, self.signal_handler)
