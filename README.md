@@ -24,6 +24,8 @@ the following libraries or external programs are needed:
 - pyserial library (sudo pip install pyserial)
 - cherrypy library (sudo pip install cherrypy)
 - dropbox python SDK (sudo pip install dropbox)
+- ipaddress library (sudo pip install ipaddress)
+- miniupnpc library (sudo pip install miniupnpc)
 - twx.botapi - Telegram Unofficial Library (sudo pip install -i https://testpypi.python.org/pypi twx.botapi)
 - Adafruit_Python_DHT (for raspberry pi)
 
