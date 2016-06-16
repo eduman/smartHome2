@@ -613,6 +613,3 @@ class SmartHomeBot:
 if __name__ == "__main__":
 	mybot = SmartHomeBot()
 	mybot.start_bot()
-
-	#"telegramToken": "185527325:AAHBbylTmQ09vjXQXctKG4eiitd8Di6TISM",
-	#"allowedUserID": [187393864, 199822101]
