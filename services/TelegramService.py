@@ -1,5 +1,7 @@
 # dependencies: twx.botapi
 # sudo pip install -i https://testpypi.python.org/pypi twx.botapi
+# sudo pip install ipaddress
+# sudo pip install miniupnpc
 
 from twx.botapi import TelegramBot 
 from twx.botapi import ReplyKeyboardMarkup, ReplyKeyboardHide
@@ -17,6 +19,8 @@ import urllib
 import urllib2
 import httplib
 import requests
+import miniupnpc
+import ipaddress
 
 requests.packages.urllib3.disable_warnings()
 
@@ -40,6 +44,11 @@ class SmartHomeBot:
 		self.logger = self.makeLogger ("SmartHomeTelegramBot")
 		self.homeUpdateTimer = 300 # update every 5 minutes
 		self.isRunning = True 
+
+		self.upnp = miniupnpc.UPnP()
+		self.upnp.discoverdelay = 200
+		self.minUPnPPort = 1024
+		self.maxUPnPPort = self.minUPnPPort + 10
 
 		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
 			signal.signal(sig, self.signal_handler)
@@ -251,6 +260,122 @@ class SmartHomeBot:
 			self.logger.error(msg)
 			return msg, False
 
+	def openPort(self, localIP, localPort, externalPort, protocol):
+		ndevices = self.upnp.discover()
+		igd = self.upnp.selectigd()
+		msg = ""
+		errormsg = "Error: host and/or router port must be an integer between %d and %d" % (self.minUPnPPort, self.maxUPnPPort)
+		isOk = True
+
+		if (protocol.upper() == 'TCP'):
+			protocol = 'TCP'
+		elif (protocol.upper() == 'UDP'):
+			protocol = 'UDP'
+		else:
+			protocol = 'TCP'
+			msg += "Protocol not valid, using TCP by default\n"
+
+		if (localIP is None):
+			localIP = self.upnp.lanaddr
+			isOk = isOk and True
+		else:
+			try:
+				#ip = ipaddress.ip_address(unicode(localIP, 'utf8'))
+				ip = ipaddress.ip_address(localIP)
+				isOk = isOk and True
+			except Exception, e:
+				msg += str(e) + "\n"
+				isOk = isOk and False
+
+		try:
+			localPort = int(localPort)
+			externalPort = int(externalPort)
+			if (localPort > 1 and localPort < 65536):
+				isOk = isOk and True
+			else:
+				isOk = isOk and False
+				msg += errormsg + "\n"
+
+			if (externalPort > self.minUPnPPort and externalPort < self.maxUPnPPort):
+				isOk = isOk and True
+			else:
+				isOk = isOk and False
+				msg += errormsg + "\n"
+
+		except Exception, e:
+			isOk = isOk and False
+			msg += errormsg + "\n"
+
+
+		if isOk:
+			# find a free port for the redirection
+			available = self.upnp.getspecificportmapping(externalPort, protocol)
+			while available != None and externalPort < self.maxUPnPPort :
+				externalPort = externalPort + 1
+				available = self.upnp.getspecificportmapping(externalPort, protocol)
+
+			if (available is None):
+				portMaps = self.upnp.addportmapping(externalPort, protocol, localIP, localPort, 'Open port %u' % externalPort, '')
+				if portMaps:
+					msg += 'Port forwarding Successed. Now waiting for some request on %s:%u\n' % (self.upnp.externalipaddress() ,externalPort)
+				else:
+					msg += "Port forwarding failed\n"
+			else:
+				msg += "Unable to enable port forwarding, no more external ports are available"				
+
+		return msg
+
+	def closePort(self, externalPort, protocol):
+		ndevice = self.upnp.discover()
+		igd = self.upnp.selectigd()
+		msg = ""
+		isOk = True
+
+		if (protocol.upper() == 'TCP'):
+			protocol = 'TCP'
+		elif (protocol.upper() == 'UDP'):
+			protocol = 'UDP'
+		else:
+			protocol = 'TCP'
+			msg += "Protocol not valid, using TCP by default\n"
+
+		if (str(externalPort).lower() == "all"):
+			for port in range (self.minUPnPPort, self.maxUPnPPort):
+				for protocol in ['TCP', 'UDP']:
+					available = self.upnp.getspecificportmapping(port, protocol)
+					if (available != None):
+						portMaps = self.upnp.deleteportmapping(port, protocol)
+						if portMaps:
+							msg += 'Successfully deleted port mapping for port %s and protocol %s\n' % (port, protocol)
+						else:
+							msg +=  'Failed to remove port mapping for port %s and protocol %s\n' % (port, protocol)
+		else:
+			try:
+				externalPort = int(externalPort)
+
+				if (externalPort > self.minUPnPPort and externalPort < self.maxUPnPPort):
+					isOk = isOk and True
+				else:
+					isOk = isOk and False
+					msg += "Error: router port must be an integer between %d and %d\n" % (self.minUPnPPort, self.maxUPnPPort) 
+
+			except Exception, e:
+				isOk = isOk and False
+				msg +=  "Error: router port must be an integer between %d and %d\n" % (self.minUPnPPort, self.maxUPnPPort) 
+
+			if (isOk):
+				available = self.upnp.getspecificportmapping(externalPort, protocol)
+				if (available != None):
+					portMaps = self.upnp.deleteportmapping(externalPort, protocol)
+					if portMaps:
+						msg += 'Successfully deleted port mapping for port %s and protocol %s\n' % (externalPort, protocol)
+					else:
+						msg +=  'Failed to remove port mapping for port %s and protocol %s\n' % (externalPort, protocol)
+				else:
+					msg += 'Port mapping does not existing for  port %s and protocol %s\n' % (externalPort, protocol)
+
+		return msg
+
 
 	def reply (self, update):
 		chat_id=update.message.chat.id
@@ -260,13 +385,117 @@ class SmartHomeBot:
 			text = update.message.text
 			reply_markup = None
 
-			if (text == "/start"):
+			if (text.lower() == "/start"):
 				replyMsg += "Hi %s! Welcome on SmartHome2!" % (name) 
 				reply_markup =ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 				
 			elif (text == "Start"):
 				replyMsg = "command received" 
 				reply_markup =ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+
+			elif (text.lower().startswith("/openport") ):
+				params = text.lower().split(" ")
+				params = filter(None, params)
+				protocol = "TCP"
+				localIP = None
+				localPort = None
+				externalPort = None
+				wrongParamsMsg = "Wrong parameters! Usage:\n/openport -s <localhost port> -d <router port>\n/openport -s <localhost port> -d <router port> -p <TCP or UDP>\n/openport -h <host ip> -s <host port> -d <router port>\n/openport -h <host ip> -s <host port> -d <router port> -p <TCP or UDP>\n" 
+				if (len(params) != 5 and len(params) != 7 and len(params) != 9):
+					replyMsg = wrongParamsMsg
+				elif (len(params) == 5):
+					if (params[1].lower() == "-s" and params[3].lower() == "-d"):
+						localPort = params[2]
+						externalPort = params[4] 
+						replyMsg = self.openPort(localIP, localPort, externalPort, protocol)
+					else:
+						replyMsg = wrongParamsMsg
+				elif (len(params) == 7):
+					if (params[1].lower() == "-h" and params[3].lower() == "-s" and params[5].lower() == "-d"):
+						localIP = params[2]
+						localPort = params[4]
+						externalPort = params[6] 
+						replyMsg = self.openPort(localIP, localPort, externalPort, protocol)
+					elif (params[1].lower() == "-s" and params[3].lower() == "-d" and params[5].lower() == "-p"):
+						localPort = params[2]
+						externalPort = params[4]
+						protocol = params[6] 
+						replyMsg = self.openPort(localIP, localPort, externalPort, protocol)
+					else:
+						replyMsg = wrongParamsMsg
+				elif (len(params) == 9):
+					if (params[1].lower() == "-h" and params[3].lower() == "-s" and params[5].lower() == "-d" and params[7].lower() == "-p"):
+						localIP = params[2]
+						localPort = params[4]
+						externalPort = params[6] 
+						protocol = params[8]
+						replyMsg = self.openPort(localIP, localPort, externalPort, protocol)
+					else:
+						replyMsg =  wrongParamsMsg
+				else:
+					replyMsg = wrongParamsMsg
+				
+			elif (text.lower().startswith("/closeport") ):
+				params = text.lower().split(" ")
+				params = filter(None, params)
+				protocol = "TCP"
+				externalPort = None
+				wrongParamsMsg = "Wrong parameters! Usage:\n/closeport -d <router port>\n/closeport -d all\n/closeport -d <router port> -p <TCP or UDP>\n" 
+				if (len(params) != 3 and len(params) != 5):
+					replyMsg = wrongParamsMsg
+				elif (len(params) == 3):
+					if (params[1].lower() == "-d"):
+						externalPort = params[2]
+						replyMsg = self.closePort(externalPort, protocol)
+					else:
+						replyMsg = wrongParamsMsg
+				elif (len(params) == 5):
+					if (params[1].lower() == "-d" and params[3].lower() == "-p"):
+						externalPort = params[2]
+						protocol = params[4] 
+						replyMsg = self.closePort(externalPort, protocol)
+					else:
+						replyMsg = wrongParamsMsg
+				
+
+			elif (text.lower().startswith("/allports") ):
+				replyMsg = ""
+				ndevices = self.upnp.discover()
+				igd = self.upnp.selectigd()
+				isNoMapping = True
+
+				for port in range (self.minUPnPPort, self.maxUPnPPort):
+					available = self.upnp.getspecificportmapping(port, 'TCP')
+					if (available != None):
+						replyMsg += "port: %d, protocol: TCP\n" % (port)
+						isNoMapping = False
+
+					available = self.upnp.getspecificportmapping(port, 'UDP')
+					if (available != None):
+						replyMsg += "port: %d, protocol: UDP\n" % (port)
+						isNoMapping = False
+
+
+				if (isNoMapping):
+					replyMsg += "There is any port mapping active"
+
+			elif (text == "/update"):
+				resp, isOk = self.invokeWebService(homeWSUri)
+				if (isOk):
+					self.myhome = json.loads(resp)
+					self.botToken = self.myhome["TelegramBot"]["telegramToken"]
+					self.validUsers = self.myhome["TelegramBot"]["allowedUserID"]	
+					self.makeKeyboards()
+					replyMsg = "Bot Updated"
+				else:
+					replyMsg = "Unable to update the bot: %s" % (resp)
+
+			elif (text.lower() == "/help"):
+				replyMsg += "Start a section:\n/start\n"
+				replyMsg += "\nCreate port forwarding:\n/openport -s <localhost port> -d <router port>\n/openport -s <localhost port> -d <router port> -p <TCP or UDP>\n/openport -h <host ip> -s <host port> -d <router port>\n/openport -h <host ip> -s <host port> -d <router port> -p <TCP or UDP>\n" 
+				replyMsg += "\nClose port forwarding:\n/closeport -d <router port>\n/closeport -d all\n/closeport -d <router port> -p <TCP or UDP>\n" 
+				replyMsg += "\nShow all forwarded ports:\n/allports\n"
+				replyMsg += "\nUpdate bot engine:\n/update\n"
 
 			elif (text == "Back"):
 				replyMsg = "command to be implemented" 
@@ -298,16 +527,6 @@ class SmartHomeBot:
 #				replyMsg = "command received"
 #				reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][1][0]], one_time_keyboard= False, selective=True)
 			
-			elif (text == "/update"):
-				resp, isOk = self.invokeWebService(homeWSUri)
-				if (isOk):
-					self.myhome = json.loads(resp)
-					self.botToken = self.myhome["TelegramBot"]["telegramToken"]
-					self.validUsers = self.myhome["TelegramBot"]["allowedUserID"]	
-					self.makeKeyboards()
-					replyMsg = "Bot Updated"
-				else:
-					replyMsg = "Unable to update the bot: %s" % (resp)
 
 			elif (text in self.allRoomsList):
 				# Devices per room keyboard
