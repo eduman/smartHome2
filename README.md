@@ -26,6 +26,7 @@ the following libraries or external programs are needed:
 - dropbox python SDK (sudo pip install dropbox)
 - ipaddress library (sudo pip install ipaddress)
 - miniupnpc library (sudo pip install miniupnpc)
+- enum34 library (sudo pip install enum34)
 - twx.botapi - Telegram Unofficial Library (sudo pip install -i https://testpypi.python.org/pypi twx.botapi)
 - Adafruit_Python_DHT (for raspberry pi)
 
