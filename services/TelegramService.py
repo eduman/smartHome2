@@ -1,4 +1,5 @@
-# dependencies: twx.botapi
+# dependencies: enum34, twx.botapi, ipaddress and miniupnpc
+# sudo pip install enum34
 # sudo pip install -i https://testpypi.python.org/pypi twx.botapi
 # sudo pip install ipaddress
 # sudo pip install miniupnpc
@@ -38,6 +39,7 @@ class SmartHomeBot:
 							"Rooms": [], 
 							"All Devices": [] , 
 							"Rules": []}
+		self.keybordForUsers = {}
 		self.allDevicesList = {}
 		self.alldevicesFunctionsList = {}
 		self.allRoomsList = {}
@@ -376,7 +378,6 @@ class SmartHomeBot:
 
 		return msg
 
-
 	def reply (self, update):
 		chat_id=update.message.chat.id
 		name = update.message.chat.first_name
@@ -388,10 +389,12 @@ class SmartHomeBot:
 			if (text.lower() == "/start"):
 				replyMsg += "Hi %s! Welcome on SmartHome2!" % (name) 
 				reply_markup =ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+				self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 				
 			elif (text == "Start"):
-				replyMsg = "command received" 
-				reply_markup =ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+				replyMsg = "command received"
+				reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+				self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 
 			elif (text.lower().startswith("/openport") ):
 				params = text.lower().split(" ")
@@ -498,18 +501,42 @@ class SmartHomeBot:
 				replyMsg += "\nUpdate bot engine:\n/update\n"
 
 			elif (text == "Back"):
-				replyMsg = "command to be implemented" 
+				if (chat_id in self.keybordForUsers):
+					del self.keybordForUsers[chat_id][-1]
+					replyMsg = "command received"
+					backKeyboard = self.keybordForUsers[chat_id][-1]
+				else:
+					replyMsg = "Restoring first keyboard due to an internal error"
+					backKeyboard= self.keyboards["start"]
+					self.keybordForUsers[chat_id] = [backKeyboard]
+				
+				reply_markup = ReplyKeyboardMarkup.create(backKeyboard, one_time_keyboard= False, selective=True)
+				
+				
 				
 
 			elif (text == self.keyboards["start"][0][0]):
 				# Rooms
-				replyMsg = "command received"
-				reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][0][0]], one_time_keyboard= False, selective=True)
-
+				try:
+					replyMsg = "command received"
+					self.keybordForUsers[chat_id].append(self.keyboards[self.keyboards["start"][0][0]])
+					reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][0][0]], one_time_keyboard= False, selective=True)
+				except:
+					replyMsg = "Restoring first keyboard due to an internal error"
+					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
+					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+				
 			elif (text == self.keyboards["start"][0][1]):
 				# Devices
-				replyMsg = "command received"
-				reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][0][1]], one_time_keyboard= False, selective=True)
+				try:
+					replyMsg = "command received"
+					self.keybordForUsers[chat_id].append(self.keyboards[self.keyboards["start"][0][1]])
+					reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][0][1]], one_time_keyboard= False, selective=True)
+				except:
+					replyMsg = "Restoring first keyboard due to an internal error"
+					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
+					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+				
 
 			elif (text == self.keyboards["start"][1][0]):
 				# Switch off all devices
@@ -520,13 +547,18 @@ class SmartHomeBot:
 					replyMsg = "command sent to devices"
 				else:
 					replyMsg = 'Unable to send "switch off" command to devices: %s' % (resp)
-				#reply_markup = ReplyKeyboardMarkup.create(self.keyboards["allDevices"], one_time_keyboard= False, selective=True)
 			
 #			elif (text == self.keyboards["start"][1][1]):
 #				# Rules
-#				replyMsg = "command received"
-#				reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][1][0]], one_time_keyboard= False, selective=True)
-			
+#				try:
+#					replyMsg = "command received"
+#					self.keybordForUsers[chat_id].append(self.keyboards[self.keyboards["start"][1][1]])
+#					reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][1][1]], one_time_keyboard= False, selective=True)
+#				except:
+#					replyMsg = "Restoring first keyboard due to an internal error"
+#					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
+#					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+
 
 			elif (text in self.allRoomsList):
 				# Devices per room keyboard
@@ -539,21 +571,38 @@ class SmartHomeBot:
 					keyboard.append(keyoardRow)
 					keyoardRow = []
 				keyboard.append(["Back", "Start"])
-				replyMsg = "command received"
-				reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
-
+				try:
+					replyMsg = "command received"
+					self.keybordForUsers[chat_id].append(keyboard)
+					reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
+				except:
+					replyMsg = "Restoring first keyboard due to an internal error"
+					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
+					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
+				
 
 			elif (text in self.allDevicesList):
 				replyMsg = "Connecting to device %s" %  (text)
 				self.bot.send_message(chat_id, replyMsg , reply_markup=reply_markup)
 				replyMsg, keyboard = self.retrieveDeviceInfo(text)
-				reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
+				
+				try:
+					replyMsg = "command received"
+					self.keybordForUsers[chat_id].append(keyboard)
+					reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
+				except:
+					replyMsg = "Restoring first keyboard due to an internal error"
+					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
+					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 				
 			elif (text in self.alldevicesFunctionsList):
 				replyMsg = "Connecting to device %s" % (self.alldevicesFunctionsList[text]) #(text)
 				self.bot.send_message(chat_id, replyMsg , reply_markup=reply_markup)
 				replyMsg, keyboard = self.retrieveDeviceInfo(self.alldevicesFunctionsList[text])
 				reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
+				# do not save the current keyboard in self.keybordForUsers[chat_id].append(keyboard)
+				# otherwaise the "Back" button engine will not work properly 
+
 
 			else:
 				replyMsg = 'Unkonwn command "%s"' % (text)
