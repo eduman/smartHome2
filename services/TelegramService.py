@@ -587,7 +587,7 @@ class SmartHomeBot:
 				replyMsg, keyboard = self.retrieveDeviceInfo(text)
 				
 				try:
-					replyMsg = "command received"
+					#replyMsg = "command received"
 					self.keybordForUsers[chat_id].append(keyboard)
 					reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
 				except:
