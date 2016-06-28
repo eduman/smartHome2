@@ -26,10 +26,8 @@ from myWebServices.MacosxAgent import MacosxAgent
 from myWebServices.SwitchOffAllDevicesAgent import SwitchOffAllDevicesAgent
 from myWebServices.HomeAgent import HomeAgent
 from myWebServices.ScannerAgent import ScannerAgent
-#from myWebServices.PlugwiseAgent import PlugwiseAgent
 import myWebServices.WebServicesConfigurationConstants as WSConstants
 from myWebServices.FreeboardAgent import FreeboardAgent
-from myWebServices.DropboxAgent import DropboxAgent
 
 httpPort = 8080
 #httpPort = 443
@@ -143,6 +141,7 @@ def start():
 
 
 	if config.getboolean(WSConstants.getAgentsSettings(), WSConstants.getDropboxAgent()):
+		from myWebServices.DropboxAgent import DropboxAgent
 		# it get the same localFolder for the scanner
 		localFolder = config.get(WSConstants.getScannerAgentSettings(), WSConstants.getScannerFolder())
 		# run DropboxAgent (python DropboxAgent.py) to retrieve your userID and accessToken
