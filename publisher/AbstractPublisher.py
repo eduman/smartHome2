@@ -24,7 +24,7 @@ class AbstractPublisher(object):
 
 	def __init__(self, serviceName, logLevel):
 		self.serviceName = serviceName
-		logPath = "log/%s.log" % (self.serviceName)
+		logPath = "../log/%s.log" % (self.serviceName)
 		
 
 		if not os.path.exists(logPath):

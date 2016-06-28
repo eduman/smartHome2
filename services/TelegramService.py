@@ -640,7 +640,7 @@ class SmartHomeBot:
 
 
 	def makeLogger(self, serviceName):
-		logPath = "log/%s.log" % (serviceName)
+		logPath = "../log/%s.log" % (serviceName)
 		if not os.path.exists(logPath):
 			try:
 				os.makedirs(os.path.dirname(logPath))

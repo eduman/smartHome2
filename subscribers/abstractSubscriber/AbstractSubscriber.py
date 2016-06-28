@@ -25,7 +25,7 @@ class AbstractSubscriber(object):
 		self.homeWSUri = homeWSUri
 		self.deviceType = deviceType
 		self.configPath = "conf/agents/%s.conf" % (self.subscriberName)
-		logPath = "log/%s.log" % (self.subscriberName)
+		logPath = "../log/%s.log" % (self.subscriberName)
 
 		if not os.path.exists(logPath):
 			try:

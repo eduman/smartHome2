@@ -22,7 +22,7 @@ class AbstractControlStategy(object):
 		#self.strategyName =  (inspect.stack()[0][1]).replace(".py", "").replace("./", "") #os.path.realpath(__file__) 
 		self.strategyName = strategyName
 		self.configPath = "conf/%s.conf" % (self.strategyName)
-		logPath = "log/%s.log" % (self.strategyName)
+		logPath = "../log/%s.log" % (self.strategyName)
 		
 		if not os.path.exists(logPath):
 			try:
