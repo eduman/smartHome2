@@ -7,6 +7,8 @@ sys.path.append(lib_path)
 from abstractSubscriber.AbstractSubscriber import AbstractSubscriber
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
+from myConfigurator import CommonConfigurator  
+
 import logging
 import os
 import signal
@@ -16,24 +18,26 @@ from smartHomeDevice import ActuationCommands
 
 
 
-
 subscriberName = "PlugwiseSubscriber"
 deviceType = "plugwise"
 
-#homeWSUri = "http://localhost:8080/rest/home/configuration"
-homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
 
-connectorURI = "http://192.168.1.5:8080"
-configuration = connectorURI + "/rest/plugwise/%s/configuration"
-switchon = connectorURI + "/rest/plugwise/%s/on"
-switchoff = connectorURI + "/rest/plugwise/%s/off"
-
-#logLevel = logging.INFO
-logLevel = logging.DEBUG
+logLevel = logging.INFO
+#logLevel = logging.DEBUG
 
 class PlugwiseSubscriber (AbstractSubscriber):
 	def __init__ (self):
-		super(PlugwiseSubscriber, self).__init__(subscriberName, homeWSUri, deviceType, logLevel)
+		super(PlugwiseSubscriber, self).__init__(subscriberName, deviceType, logLevel)
+
+		try:
+			self.endpoint = CommonConfigurator.getPlugwiseEndPointValue(self.commonConfigPath)
+			self.configuration = self.endpoint + "/rest/plugwise/%s/configuration"
+			self.switchon = self.endpoint + "/rest/plugwise/%s/on"
+			self.switchoff = self.endpoint + "/rest/plugwise/%s/off"
+		
+		except Exception, e:
+			self.logger.error('Unable to start %s due to: %s' % (self.subscriberName, e))
+			self.stop()
 
 
 	def notifyJsonEvent(self, topic, jsonEventString):
@@ -43,13 +47,13 @@ class PlugwiseSubscriber (AbstractSubscriber):
 			data = json.loads(jsonEventString)
 
 			if ( data["value"].lower() == ActuationCommands.getSwitchOn().lower() ):
-				action = switchon % data["device"]
+				action = self.switchon % data["device"]
 				self.logger.debug ("Calling %s" % action)
 			elif ( data["value"].lower() == ActuationCommands.getSwitchOff().lower() ):
-				action = switchoff % data["device"]
+				action = self.switchoff % data["device"]
 				self.logger.debug ("Calling %s" % action)
 			elif ( data["value"].lower() == ActuationCommands.getConfiguration().lower() ):
-				action = configuration % data["device"]
+				action = self.configuration % data["device"]
 				self.logger.debug ("Calling %s" % action)
 			else:
 				self.logger.error("Command %s unknown" % data["value"])

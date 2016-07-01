@@ -6,6 +6,8 @@ sys.path.append(lib_path)
 
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
+from myConfigurator import CommonConfigurator  
+
 import logging
 import os
 import signal
@@ -20,9 +22,8 @@ import httplib
 
 
 class AbstractSubscriber(object):
-	def __init__(self, subscriberName, homeWSUri, deviceType, logLevel):
+	def __init__(self, subscriberName, deviceType, logLevel):
 		self.subscriberName = subscriberName
-		self.homeWSUri = homeWSUri
 		self.deviceType = deviceType
 		self.configPath = "conf/agents/%s.conf" % (self.subscriberName)
 		logPath = "../log/%s.log" % (self.subscriberName)
@@ -50,6 +51,13 @@ class AbstractSubscriber(object):
 
 		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
 			signal.signal(sig, self.signal_handler)
+
+		self.commonConfigPath = "../conf/microservice.conf"
+		try:
+			self.homeWSUri = CommonConfigurator.getHomeEndPointValue(self.commonConfigPath)
+		except Exception, e:
+			self.logger.error('Unable to start %s due to: %s' % (self.subscriberName, e))
+			self.stop()
 
 
 	def signal_handler(self, signal, frame):

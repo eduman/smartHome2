@@ -7,6 +7,8 @@ sys.path.append(lib_path)
 from abstractSubscriber.AbstractSubscriber import AbstractSubscriber
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
+from myConfigurator import CommonConfigurator  
+
 import logging
 import os
 import signal
@@ -19,20 +21,17 @@ from smartHomeDevice import ActuationCommands
 subscriberName = "ArduinoSubscriber"
 deviceType = "arduino"
 
-#homeWSUri = "http://localhost:8080/rest/home/configuration"
-homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
-
 switchon = "http://%s:8082/set&relay=%s&value=1"
 switchoff = "http://%s:8082/set&relay=%s&value=0"
 configuration = "http://%s:8082/getConfiguration"
 
-#logLevel = logging.INFO
-logLevel = logging.DEBUG
+logLevel = logging.INFO
+#logLevel = logging.DEBUG
 
 
 class ArduinoSubscriber(AbstractSubscriber):
 	def __init__ (self):
-		super(ArduinoSubscriber, self).__init__(subscriberName, homeWSUri, deviceType,logLevel)
+		super(ArduinoSubscriber, self).__init__(subscriberName, deviceType,logLevel)
 		
 
 	def notifyJsonEvent(self, topic, jsonEventString):

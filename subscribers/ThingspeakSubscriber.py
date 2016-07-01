@@ -7,6 +7,8 @@ sys.path.append(lib_path)
 from abstractSubscriber.AbstractSubscriber import AbstractSubscriber
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
+from myConfigurator import CommonConfigurator  
+
 import logging
 import os
 import signal
@@ -24,16 +26,13 @@ import time
 
 subscriberName = "ThingspeakSubscriber"
 
-homeWSUri = "http://localhost:8080/rest/home/configuration"
-#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
 
-
-#logLevel = logging.INFO
-logLevel = logging.DEBUG
+logLevel = logging.INFO
+#logLevel = logging.DEBUG
 
 class ThingspeakSubscriber (AbstractSubscriber):
 	def __init__ (self):
-		super(ThingspeakSubscriber, self).__init__(subscriberName, homeWSUri, "", logLevel)
+		super(ThingspeakSubscriber, self).__init__(subscriberName, "", logLevel)
 		self.msgQueue = []
 		self.__lock = threading.Lock()
 		self.eventChannelMap = {}

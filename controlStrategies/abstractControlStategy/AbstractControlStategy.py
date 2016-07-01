@@ -12,8 +12,10 @@ import os, sys
 lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
 from myMqtt import EventTopics
+from myConfigurator import CommonConfigurator  
 from smartHomeDevice import ActuationCommands
 from utitlityLib import Utilities
+from myConfigurator import CommonConfigurator  
 
 
 
@@ -21,7 +23,7 @@ class AbstractControlStategy(object):
 	def __init__(self, strategyName, logLevel):
 		#self.strategyName =  (inspect.stack()[0][1]).replace(".py", "").replace("./", "") #os.path.realpath(__file__) 
 		self.strategyName = strategyName
-		self.configPath = "conf/%s.conf" % (self.strategyName)
+		self.configPath = "../conf/controlStategies/%s.conf" % (self.strategyName)
 		logPath = "../log/%s.log" % (self.strategyName)
 		
 		if not os.path.exists(logPath):
@@ -46,6 +48,13 @@ class AbstractControlStategy(object):
 		self.logger.addHandler(consoleHandler)
 
 		self.subscribedEventList = []
+
+		self.commonConfigPath = "../conf/microservice.conf"
+		try:
+			self.homeWSUri = CommonConfigurator.getHomeEndPointValue(self.commonConfigPath)
+		except Exception, e:
+			self.logger.error('Unable to start %s due to: %s' % (self.strategyName, e))
+			self.stop()
 
 
 	def signal_handler(self, signal, frame):

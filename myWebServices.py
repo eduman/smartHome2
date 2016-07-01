@@ -20,7 +20,7 @@ from commons.myMqtt import EventTopics
 from commons.myMqtt.MQTTClient import MyMQTTClass
 from commons.mySSLUtil import MySSLUtil
 
-from publisher.ArduinoPublisher import ArduinoPublisher
+from myWebServices.publishers.ArduinoPublisher import ArduinoPublisher
 from myWebServices.UserPresenceManager import UserPresenceManager
 from myWebServices.MacosxAgent import MacosxAgent
 from myWebServices.SwitchOffAllDevicesAgent import SwitchOffAllDevicesAgent

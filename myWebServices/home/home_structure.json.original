@@ -161,7 +161,7 @@
 	], 
 	"rules" : [
 		{
-			"ruleSID": "TimerControlStrategy:UnknownOwner:Strategy",
+			"ruleSID": "Filename.of.TimerControlStrategy",
 			"ruleDescription": "TimerControlStrategy Rule Description", 
 			"isRuleEnabled": true,
 			"roomID": "1",
@@ -181,7 +181,7 @@
 			"buttonList":["192.168.1.3_5", "192.168.1.3_6"],
 			"timeShifts":[]
 		},{
-			"ruleSID": "TimeShiftControlStrategy:UnknownOwner:Strategy",
+			"ruleSID": "Filename.of.TimeShiftControlStrategy",
 			"ruleDescription": "TimeShiftControlStrategy Rule Description", 
 			"isRuleEnabled": true,
 			"roomID": "0",
@@ -231,7 +231,7 @@
 				}
 			]
 		},{
-			"ruleSID": "VideSurveillanceControlStrategy:UnknownOwner:Strategy",
+			"ruleSID": "Filename.of.VideSurveillanceControlStrategy",
 			"ruleDescription": "VideSurveillanceControlStrategy Rule Description", 
 			"isRuleEnabled": true,
 			"roomID": "4",
@@ -248,7 +248,7 @@
 			"buttonList":[],
 			"timeShifts":[]
 		},{
-			"ruleSID": "LookOnPresence:UnknownOwner:Strategy",
+			"ruleSID": "Filename.of.LookOnPresence",
 			"ruleDescription": "LookOnPresence Rule Description", 
 			"isRuleEnabled": true,
 			"roomID": "0",
@@ -260,7 +260,7 @@
 			"buttonList":[],
 			"timeShifts":[]
 		},{
-			"ruleSID": "SwitchOffAllControlStrategy:UnknownOwner:Strategy",
+			"ruleSID": "Filename.of.SwitchOffAllControlStrategy",
 			"ruleDescription": "SwitchOffAllControlStrategy Rule Description", 
 			"isRuleEnabled": true,
 			"roomID": "0",

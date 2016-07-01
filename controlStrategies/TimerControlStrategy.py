@@ -16,6 +16,7 @@ lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
 from myMqtt import EventTopics
 from myMqtt.MQTTClient import MyMQTTClass
+from myConfigurator import CommonConfigurator  
 
 import ruleengine.ConfigurationConstants
 import logging
@@ -25,14 +26,6 @@ import sys
 import inspect
 import json
 
-
-
-homeWSUri = "http://localhost:8080/rest/home/configuration"
-ruleSID = "TimerControlStrategy:UnknownOwner:Strategy"
-
-#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
-#ruleSID = "SaloneTimerControlStrategy:eduman:salone"
-#ruleSID = "SubuferTimerControlStrategy:eduman:salone"
 
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
@@ -88,7 +81,7 @@ class TimerControlStrategy(AbstractControlStategy):
 				
 				self.setRuleEngine()
 
-				self.RuleEnablerTopic = EventTopics.getRuleEnabler() + "/" + ruleSID
+				self.RuleEnablerTopic = EventTopics.getRuleEnabler() + "/" + self.strategyName
 				self.subscribedEventList += self.mqtt.subscribeEvent(None, self.RuleEnablerTopic)
 
 				if self.context.getProperty(ConfigurationConstants.getFullUserList()) is not None:
@@ -109,7 +102,7 @@ class TimerControlStrategy(AbstractControlStategy):
 		initRule = InititializationRule(self.context, self.logger)
 		self.ruleEngine.addRule(initRule)
 
-		loadRule = LoadRuleConfig(self.context, self.logger, self.configPath, homeWSUri, ruleSID)
+		loadRule = LoadRuleConfig(self.context, self.logger, self.configPath, self.homeWSUri, self.strategyName)
 		#self.ruleEngine.addRule(loadRule)
 		loadRule.process()
 

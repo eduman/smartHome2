@@ -16,6 +16,7 @@ import signal
 import threading
 from threading import Thread
 
+
 import urllib
 import urllib2
 import httplib
@@ -23,11 +24,16 @@ import requests
 import miniupnpc
 import ipaddress
 
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import EventTopics
+from myConfigurator import CommonConfigurator  
+
+
+
 requests.packages.urllib3.disable_warnings()
 
 logLevel = logging.INFO
-homeWSUri = "http://localhost:8080/rest/home/configuration"
-#homeWSUri = "http://192.168.1.5:8080/rest/home/configuration"
 
 class SmartHomeBot:
 
@@ -54,6 +60,13 @@ class SmartHomeBot:
 
 		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
 			signal.signal(sig, self.signal_handler)
+
+		self.commonConfigPath = "../conf/microservice.conf"
+		try:
+			self.homeWSUri = CommonConfigurator.getHomeEndPointValue(self.commonConfigPath)
+		except Exception, e:
+			self.logger.error('Unable to start SmartHomeTelegramBot due to: %s' % (e))
+			self.stop_bot()
 
 	def signal_handler(self, signal, frame):
 		self.stop_bot()
@@ -101,10 +114,10 @@ class SmartHomeBot:
 
 
 	def retrieveHomeSettings(self):
-		resp, isOk = self.invokeWebService(homeWSUri)
+		resp, isOk = self.invokeWebService(self.homeWSUri)
 		while (not isOk):
 			self.logger.error ("Unable to find the home proxy. I will try again in a while...")
-			resp, isOk = self.invokeWebService(homeWSUri)
+			resp, isOk = self.invokeWebService(self.homeWSUri)
 			time.sleep(10) #sleep 10 seconds
 		try:
 			self.myhome = json.loads(resp)
@@ -483,7 +496,7 @@ class SmartHomeBot:
 					replyMsg += "There is any port mapping active"
 
 			elif (text == "/update"):
-				resp, isOk = self.invokeWebService(homeWSUri)
+				resp, isOk = self.invokeWebService(self.homeWSUri)
 				if (isOk):
 					self.myhome = json.loads(resp)
 					self.botToken = self.myhome["TelegramBot"]["telegramToken"]
