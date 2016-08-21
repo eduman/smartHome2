@@ -99,16 +99,21 @@ class SmartHomeBot:
 			# serving clients
 			try:
 				while self.isRunning:
+					try:
 					#The get_updates method returns the earliest 100 unconfirmed updates
-					updates = self.bot.get_updates(offset = self.lastUpdateID + 1).wait()
-					if (updates is not None):
-						cont1=len(updates)
-						if cont1 != 0:
-							replyThread = Thread (target = self.reply, args=[updates[-1]])
-							replyThread.start()
-							self.lastUpdateID = updates[-1].update_id
+						updates = self.bot.get_updates(offset = self.lastUpdateID + 1).wait()
+						if (updates is not None):
+							cont1=len(updates)
+							if cont1 != 0:
+								replyThread = Thread (target = self.reply, args=[updates[-1]])
+								replyThread.start()
+								self.lastUpdateID = updates[-1].update_id
 
-					time.sleep(1)
+						time.sleep(1)
+					except Exception, e:
+						self.logger.error('Something wrong occurred in telegram communication: %s. restoring the bot' % (e))
+						self.bot = TelegramBot(self.botToken)
+						
 			except KeyboardInterrupt:
 				self.stop_bot()
 
