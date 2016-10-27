@@ -118,6 +118,9 @@ def start():
 		        },'/static/plugins/mqtt':{
 		        'tools.staticdir.on': True,
 		        'tools.staticdir.dir': os.path.join(freeboard, 'plugins/mqtt')
+		        },'/static/plugins/onlinux':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(freeboard, 'plugins/onlinux')
 		        }
 
 		}
