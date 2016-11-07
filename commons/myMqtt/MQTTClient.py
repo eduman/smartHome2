@@ -68,18 +68,19 @@ class MyMQTTClass:
     def connect(self, uri="localhost", port=1883, userdata=60):
         try:
             self._mqttc.connect(str(uri), str(port), userdata)
-            t1 = threading.Thread(target=self.loop)
-            t1.start()
-            self.timer = threading.Timer(300.0, self.mqttReconnect)
-            self.timer.start()
+            self._mqttc.loop_start()
+            #t1 = threading.Thread(target=self.loop)
+            #t1.start()
+            #self.timer = threading.Timer(300.0, self.mqttReconnect)
+            #self.timer.start()
         except Exception, e:
             self.logger.error("Erron on registerMQTT() %s", e)
 
     def mqttReconnect(self):
         try:
             self._mqttc.reconnect()
-            self.timer = threading.Timer(300.0, self.mqttReconnect)
-            self.timer.start()
+            #self.timer = threading.Timer(300.0, self.mqttReconnect)
+            #self.timer.start()
         except Exception, e:
             self.logger.error("Erron on mqttReconnect() %s", e) 
 
