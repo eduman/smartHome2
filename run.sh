@@ -15,7 +15,7 @@ cd '/home/pi/smartHome2/'
 
 #run myWebServices
 echo "running myWebServices.py..."
-screen -d -m sudo python myWebServices.py; 
+screen -S "myWebServices" -d -m sudo python myWebServices.py; 
 
 #run the subscribers
 #cd ..
@@ -23,7 +23,7 @@ cd './subscribers'
 #for f in *.py; do screen -d -m python "$f"; done
 for f in *.py; do 
 	echo "running $f..."
-	screen -d -m python "$f"; 
+	screen -S "$f" -d -m python "$f"; 
 done
 
 
@@ -31,15 +31,15 @@ done
 #cd ..
 #cd './publisher'
 #echo "running mainPublisher.py..."
-#screen -d -m python mainPublisher.py;
+#screen -S "$f" -d -m python mainPublisher.py;
 
 #run other services
-#cd ..
+cd ..
 cd './services'
 #for f in *.py; do screen -d -m python "$f"; done
 for f in *.py; do 
 	echo "running $f..."
-	screen -d -m python "$f"; 
+	screen -S "$f" -d -m python "$f"; 
 done
 
 
@@ -51,7 +51,7 @@ cd './controlStrategies'
 #for f in *.py; do screen -d -m python "$f"; done
 for f in *.py; do 
 	echo "running $f..."
-	screen -d -m python "$f"; 
+	screen -S "$f" -d -m python "$f"; 
 done
 
 
