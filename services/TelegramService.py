@@ -24,20 +24,21 @@ import requests
 import miniupnpc
 import ipaddress
 
+from abstractService.AbstractService import AbstractServiceClass
+
+
 lib_path = os.path.abspath(os.path.join('..', 'commons'))
 sys.path.append(lib_path)
 from myMqtt import EventTopics
 from myConfigurator import CommonConfigurator  
 
 
-
-requests.packages.urllib3.disable_warnings()
-
 logLevel = logging.INFO
 
-class SmartHomeBot:
+class SmartHomeBot(AbstractServiceClass):
 
-	def __init__ (self):
+	def __init__ (self, serviceName, logLevel):
+		super(SmartHomeBot, self).__init__(serviceName, logLevel)
 		self.lastUpdateID = 0
 		self.validUsers = []
 		self.keyboards = {	#"start": [["Rooms" , "All Devices"], ["Switch off all devices", "Rules"]], 
@@ -49,48 +50,25 @@ class SmartHomeBot:
 		self.allDevicesList = {}
 		self.alldevicesFunctionsList = {}
 		self.allRoomsList = {}
-		self.logger = self.makeLogger ("SmartHomeTelegramBot")
-		self.homeUpdateTimer = 300 # update every 5 minutes
-		self.isRunning = True 
-
+		
 		self.upnp = miniupnpc.UPnP()
 		self.upnp.discoverdelay = 200
 		self.minUPnPPort = 1024
 		self.maxUPnPPort = self.minUPnPPort + 20
 
-		for sig in (signal.SIGABRT, signal.SIGILL, signal.SIGINT, signal.SIGSEGV, signal.SIGTERM):
-			signal.signal(sig, self.signal_handler)
-
-		self.commonConfigPath = "../conf/microservice.conf"
-		try:
-			self.homeWSUri = CommonConfigurator.getHomeEndPointValue(self.commonConfigPath)
-		except Exception, e:
-			self.logger.error('Unable to start SmartHomeTelegramBot due to: %s' % (e))
-			self.stop_bot()
-
-	def signal_handler(self, signal, frame):
-		self.stop_bot()
-
-	def stop_bot(self):
-		self.isRunning = False
-		if (hasattr(self, "homeUpdateThread")):
-			if self.homeUpdateThread.isAlive():
-				try:
-					self.homeUpdateThread._Thread__stop()
-				except:
-					self.logger.error(str(self.homeUpdateThread.getName()) + ' (update home thread) could not be terminated')
 		
-		self.logger.info("bye bye")
-		sys.exit(0)
+
+	def stop(self):
+		super(SmartHomeBot, self).stop()
 
 	# Starts the communication with the bot
-	def start_bot(self):
-		self.logger.info("SmartHomeBot started")
+	def start(self):
+		self.logger.info("%s started" % self.serviceName)
 		self.retrieveHomeSettings()
 
 		if (self.botToken is None):
 			self.logger.error ("The Telegram Token is not valid")
-			self.stop_bot()
+			self.stop()
 		else:
 			self.bot = TelegramBot(self.botToken)
 			self.homeUpdateThread = Thread (target = self.homeUpdate)
@@ -115,22 +93,8 @@ class SmartHomeBot:
 						self.bot = TelegramBot(self.botToken)
 						
 			except KeyboardInterrupt:
-				self.stop_bot()
+				self.stop()
 
-
-	def retrieveHomeSettings(self):
-		resp, isOk = self.invokeWebService(self.homeWSUri)
-		while (not isOk):
-			self.logger.error ("Unable to find the home proxy. I will try again in a while...")
-			resp, isOk = self.invokeWebService(self.homeWSUri)
-			time.sleep(10) #sleep 10 seconds
-		try:
-			self.myhome = json.loads(resp)
-			self.botToken = self.myhome["TelegramBot"]["telegramToken"]
-			self.validUsers = self.myhome["TelegramBot"]["allowedUserID"]	
-			self.makeKeyboards()
-		except (Exception, e):
-			self.logger.error ("Error on retrieveHomeSettings: %s" % (e))
 
 	def makeKeyboards(self):
 		# Rooms keyboard
@@ -249,36 +213,6 @@ class SmartHomeBot:
 		
 		return replyMsg, keyboard
 
-
-	def homeUpdate(self):
-		while (self.isRunning):
-			time.sleep(self.homeUpdateTimer)
-			self.retrieveHomeSettings()
-
-
-	def invokeWebService (self, uri):
-		try:
-			req = urllib2.Request(uri)
-			req.add_header('Content-Type', 'application/json')
-			resp = urllib2.urlopen(req).read()
-			return resp, True
-
-		except urllib2.HTTPError, e:
-			msg = 'HTTPError: %s.' % e
-			self.logger.error(msg)
-			return msg, False
-		except urllib2.URLError, e:
-			msg = 'URLError: %s.' % e
-			self.logger.error(msg)
-			return msg, False
-		except httplib.HTTPException, e:
-			msg = 'HTTPException: %s.' % e
-			self.logger.error(msg)
-			return msg, False
-		except Exception, e:
-			msg = 'generic exception: %s.' % e
-			self.logger.error(msg)
-			return msg, False
 
 	def openPort(self, localIP, localPort, externalPort, protocol):
 		ndevices = self.upnp.discover()
@@ -656,27 +590,16 @@ class SmartHomeBot:
 	def send_allarm_bot(self,chat_id,mess):
 		self.bot.send_message(chat_id=chat_id, text=mess)
 
+	def retrieveHomeSettings(self):
+		super(SmartHomeBot, self).retrieveHomeSettings()
+		try:
+			self.botToken = self.myhome["TelegramBot"]["telegramToken"]
+			self.validUsers = self.myhome["TelegramBot"]["allowedUserID"]	
+			self.makeKeyboards()
+		except (Exception, e):
+			self.logger.error ("Error on retrieveHomeSettings: %s" % (e))
 
-	def makeLogger(self, serviceName):
-		logPath = "../log/%s.log" % (serviceName)
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
-
-		logger = logging.getLogger(serviceName)
-		logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		logger.addHandler(consoleHandler)
-		return logger
 
 if __name__ == "__main__":
-	mybot = SmartHomeBot()
-	mybot.start_bot()
+	mybot = SmartHomeBot("SmartHomeTelegramBot", logLevel)
+	mybot.start()
