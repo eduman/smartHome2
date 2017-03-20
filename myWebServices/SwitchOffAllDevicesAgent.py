@@ -57,6 +57,7 @@ class SwitchOffAllDevicesAgent(AbstractAgentClass):
 				self.logger.error("Error on stop(): %s" % (e))
 
 		self.logger.info("Ended")
+		sys.exit(0)
 
 
 	def GET(self, *ids, **params):

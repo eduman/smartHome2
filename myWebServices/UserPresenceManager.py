@@ -89,6 +89,7 @@ class UserPresenceManager(AbstractAgentClass):
 					self.logger.error(str(self.periodicUpdateThread.getName()) + ' (periodic update send event thread) could not terminated')
 
 		self.logger.info("Ended")
+		sys.exit(0)
 
 
 	def loop (self):		

@@ -54,6 +54,7 @@ class HomeAgent(AbstractAgentClass):
 
 	def stop(self):
 		self.logger.info("Ended")
+		sys.exit(0)
 
 	def copyDefaultFile(self):
 		newtFile = os.path.join(os.getcwd(), "../conf")

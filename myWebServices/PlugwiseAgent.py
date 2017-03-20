@@ -79,6 +79,7 @@ class PlugwiseAgent(AbstractAgentClass):
 
 	def stop(self):
 		self.logger.info("Ended")
+		sys.exit(0)
 
 	def getConfiguration (self, circle, plugwiseID):
 		try:

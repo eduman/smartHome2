@@ -48,6 +48,7 @@ class MacosxAgent(AbstractAgentClass):
 
 	def stop(self):
 		self.logger.info("Ended")
+		sys.exit(0)
 
 
 	def getConfiguration(self):

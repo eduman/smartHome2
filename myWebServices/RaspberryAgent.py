@@ -149,6 +149,7 @@ class RaspberryAgent(AbstractAgentClass):
 				self.logger.error("Error on stop(): %s" % (e))
 
 		self.logger.info("Ended")
+		sys.exit(0)
 
 	def getConfiguration(self):
 		self.WSUri = ("http://%s:%s/rest/raspberry/" % (self.getIpAddress(), str(httpPort)))

@@ -66,7 +66,9 @@ class ScannerAgent(AbstractAgentClass):
 		
 
 	def stop(self):
+		dropbox.stop()
 		self.logger.info("Ended")
+		sys.exit(0)
 
 	def getConfiguration(self):
 		result = ('{"configured": true,"ip": "%s","subnet": "","gateway": "","port":"%s","description": "scanner","type": "scanner","isError": false,"functions": [{"pin":1,"type": "Scan","configuredAs": "Button","status":"","unit":"","rest":"GET","ws":"http://%s:%s%s/scan"}]}' % (self.getIpAddress(), str(httpPort), self.getIpAddress(), str(httpPort), self.getMountPoint()))

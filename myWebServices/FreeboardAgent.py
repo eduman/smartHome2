@@ -84,6 +84,7 @@ class FreeboardAgent(AbstractAgentClass):
 
 	def stop(self):
 		self.logger.info("Ended")
+		sys.exit(0)
 
 	def GET(self, *ids):
 		if len(ids) > 1:
