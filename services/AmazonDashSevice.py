@@ -27,14 +27,20 @@ from myConfigurator import CommonConfigurator
 #logLevel = logging.INFO
 logLevel = logging.DEBUG
 
+DEFAULT_BROKER_URI = "localhost"
+DEFAULT_BROKER_PORT = "1883"
+
 man = '\n--scan\tto find new amazon dash id\n--help\tto show the help\nNo argument are needed to run the service'
 argumentsError='\ncommand not valid. Execute with:%s' % (man)
+
+
 
 class AmazonDashSevice(AbstractServiceClass):
 
 	def __init__(self, serviceName, logLevel, arguments):
 		super(AmazonDashSevice, self).__init__(serviceName, logLevel)
 		self.arguments = arguments
+		
 
 	def start (self):
 		if ("--scan" in sys.argv):
@@ -50,7 +56,11 @@ class AmazonDashSevice(AbstractServiceClass):
 		elif (len(sys.argv) == 1):
 			self.logger.info("%s started" % self.serviceName)
 			self.retrieveHomeSettings()
-
+			self.brokerUri = self.myhome["homeMessageBroker"]["address"]
+			self.brokerPort = self.myhome["homeMessageBroker"]["port"]
+			self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
+			self.mqtt.connect(self.brokerUri, self.brokerPort)
+			
 			self.homeUpdateThread = Thread (target = self.homeUpdate)
 			self.homeUpdateThread.start()
 			while (self.isRunning):
@@ -64,7 +74,13 @@ class AmazonDashSevice(AbstractServiceClass):
 
 
 	def stop(self): 
+		if (hasattr (self, "mqtt")):
+			try:
+				self.mqtt.disconnect()
+			except Exception, e:
+				self.logger.error("Error on stop(): %s" % (e))
 		super(AmazonDashSevice, self).stop()
+
 
 	def retrieveHomeSettings(self):
 		super(AmazonDashSevice, self).retrieveHomeSettings()
@@ -84,10 +100,11 @@ class AmazonDashSevice(AbstractServiceClass):
 						self.logger.debug("command sent to %s" % (button["action"]))
 					else:
 						self.logger.error('Unable to send command %s: %s' % (button["action"], resp))
-
-				#TODO, other REST methods must be implemented
-				#elif (button["protocol"].upper() == "MQTT" and button["type"].upper() == "PUB"):
-					#TODO, MQTT methods must be implemented  
+				#TODO, other REST methods must be implemented if needed
+				elif (button["protocol"].upper() == "MQTT" and button["type"].upper() == "PUB"):
+					timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+					payload = (MQTTPayload.getActuationPayload() %  (button["action"], "toggle", "toggle", button["action"], str(timestamp)))		
+					self.mqtt.syncPublish(button["action"], payload, 2)  
 				else:
 					self.logger.error('The following parameter values are given wrong, protocol: %s; type: %s' % (button["protocol"], button["type"]))
 

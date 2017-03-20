@@ -40,7 +40,7 @@
             "buttonID":"f0:27:2d:4e:12c:2d",
             "protocol":"MQTT",
             "type":"pub",
-            "action":"ACTION/ACTUATOR/000d6f0000af5093"
+            "action":"ACTION/ACTUATOR/000d6f0000af5093/toggle"
         }
     ],
 	"homeMessageBroker":{
