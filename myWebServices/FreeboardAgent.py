@@ -11,42 +11,75 @@ import shutil
 import json
 
 
-FREEBOARD_ROOT = 'myWebServices/static/freeboard/'
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
 
-class FreeboardAgent(object):
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
+
+
+
+
+FREEBOARD_ROOT = 'static/freeboard/'
+httpPort = 8081
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+
+
+class FreeboardAgent(AbstractAgentClass):
 	exposed = True
 
-	def __init__(self, serviceName, logLevel, freeboardRoot, dashboardJsonPath):
-		self.serviceName = serviceName
-		logPath = "log/%s.log" % (self.serviceName)
-		self.freeboardRoot = freeboardRoot
-		self.dashboardJsonPath = dashboardJsonPath
-		
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
+	def __init__(self, serviceName, logLevel):
+		super(FreeboardAgent, self).__init__(serviceName, logLevel)
 
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
+	def getCherrypyConfig (self):
+		path = os.path.abspath(os.path.dirname(__file__))
+		self.freeboard = os.path.join(path, FREEBOARD_ROOT)
+		dashboard = os.path.join(self.freeboard, 'dashboard')
+		self.dashboardJsonPath = os.path.join(dashboard, 'dashboard.json')
+		freeboard_conf = {
+				'/': {
+		            'request.dispatch': cherrypy.dispatch.MethodDispatcher()
+		        },
+				'/static/js':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'js')
+		        },'/static/css':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'css')
+		        },'/static/dashboard':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': dashboard
+		        },'/static/img':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'img')
+		        },'/static/plugins/freeboard':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'plugins/freeboard')
+		        },'/static/plugins/thirdparty':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'plugins/thirdparty')
+		        },'/static/plugins/mqtt':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'plugins/mqtt')
+		        },'/static/plugins/onlinux':{
+		        'tools.staticdir.on': True,
+		        'tools.staticdir.dir': os.path.join(self.freeboard, 'plugins/onlinux')
+		        }
+
+		}
+		return freeboard_conf
+
+	def getMountPoint(self):
+		return "/"
 
 
-	def start (self, cherrypyEngine):
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()
-		
-		cherrypyEngine.subscribe('stop', self.stop())
-
+	def start (self):
 		self.logger.info("Started")
 
 	def stop(self):
@@ -58,7 +91,8 @@ class FreeboardAgent(object):
 			param_1 = str(ids[1])
 			if param_0 == "static" and param_1 is not None:	
 				try:
-					resurce = open(os.path.join(self.freeboardRoot, param_1))
+					resurce = open(os.path.join(self.freeboard, param_1))
+
 				except:
 					self.logger.error("Resource not found")
 					raise cherrypy.HTTPError("404 Not found", "resource not found")
@@ -67,7 +101,7 @@ class FreeboardAgent(object):
 				raise cherrypy.HTTPError("404 Not found", "resource not found")
 		else:
 			# by default it returns the index html
-			resurce = open(os.path.join(self.freeboardRoot, "index.html"))
+			resurce = open(os.path.join(self.freeboard, "index.html"))
 			
 
 		return resurce
@@ -79,7 +113,6 @@ class FreeboardAgent(object):
 			if param_0 == "static" and param_1 == "saveDashboard":	
 				try:
 					with open(self.dashboardJsonPath, 'w') as outfile:
-						#print params['json_string']
 						outfile.write(params['json_string'].encode('utf-8'))
 						outfile.close()
 				except Exception, e:
@@ -88,7 +121,7 @@ class FreeboardAgent(object):
 			else:
 				self.logger.error("Resource not found")
 				raise cherrypy.HTTPError("404 Not found", "resource not found")
-		return open(os.path.join(self.freeboardRoot, "index.html"))
+		return open(os.path.join(self.freeboard, "index.html"))
 		
 	def PUT(self, *ids):
 		self.logger.error("Must override PUT(self, *ids)!")
@@ -97,3 +130,8 @@ class FreeboardAgent(object):
 	def DELETE(self, *ids):
 		self.logger.error("Must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+if __name__ == "__main__":
+	freeboard = FreeboardAgent("FreeboardAgent", logLevel)
+	AbstractAgent.startCherrypy(httpPort, freeboard)
+	

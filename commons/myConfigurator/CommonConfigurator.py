@@ -41,7 +41,7 @@ def makeDefaultConfigFile(configPath):
 	section = getCommonSettingsSection()
 	config.add_section(section)
 	config.set(section, getHomeEndPoint(), "http://localhost:8080/rest/home/configuration")
-	config.set(section, getPlugwiseEndPoint(), "http://localhost:8080")
+	config.set(section, getPlugwiseEndPoint(), "http://localhost:8083")
 
 	config.write(f)
 

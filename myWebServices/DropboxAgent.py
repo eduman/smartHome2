@@ -8,22 +8,16 @@ import os, sys
 import subprocess
 import stat
 from threading import Thread
-import WebServicesConfigurationConstants as WSConstants
 
 # dependencies: dropbox SDK
 # sudo pip install dropbox
 import dropbox
 
-
-
-
 class DropboxAgent(object):
 
-	def __init__(self, serviceName, logLevel, userId, accessToken):
+	def __init__(self, serviceName, logLevel, accessToken):
 		self.serviceName = serviceName
 		self.accessToken = accessToken
-		self.userId = userId
-
 
 		logPath = "log/%s.log" % (self.serviceName)
 		
@@ -61,10 +55,19 @@ class DropboxAgent(object):
 
 		self.logger.info("Started")
 
-		if self.accessToken == WSConstants.getDefaultDropboxAccessToken() or self.accessToken is None:
-			self.logger.error ("Unable to start DropboxAgent. Run DropboxAgent (python DropboxAgent.py) to retrieve your userID and accessToken")
+		if self.accessToken == self.accessToken is None:
+			# To enable for API v1
+			#self.logger.error ("Unable to start DropboxAgent. Run DropboxAgent (python DropboxAgent.py) to retrieve your userID and accessToken")
+			
+			# To enable for API v2
+			self.logger.error ("Unable to start DropboxAgent, an accessToken is needed.")
 		else:
-			self.client = dropbox.client.DropboxClient(self.accessToken)
+			# To enable for API v1
+			#self.client = dropbox.client.DropboxClient(self.accessToken)
+			
+			# To enable for API v2
+			self.client = dropbox.Dropbox(self.accessToken)
+
 			self.isRunning = True
 
 			try:
@@ -90,12 +93,18 @@ class DropboxAgent(object):
 
 			while (self.isRunning):
 				onlyfiles = [ f for f in os.listdir(self.localFolder) if os.path.isfile(os.path.join(self.localFolder,f)) ]
-				for file in onlyfiles:
-					filePath = self.localFolder + '/' + file
+				for myFile in onlyfiles:
+					filePath = self.localFolder + '/' + myFile
 					f = open(filePath, 'rb')
-					response = self.client.put_file(self.remoteFolder + '/' + file, f)		
+					# To enable for API v1
+					#response = self.client.put_file(self.remoteFolder + '/' + myFile, f)	
+
+					# To enable for API v2
+					data = f.read()
+					response = self.client.files_upload(data, self.remoteFolder + '/' + myFile, mode=dropbox.files.WriteMode('add', None), autorename=True, client_modified=None, mute=False)
+
 					os.remove(filePath)
-					self.logger.info('file \"' + file + '\" uploaded and deleted!')
+					self.logger.info('file \"' + myFile + '\" uploaded and deleted!')
 
 				time.sleep(5)
 
@@ -108,22 +117,21 @@ class DropboxAgent(object):
 
 
 
-
-if __name__ == "__main__":
+# To enable for API v1
+#if __name__ == "__main__":
 	# Get your app key and secret from the Dropbox developer website
-	app_key = 'your_app_key'
-	app_secret = 'your_app_secret'
-
-	flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
-	authorize_url = flow.start()
-	print '1. Go to: ' + authorize_url
-	print '2. Click "Allow" (you might have to log in first)'
-	print '3. Copy the authorization code.'
-	code = raw_input("Enter the authorization code here: ").strip()
-	access_token, user_id = flow.finish(code)
-	print 'save your userId and accessToken to your "myWebService.conf"'
-	print 'userId: ' + str(user_id)
-	print 'accessToken: ' + str(access_token)
+#	app_key = 'your_app_key'
+#	app_secret = 'your_app_secret'
+#	flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
+#	authorize_url = flow.start()
+#	print '1. Go to: ' + authorize_url
+#	print '2. Click "Allow" (you might have to log in first)'
+#	print '3. Copy the authorization code.'
+#	code = raw_input("Enter the authorization code here: ").strip()
+#	access_token, user_id = flow.finish(code)
+#	print 'save your userId and accessToken to your "myWebService.conf"'
+#	print 'userId: ' + str(user_id)
+#	print 'accessToken: ' + str(access_token)
 
 
 

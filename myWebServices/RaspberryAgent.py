@@ -11,25 +11,36 @@ import Adafruit_DHT
 import RPi.GPIO as gpio
 from  threading import Thread
 import json
-from commons.myMqtt import MQTTPayload 
-from commons.myMqtt import EventTopics
-from commons.myMqtt.MQTTClient import MyMQTTClass
+
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
+
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
+
 
 DEFAULT_BROKER_URI = "localhost"
 DEFAULT_BROKER_PORT = "1883"
 
+httpPort = 8084
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+timer = 900
 
-class RaspberryAgent(object):
+
+class RaspberryAgent(AbstractAgentClass):
 	exposed = True
 	
-	def __init__(self, serviceName, logLevel, ipAddress, port, timer):
-		self.serviceName = serviceName
-		self.ipAddress = ipAddress
-		self.port = port
+	def __init__(self, serviceName, logLevel):
+		super(RaspberryAgent, self).__init__(serviceName, logLevel)
 
 		#About DHT sensor
 		self.dhtPin = 18
-		self.timer = timer
 		self.isDHTInstalled = False
 		self.dhtType = Adafruit_DHT.DHT22
 
@@ -38,25 +49,14 @@ class RaspberryAgent(object):
 		self.isPirInstalled = False
 		self.pirPin = 7			
 
-		self.WSUri = ("http://%s:%s/rest/raspberry/" % (self.ipAddress, str(self.port)))
-		logPath = "log/%s.log" % (self.serviceName)
-		
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
+		self.WSUri = ("http://%s:%s%s" % (self.getIpAddress(), str(httpPort), self.getMountPoint()))
+		self.myhome = self.retriveHomeSettings()
+		self.brokerUri = myhome["homeMessageBroker"]["address"]
+		self.brokerPort = myhome["homeMessageBroker"]["port"]
 
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
 		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
+	def getMountPoint(self):
+		return '/rest/raspberry'
 
 
 	def setDHTPin(self, dhtPin):
@@ -79,14 +79,7 @@ class RaspberryAgent(object):
 	def setPirInstalled (self, isPirInstalled):
 		self.isPirInstalled = isPirInstalled
 
-	def start (self, cherrypyEngine, brokerUri=DEFAULT_BROKER_URI, brokerPort=DEFAULT_BROKER_PORT):
-		self.brokerUri = brokerUri
-		self.brokerPort = brokerPort
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()	
-		cherrypyEngine.subscribe('stop', self.stop())
-
+	def start (self):
 		self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
 		self.mqtt.connect(self.brokerUri, self.brokerPort)
 
@@ -112,7 +105,7 @@ class RaspberryAgent(object):
 			if tempVal is not "0.0":
 				topic, payload =  self.makeEvent("temperature", tempVal)
 				self.mqtt.syncPublish(topic, payload, 2)
-			time.sleep(self.timer)
+			time.sleep(timer)
 
 	def getDHTValues (self):
 		humidity = None
@@ -158,7 +151,7 @@ class RaspberryAgent(object):
 		self.logger.info("Ended")
 
 	def getConfiguration(self):
-		self.WSUri = ("http://%s:%s/rest/raspberry/" % (self.ipAddress, str(self.port)))
+		self.WSUri = ("http://%s:%s/rest/raspberry/" % (self.getIpAddress(), str(httpPort)))
 
 		uri = self.WSUri + "soctemperature"
 		socTemperature = {"pin":1,"type": "soctemperature","configuredAs": "Sensor","status": self.getSocTemperature(),"unit":"C","rest":"GET","ws":uri}
@@ -172,7 +165,7 @@ class RaspberryAgent(object):
 		temperature = {"pin":3,"type": "Temperature","configuredAs": "Sensor","status": tempVal,"unit":"C","rest":"GET","ws":uri}
 
 		functions = [socTemperature, humidity, temperature]
-		result = {"configured": True,"ip": str(self.ipAddress),"subnet": "","gateway": "","port": str(self.port),"description": "raspberry pi","type": "raspberry","isError": False, "functions": functions}
+		result = {"configured": True,"ip": str(self.getIpAddress()),"subnet": "","gateway": "","port": str(httpPort),"description": "raspberry pi","type": "raspberry","isError": False, "functions": functions}
 
 		return json.dumps(result)
 
@@ -185,11 +178,11 @@ class RaspberryAgent(object):
 	def makeEvent (self, event, value):
 		#payload=('{"event":"SoC Temperature","value":"%s","unit":"°C"}' % (self.getSocTemperature()))
 		if event is "motion":
-			topic = EventTopics.getBehaviourMotion() + "/" + str(self.ipAddress)
+			topic = EventTopics.getBehaviourMotion() + "/" + str(self.getIpAddress())
 		else:
-			topic = EventTopics.getSensorMeasurementEvent() + "/" + str(self.ipAddress) + "/" + event
+			topic = EventTopics.getSensorMeasurementEvent() + "/" + str(self.getIpAddress()) + "/" + event
 		timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-		payload = (MQTTPayload.getActuationPayload() %  (str(topic), str(value), str(event), str(self.ipAddress), str(timestamp)))
+		payload = (MQTTPayload.getActuationPayload() %  (str(topic), str(value), str(event), str(self.getIpAddress()), str(timestamp)))
 		return topic, payload
 
 
@@ -238,3 +231,14 @@ class RaspberryAgent(object):
 	def DELETE(self, *ids):
 		self.logger.error("Subclasses must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+
+if __name__ == "__main__":
+	raspberry = RaspberryAgent("RaspberryAgent", logLevel)
+	raspberry.setDHTInstalled(True)
+	raspberry.setDHTPin(18)
+	raspberry.setDHTType(22)
+	raspberry.setPirInstalled(True)
+	raspberry.setPirPin(7)
+	AbstractAgent.startCherrypy(httpPort, raspberry)
+

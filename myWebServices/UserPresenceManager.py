@@ -3,61 +3,50 @@
 import cherrypy
 import logging
 import json
-
 import os, sys
-lib_path = os.path.abspath(os.path.join('..', 'commons'))
-sys.path.append(lib_path)
-
-from commons.myMqtt import MQTTPayload 
-from commons.myMqtt.MQTTClient import MyMQTTClass
-from commons.myMqtt import EventTopics
 import datetime
 import time
 from  threading import Thread
 
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
 
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
 
 
 
 DEFAULT_BROKER_URI = "localhost"
 DEFAULT_BROKER_PORT = "1883"
 
+httpPort = 8087
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+
+
 userJson = '{"user": "%s", "isPresent": %s}'
 
 
 
-class UserPresenceManager(object):
+class UserPresenceManager(AbstractAgentClass):
 	exposed = True
 
-	def __init__(self, serviceName, logLevel, myHome):
-		self.serviceName = serviceName
-		self.myHome = myHome
+	def __init__(self, serviceName, logLevel):
+		super(UserPresenceManager, self).__init__(serviceName, logLevel)
+		self.confPath = "../conf/%s.conf" % (self.serviceName)
+		self.myhome = self.retriveHomeSettings()
+		self.brokerUri = self.myhome["homeMessageBroker"]["address"]
+		self.brokerPort = self.myhome["homeMessageBroker"]["port"]
 		self.userList = {}
-		logPath = "log/%s.log" % (self.serviceName)
-		self.confPath = "conf/%s.conf" % (self.serviceName)
 		self.event = EventTopics.getBehaviourProximity()
 		self.timer = 300
-		
 
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
-
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
-
-
-		for rules in self.myHome['rules']:
+		for rules in self.myhome['rules']:
 			for user in rules['userList']:
 				self.userList[user] = "false"
 
@@ -72,6 +61,17 @@ class UserPresenceManager(object):
 				pass
 
 		self.logger.info("Started")
+
+	def getMountPoint(self):
+		return '/rest/userpresence'
+
+	def start (self):
+		self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
+		self.mqtt.connect(self.brokerUri, self.brokerPort)
+		self.mqtt.subscribeEvent(None, self.event)
+
+		self.periodicUpdateThread = Thread (target = self.loop)
+		self.periodicUpdateThread.start()
 			
 	def stop(self):
 		if hasattr (self, "mqtt"):
@@ -90,22 +90,6 @@ class UserPresenceManager(object):
 
 		self.logger.info("Ended")
 
-
-	def start (self, cherrypyEngine, brokerUri=DEFAULT_BROKER_URI, brokerPort=DEFAULT_BROKER_PORT):
-		self.brokerUri = brokerUri
-		self.brokerPort = brokerPort
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()
-		
-		cherrypyEngine.subscribe('stop', self.stop())
-
-		self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
-		self.mqtt.connect(self.brokerUri, self.brokerPort)
-		self.mqtt.subscribeEvent(None, self.event)
-
-		self.periodicUpdateThread = Thread (target = self.loop)
-		self.periodicUpdateThread.start()
 
 	def loop (self):		
 		while (True):
@@ -203,3 +187,9 @@ class UserPresenceManager(object):
 	def DELETE(self, *ids):
 		self.logger.error('Subclasses must override DELETE(self, *ids)!')
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+if __name__ == "__main__":
+	upm = UserPresenceManager("UserPresenceManager", logLevel)
+	AbstractAgent.startCherrypy(httpPort, upm)
+
+

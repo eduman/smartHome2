@@ -2,61 +2,48 @@
 
 import cherrypy
 import logging
-import json
-
-import os, sys
-lib_path = os.path.abspath(os.path.join('..', 'commons'))
-sys.path.append(lib_path)
-
-from commons.myMqtt import MQTTPayload 
-from commons.myMqtt.MQTTClient import MyMQTTClass
-from commons.myMqtt import EventTopics
+import os
 import datetime
 import time
+import os, sys
+import shutil
+import json
 
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
 
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
 
 
 DEFAULT_BROKER_URI = "localhost"
 DEFAULT_BROKER_PORT = "1883"
 
-class SwitchOffAllDevicesAgent(object):
+httpPort = 8086
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+
+class SwitchOffAllDevicesAgent(AbstractAgentClass):
 	exposed = True
 
 	def __init__(self, serviceName, logLevel):
-		self.serviceName = serviceName
-		logPath = "log/%s.log" % (self.serviceName)
-		self.confPath = "conf/%s.conf" % (self.serviceName)
-
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
-
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
+		super(SwitchOffAllDevicesAgent, self).__init__(serviceName, logLevel)
+		self.myhome = self.retriveHomeSettings()
+		self.brokerUri = self.myhome["homeMessageBroker"]["address"]
+		self.brokerPort = self.myhome["homeMessageBroker"]["port"]
 		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
 
+	def getMountPoint(self):
+		return '/rest/switchoffall'
 
-	def start (self, cherrypyEngine, brokerUri=DEFAULT_BROKER_URI, brokerPort=DEFAULT_BROKER_PORT):
-		self.brokerUri = brokerUri
-		self.brokerPort = brokerPort
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()	
-		cherrypyEngine.subscribe('stop', self.stop())
-
+	def start (self):
 		self.mqtt = MyMQTTClass(self.serviceName, self.logger, self)
 		self.mqtt.connect(self.brokerUri, self.brokerPort)
-
 
 		self.logger.info("Started")
 
@@ -101,3 +88,11 @@ class SwitchOffAllDevicesAgent(object):
 	def DELETE(self, *ids, **params):
 		self.logger.error("Subclasses must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+
+if __name__ == "__main__":
+	switchOff = SwitchOffAllDevicesAgent("SwitchOffAllDevicesAgent", logLevel)
+	AbstractAgent.startCherrypy(httpPort, switchOff)
+
+
+

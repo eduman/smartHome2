@@ -4,16 +4,32 @@
 	"floor":"2",
 	"landlord":"my landlord",
 	"buildingID":"1",
-	"dashboard":"http://192.168.1.254:8080/static/index.html",
-	"switchOffAllDevicesAgent" : "http://192.168.1.254:8080/rest/switchoffall/actuate",
+	"dashboard":"http://192.168.1.254:8081/static/index.html",
+	"switchOffAllDevicesAgent" : "http://192.168.1.254:8086/rest/switchoffall/actuate",
 	"userPresenceManager": {
-		"getStatus":"http://192.168.1.254:8080/rest/userpresence/presence",
-		"updateStatus": "http://192.168.1.254:8080/rest/userpresence/presence?user=%s&isPresent=%s"
+		"getStatus":"http://192.168.1.254:8087/rest/userpresence/presence",
+		"updateStatus": "http://192.168.1.254:8087/rest/userpresence/presence?user=%s&isPresent=%s"
 	},
 	"TelegramBot": {
 		"telegramToken": "<your_bot_token>",
 		"allowedUserID": [<client_id>, <client_id>]
 	},
+	"DropboxAgent": {
+		"remoteFolder": "/scanner",
+		"accessToken": <accessToken>
+	},
+	"scanners": [
+		{
+			"scannerID":"ScannerAgent",
+			"imageFolder": "/home/pi/smartHome2/scanner/images"
+		}
+	],
+	"plugwiseGateways":[
+       {
+            "plugwiseGatewayID":"PlugwiseAgent",
+            "serialPort": "/dev/ttyUSB0"
+        } 
+    ],
 	"homeMessageBroker":{
 		"address":"home.message.broker.address",
 		"port" : "1883"
@@ -69,7 +85,7 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.4:8080/rest/scanner/configuration"
+							"uri":"http://192.168.1.4:8085/rest/scanner/configuration"
 						}
 					],
 					"thingspeakChannels": []
@@ -82,7 +98,7 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.4:8080/rest/raspberry/configuration"
+							"uri":"http://192.168.1.4:8084/rest/raspberry/configuration"
 						}
 					],
 					"thingspeakChannels": [
@@ -110,7 +126,7 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.4:8080/rest/plugwise/000d6f0000af5093/configuration"
+							"uri":"http://192.168.1.4:8083/rest/plugwise/000d6f0000af5093/configuration"
 						}
 					],
 					"thingspeakChannels": []
@@ -142,7 +158,7 @@
 						{	
 							"ws":"rest",
 							"type":"GET",
-							"uri":"http://192.168.1.5:8080/rest/raspberry/configuration"
+							"uri":"http://192.168.1.5:8084/rest/raspberry/configuration"
 						}
 					],
 					"thingspeakChannels": [

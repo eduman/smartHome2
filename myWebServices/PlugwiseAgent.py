@@ -10,60 +10,71 @@ import optparse
 import logging
 from serial.serialutil import SerialException
 import threading
-
+import json
 
 from plugwise import *
 import plugwise.util
 
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
+
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
+
+
+
+httpPort = 8083
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+
 DEFAULT_SERIAL_PORT = "/dev/ttyUSB0"
 
-wsBase = "http://%s:%s/rest/plugwise/%s/%s"
+wsBase = "http://%s:%s%s/%s/%s"
 jsonMsg = '{"configured":true,"ip":"%s","subnet":"","gateway":"","port":"","description": "plugwise","type": "plugwise","isError":false,"functions":[%s]}'
 function = '{"pin":%s,"type":"%s","configuredAs":"%s","status":"%s","unit":"%s","rest": "GET","ws":"%s"}'
 
 
-class PlugwiseAgent(object):
+class PlugwiseAgent(AbstractAgentClass):
 	exposed = True
 
 	def __init__(self, serviceName, logLevel, ipAddress, port):
-		self.serviceName = serviceName
-		self.ipAddress = ipAddress
-		self.port = port
+		super(PlugwiseAgent, self).__init__(serviceName, logLevel)
 		self.__lock = threading.Lock()
-		logPath = "log/%s.log" % (self.serviceName)
+		self.myhome = self.retriveHomeSettings()
+
 		
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
 
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
+	def getMountPoint(self):
+		return '/rest/plugwise'
 
-	def start (self, cherrypyEngine, appliances, serialPort = DEFAULT_SERIAL_PORT):
+	def start (self):
 
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()
-		
-		cherrypyEngine.subscribe('stop', self.stop())
+		self.serialPort = DEFAULT_SERIAL_PORT
+		self.plugwiseAgentID =  (inspect.stack()[0][1]).replace(".py", "").replace("./", "")
 
-		self.serialPort = serialPort
+		for gateway in self.myhome["plugwiseGateways"]:
+			#scanner = self.caseInsensitive(scanner)
+			if gateway["plugwiseGatewayID"] == self.plugwiseAgentID:
+				self.serialPort = gateway["serialPort"]
+				found = True
 
-		self.stickSerial = Stick(self.serialPort)
+		if (not found):
+			self.logger.error ("PlugwiseAgentID = %s not found in myHome json", self.plugwiseAgentID)
+			sys.exit()
+
 
 		self.appliances = {}
-		if appliances is not None:
-			self.appliances = appliances
+		for room in self.myhome['rooms']:
+			for device in room['devices']:
+				if device['type'].lower() == "plugwise":
+					self.appliances[device['deviceID']] = device['description']
 
+		self.stickSerial = Stick(self.serialPort)
 		self.logger.info("Started")
 
 	def stop(self):
@@ -93,10 +104,10 @@ class PlugwiseAgent(object):
 
 		if response.find(toSearch) != -1:
 			status = "1"
-			switchWS = wsBase % (self.ipAddress, self.port, plugwiseID, "off")
+			switchWS = wsBase % (self.getIpAddress(), httpPort, self.getMountPoint(), plugwiseID, "off")
 		else:
 			status = "0"
-			switchWS = wsBase % (self.ipAddress, self.port, plugwiseID, "on")
+			switchWS = wsBase % (self.getIpAddress(), httpPort, self.getMountPoint(), plugwiseID, "on")
 
 		if self.appliances.get(plugwiseID) is not None:
 			applianceName = self.appliances.get(plugwiseID)
@@ -104,16 +115,17 @@ class PlugwiseAgent(object):
 			applianceName = "Unknown appliance"
 
 
-		infoWS= wsBase % (self.ipAddress, self.port, plugwiseID, "configuration")
+		infoWS= wsBase % (self.getIpAddress(), httpPort, self.getMountPoint(), plugwiseID, "configuration")
 		values += function % (1, applianceName, "switch", status, "", switchWS) + ","
 		values += function % (2, "Power", "sensor", power, "W", infoWS) 
 		result = jsonMsg % (plugwiseID, values)
-		return result
+		return status, result
 
 
 	def GET(self, *ids):
 		self.__lock.acquire()
 		result = ""
+		status = ""
 		error = None
 		try: 
 			if len(ids) > 1:
@@ -123,15 +135,32 @@ class PlugwiseAgent(object):
 				circle = Circle(plugwiseID, self.stickSerial)
 
 				if command == "configuration":			
-					result += self.getConfiguration(circle, plugwiseID)
+					status, result = self.getConfiguration(circle, plugwiseID)
 				
 				elif command == "on":
 					circle.switch_on()			
-					result += self.getConfiguration(circle, plugwiseID) 
+					status, result = self.getConfiguration(circle, plugwiseID) 
 
 				elif command == "off":	
 					circle.switch_off()			
-					result += self.getConfiguration(circle, plugwiseID) 
+					status, result += self.getConfiguration(circle, plugwiseID)
+
+				elif coomand == "toggle":
+					status, trash = self.getConfiguration(circle, plugwiseID)
+					if (status == "0"):
+						circle.switch_on()
+					elif (status == "1"):
+						circle.switch_off()
+					status, result = self.getConfiguration(circle, plugwiseID)
+					#devStatus= json.loads(self.getConfiguration(circle, plugwiseID))
+					#for function in devStatus["functions"]:
+					#	if (function["configuredAs"] == "switch"):
+					#		if (function["status"] == "0")
+					#			circle.switch_on()
+					#		elif (function["status"] == "1")
+					#			circle.switch_off()
+					#result += self.getConfiguration(circle, plugwiseID)
+
 				
 				else:
 					self.logger.error("Command not found")
@@ -165,3 +194,9 @@ class PlugwiseAgent(object):
 	def DELETE(self, *ids):
 		self.logger.error("Subclasses must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+if __name__ == "__main__":
+	plugwise = PlugwiseAgent("PlugwiseAgent", logLevel)
+	AbstractAgent.startCherrypy(httpPort, plugwise)
+
+

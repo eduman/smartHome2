@@ -9,6 +9,22 @@ import os, sys
 import subprocess
 import stat
 
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
+
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
+
+
+httpPort = 8082
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+
 COMMANDS = ["BrightnessDown", "BrightnessUp", "PlayerNext", "PlayerPlayPause", "PlayerPrevious", "PlayerStop", "VolumeDown", "VolumeUp", "VolumeMute"]
 URIS = ["configuration"]
 for command in COMMANDS:
@@ -17,40 +33,17 @@ for command in COMMANDS:
 
 URIS += ["volumemutedfalse", "volumemutedtrue"]
 
-class MacosxAgent(object):
+class MacosxAgent(AbstractAgentClass):
 	exposed = True
 
-	def __init__(self, serviceName, logLevel, ipAddress, port):
-		self.serviceName = serviceName
-		self.ipAddress = ipAddress
-		self.port = port
-		logPath = "log/%s.log" % (self.serviceName)
-		
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
+	def __init__(self, serviceName, logLevel):
+		super(MacosxAgent, self).__init__(serviceName, logLevel)
 
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
+	def getMountPoint(self):
+		return '/rest/macosx'
 
 
-	def start (self, cherrypyEngine):
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()
-		
-		cherrypyEngine.subscribe('stop', self.stop())
-
+	def start (self):
 		self.logger.info("Started")
 
 	def stop(self):
@@ -73,16 +66,16 @@ class MacosxAgent(object):
 					muteValue = "ToBeMuted"
 					ws = "volumemutedtrue"
 
-				functions += ('{"pin":%d,"type": "%s","configuredAs": "Button","status":"%s","unit":"","rest":"GET","ws":"http://%s:%s/rest/macosx/%s"}' %(pin, command, muteValue, self.ipAddress, self.port, ws))
+				functions += ('{"pin":%d,"type": "%s","configuredAs": "Button","status":"%s","unit":"","rest":"GET","ws":"http://%s:%s/rest/macosx/%s"}' %(pin, command, muteValue, self.getIpAddress(), httpPort, ws))
 
 			else:
-				functions += ('{"pin":%d,"type": "%s","configuredAs": "Button","status":"ok","unit":"","rest":"GET","ws":"http://%s:%s/rest/macosx/%s"}' %(pin, command, self.ipAddress, self.port, command.lower()))
+				functions += ('{"pin":%d,"type": "%s","configuredAs": "Button","status":"ok","unit":"","rest":"GET","ws":"http://%s:%s/rest/macosx/%s"}' %(pin, command, self.getIpAddress(), httpPort, command.lower()))
 
 			pin += 1
 			if pin < len(COMMANDS):
 				functions += ","
 
-		configJson = ('{"configured": true,"ip": "%s","subnet": "","gateway": "","port":"%s","description": "macosx","type": "macosx","isError": false,"functions": [%s]}' % (self.ipAddress, self.port, functions))
+		configJson = ('{"configured": true,"ip": "%s","subnet": "","gateway": "","port":"%s","description": "macosx","type": "macosx","isError": false,"functions": [%s]}' % (self.getIpAddress(), httpPort, functions))
 
 		return configJson
 
@@ -113,7 +106,7 @@ class MacosxAgent(object):
 				result += self.getConfiguration()
 
 			elif param_0 in URIS and param_0 is not URIS[0]:
-				result += self.launchCommand("myWebServices/macosx/%s.sh" % param_0.lower())
+				result += self.launchCommand("macosx/%s.sh" % param_0.lower())
 						
 			else:
 				self.logger.error("command not found")
@@ -138,3 +131,10 @@ class MacosxAgent(object):
 	def DELETE(self, *ids):
 		self.logger.error("Must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+
+
+if __name__ == "__main__":
+	macosx = MacosxAgent("MacosxAgent", logLevel)
+	AbstractAgent.startCherrypy(httpPort, macosx)
+

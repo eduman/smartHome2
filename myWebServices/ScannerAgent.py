@@ -8,45 +8,54 @@ import time
 import os, sys
 import subprocess
 import stat
+import inspect
+
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
+
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
+from DropboxAgent import DropboxAgent
 
 
+httpPort = 8085
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 
-class ScannerAgent(object):
+class ScannerAgent(AbstractAgentClass):
 	exposed = True
 
-	def __init__(self, serviceName, logLevel, ipAddress, port):
-		self.serviceName = serviceName
-		self.ipAddress = ipAddress
-		self.port = port
-		logPath = "log/%s.log" % (self.serviceName)
+	def __init__(self, serviceName, logLevel):
+		super(ScannerAgent, self).__init__(serviceName, logLevel)
+		self.myhome = self.retriveHomeSettings()
+		self.scannerid =  (inspect.stack()[0][1]).replace(".py", "").replace("./", "")
+		found = False
+		for scanner in self.myhome["scanners"]:
+			#scanner = self.caseInsensitive(scanner)
+			if scanner["scannerID"] == self.scannerid:
+				self.imageFolder = scanner["imageFolder"]
+				accessToken = self.myhome["DropboxAgent"]["accessToken"]
+				remoteFolder = self.myhome["DropboxAgent"]["remoteFolder"]
+				dropbox = DropboxAgent ("DropboxAgent", logLevel, accessToken)
+				dropbox.start(self.imageFolder, remoteFolder)
+				found = True
+
+
+		if (not found):
+			self.logger.error ("ScannerID = %s not found in myHome json", self.scannerid)
+			sys.exit()
+
+	def getMountPoint(self):
+		return '/rest/scanner'
+
+
+	def start (self):
 		
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
-
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
-
-
-
-	def start (self, cherrypyEngine, imageFolder):
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()
-		
-		cherrypyEngine.subscribe('stop', self.stop())
-
-		self.imageFolder = imageFolder
 		if not os.path.exists(self.imageFolder):
 			try:
 				os.makedirs(self.imageFolder)
@@ -60,7 +69,7 @@ class ScannerAgent(object):
 		self.logger.info("Ended")
 
 	def getConfiguration(self):
-		result = ('{"configured": true,"ip": "%s","subnet": "","gateway": "","port":"%s","description": "scanner","type": "scanner","isError": false,"functions": [{"pin":1,"type": "Scan","configuredAs": "Button","status":"","unit":"","rest":"GET","ws":"http://%s:%s/rest/scanner/scan"}]}' % (self.ipAddress, str(self.port), self.ipAddress, str(self.port)))
+		result = ('{"configured": true,"ip": "%s","subnet": "","gateway": "","port":"%s","description": "scanner","type": "scanner","isError": false,"functions": [{"pin":1,"type": "Scan","configuredAs": "Button","status":"","unit":"","rest":"GET","ws":"http://%s:%s%s/scan"}]}' % (self.getIpAddress(), str(httpPort), self.getIpAddress(), str(httpPort), self.getMountPoint()))
 		return result
 
 	def scan(self):
@@ -71,7 +80,7 @@ class ScannerAgent(object):
 				self.logger.error("Error in creating image folder: %s" % (e))
 				raise cherrypy.HTTPError("404 Not found", ("error in creating image folder: %s" % (e)))
 
-		path = os.path.join(os.getcwd(), "myWebServices/scanner/scan.sh")
+		path = os.path.join(os.getcwd(), "scanner/scan.sh")
 		if os.path.exists(path):
 			try:
 				st = os.stat(path)
@@ -121,3 +130,10 @@ class ScannerAgent(object):
 	def DELETE(self, *ids):
 		self.logger.error("Subclasses must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+
+if __name__ == "__main__":
+	scanner = ScannerAgent("ScannerAgent", logLevel)
+	AbstractAgent.startCherrypy(httpPort, scanner)
+
+

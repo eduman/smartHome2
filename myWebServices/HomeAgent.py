@@ -8,49 +8,38 @@ import time
 import os, sys
 import shutil
 import json
-from commons.myMqtt import MQTTPayload 
-from commons.myMqtt import EventTopics
-from commons.myMqtt.MQTTClient import MyMQTTClass
+
+import abstractAgent.AbstractAgent as AbstractAgent
+from abstractAgent.AbstractAgent import AbstractAgentClass
+
+lib_path = os.path.abspath(os.path.join('..', 'commons'))
+sys.path.append(lib_path)
+from myMqtt import MQTTPayload 
+from myMqtt import EventTopics
+from myMqtt.MQTTClient import MyMQTTClass  
+from mySSLUtil import MySSLUtil
+
+
 
 DEFAULT_BROKER_URI = "localhost"
 DEFAULT_BROKER_PORT = "1883"
 
-class HomeAgent(object):
+httpPort = 8080
+#httpPort = 443
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
+
+class HomeAgent(AbstractAgentClass):
 	exposed = True
 
 	def __init__(self, serviceName, logLevel):
-		self.serviceName = serviceName
-		logPath = "log/%s.log" % (self.serviceName)
-		
-		if not os.path.exists(logPath):
-			try:
-				os.makedirs(os.path.dirname(logPath))
-			except Exception, e:
-				pass	
+		super(HomeAgent, self).__init__(serviceName, logLevel)
 
-		self.logger = logging.getLogger(self.serviceName)
-		self.logger.setLevel(logLevel)
-		hdlr = logging.FileHandler(logPath)
-		formatter = logging.Formatter(self.serviceName + ": " + "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-		hdlr.setFormatter(formatter)
-		self.logger.addHandler(hdlr)
-		
-		consoleHandler = logging.StreamHandler()
-		consoleHandler.setFormatter(formatter)
-		self.logger.addHandler(consoleHandler)
+	def getMountPoint(self):
+		return '/rest/home'
 
-
-
-
-	def start (self, cherrypyEngine):
-
-		if hasattr(cherrypyEngine, 'signal_handler'):
-			cherrypyEngine.signal_handler.subscribe()
-		
-		cherrypyEngine.subscribe('stop', self.stop())
-
+	def start (self):
 		self.copyDefaultFile()
-
 		myhome = json.loads(self.getConfiguration())
 		self.brokerUri = myhome["homeMessageBroker"]["address"]
 		self.brokerPort = myhome["homeMessageBroker"]["port"]
@@ -64,15 +53,10 @@ class HomeAgent(object):
 		self.logger.info("Started")
 
 	def stop(self):
-		if (hasattr (self, "mqtt")):
-			try:
-				self.mqtt.disconnect()
-			except Exception, e:
-				self.logger.error("Error on stop(): %s" % (e))
 		self.logger.info("Ended")
 
 	def copyDefaultFile(self):
-		newtFile = os.path.join(os.getcwd(), "conf")
+		newtFile = os.path.join(os.getcwd(), "../conf")
 		if not os.path.exists(newtFile):
 			try:
 				os.makedirs(newtFile)
@@ -83,7 +67,7 @@ class HomeAgent(object):
 		newtFile =  os.path.join(newtFile, "home_structure.json")
 		if not os.path.isfile(newtFile):
 			try:
-				defaultFile = os.path.join(os.getcwd(), "myWebServices/home/home_structure.json")
+				defaultFile = os.path.join(os.getcwd(), "home/home_structure.json")
 				shutil.copy2(defaultFile, newtFile)
 			except Exception, e:
 				self.logger.error("error in copying the defalut \"home_structure.json\" file: %s" % (e))
@@ -98,7 +82,7 @@ class HomeAgent(object):
 
 	def getConfiguration(self):
 		result = ""
-		path = os.path.join(os.getcwd(), "conf/home_structure.json")
+		path = os.path.join(os.getcwd(), "../conf/home_structure.json")
 		if os.path.exists(path):
 			try:
 				with open(path, "r") as myfile:
@@ -110,6 +94,8 @@ class HomeAgent(object):
 			result += self.getConfiguration()
 
 		return result
+
+	
 
 	def GET(self, *ids):
 		result = ""
@@ -139,7 +125,7 @@ class HomeAgent(object):
 			param_1 = str(ids[1]).lower()
 			if param_0 == "configuration" and param_1 == "updaterule":
 
-				fullpath = os.path.join(os.getcwd(), "conf/home_structure.json")
+				fullpath = os.path.join(os.getcwd(), "../conf/home_structure.json")
 				if os.path.exists(fullpath):
 					try:
 						json_data=open(fullpath).read()
@@ -182,3 +168,18 @@ class HomeAgent(object):
 	def DELETE(self, *ids):
 		self.logger.error("Subclasses must override DELETE(self, *ids)!")
 		raise NotImplementedError('subclasses must override DELETE(self, *ids)!')
+
+
+if __name__ == "__main__":
+	home = HomeAgent("HomeAgent", logLevel)
+	AbstractAgent.startCherrypy(httpPort, home)
+	
+
+
+
+
+	
+	
+
+	
+
