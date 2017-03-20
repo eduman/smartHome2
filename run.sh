@@ -8,17 +8,15 @@ fi
 
 cd '/home/pi/smartHome2/'
 
-#run the device connector 
-#cd './device_connector'
-#echo "running device_connector..."
-#screen -d -m ./device-gateway
+cd './myWebServices'
+for f in *.py; do 
+	echo "running $f..."
+	screen -S "$f" -d -m python "$f"; 
+done
 
-#run myWebServices
-echo "running myWebServices.py..."
-screen -S "myWebServices" -d -m sudo python myWebServices.py; 
 
 #run the subscribers
-#cd ..
+cd ..
 cd './subscribers'
 #for f in *.py; do screen -d -m python "$f"; done
 for f in *.py; do 
@@ -41,8 +39,6 @@ for f in *.py; do
 	echo "running $f..."
 	screen -S "$f" -d -m python "$f"; 
 done
-
-
 
 
 #run the control strategies
