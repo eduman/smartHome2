@@ -11,6 +11,8 @@ import logging
 from serial.serialutil import SerialException
 import threading
 import json
+import inspect
+
 
 from plugwise import *
 import plugwise.util
@@ -42,7 +44,7 @@ function = '{"pin":%s,"type":"%s","configuredAs":"%s","status":"%s","unit":"%s",
 class PlugwiseAgent(AbstractAgentClass):
 	exposed = True
 
-	def __init__(self, serviceName, logLevel, ipAddress, port):
+	def __init__(self, serviceName, logLevel):
 		super(PlugwiseAgent, self).__init__(serviceName, logLevel)
 		self.__lock = threading.Lock()
 		self.myhome = self.retriveHomeSettings()
@@ -144,9 +146,9 @@ class PlugwiseAgent(AbstractAgentClass):
 
 				elif command == "off":	
 					circle.switch_off()			
-					status, result += self.getConfiguration(circle, plugwiseID)
+					status, result = self.getConfiguration(circle, plugwiseID)
 
-				elif coomand == "toggle":
+				elif command == "toggle":
 					status, trash = self.getConfiguration(circle, plugwiseID)
 					if (status == "0"):
 						circle.switch_on()

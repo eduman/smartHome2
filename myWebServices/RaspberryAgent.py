@@ -51,8 +51,8 @@ class RaspberryAgent(AbstractAgentClass):
 
 		self.WSUri = ("http://%s:%s%s" % (self.getIpAddress(), str(httpPort), self.getMountPoint()))
 		self.myhome = self.retriveHomeSettings()
-		self.brokerUri = myhome["homeMessageBroker"]["address"]
-		self.brokerPort = myhome["homeMessageBroker"]["port"]
+		self.brokerUri = self.myhome["homeMessageBroker"]["address"]
+		self.brokerPort = self.myhome["homeMessageBroker"]["port"]
 
 		
 	def getMountPoint(self):
