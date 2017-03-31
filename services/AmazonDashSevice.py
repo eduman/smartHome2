@@ -1,4 +1,4 @@
-# from scapy.all import *
+from scapy.all import *
 import logging
 import datetime
 import time
