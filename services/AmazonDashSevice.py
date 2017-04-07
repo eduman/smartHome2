@@ -40,7 +40,13 @@ class AmazonDashSevice(AbstractServiceClass):
 	def __init__(self, serviceName, logLevel, arguments):
 		super(AmazonDashSevice, self).__init__(serviceName, logLevel)
 		self.arguments = arguments
-		
+		self.checkSudoer()
+
+	def checkSudoer(self):
+		user = os.getenv("SUDO_USER")
+		if user is None:
+			self.logger.error("This program needs 'sudo' presmissions")
+			self.stop()		
 
 	def start (self):
 		if ("--scan" in sys.argv):

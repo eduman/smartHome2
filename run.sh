@@ -35,10 +35,12 @@ done
 cd ..
 cd './services'
 #for f in *.py; do screen -d -m python "$f"; done
-for f in *.py; do 
-	echo "running $f..."
-	screen -S "$f" -d -m python "$f"; 
-done
+#for f in *.py; do 
+#	echo "running $f..."
+#	screen -S "$f" -d -m python "$f"; 
+#done
+screen -S "AmazonDashSevice.py" -d -m sudo python "AmazonDashSevice.py";
+screen -S "TelegramService.py" -d -m python "TelegramService.py";
 
 
 #run the control strategies
