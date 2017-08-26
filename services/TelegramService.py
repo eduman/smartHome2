@@ -144,13 +144,12 @@ class SmartHomeBot(AbstractServiceClass):
 		self.allDevicesList = {}
 		for i, room in enumerate(self.myhome["rooms"]):
 			for count, device in  enumerate(room["devices"]):
-				label = "%s - %s" % (device["deviceID"], device["description"])
+				label = "%s (%s)" % (device["description"], device["deviceID"])
 				self.allDevicesList[label] = device
 				keyoardRow.append (label)
 				keyboard.append(keyoardRow)
 				keyoardRow = []
-
-
+		keyboard.sort()
 		keyoardRow = ["Back", "Start"]
 		keyboard.append(keyoardRow)
 		self.keyboards["All Devices"] = keyboard
@@ -190,13 +189,13 @@ class SmartHomeBot(AbstractServiceClass):
 					else:
 						status = "unknown"
 					replyMsg += "%s is %s\n" % (function["type"], status)
-					label = "%s - %s %s" % (deviceInfo["ip"], nextStatus, function["type"])
+					label = "%s %s (%s)" % (nextStatus, function["type"], deviceInfo["ip"])
 					self.alldevicesFunctionsList[label] = function["ws"]
 					keyboard.append([label])
 
 				elif (function["configuredAs"].lower() == "button"):
 					replyMsg += "%s\n" % (function["type"])
-					label = "%s - %s" % (deviceInfo["ip"], function["type"])
+					label = "%s (%s)" % (function["type"], deviceInfo["ip"])
 					self.alldevicesFunctionsList[label] = function["ws"]
 					keyboard.append([label])
 
@@ -517,11 +516,12 @@ class SmartHomeBot(AbstractServiceClass):
 				keyboard = []
 				keyoardRow = []
 				for count, device in  enumerate(self.allRoomsList[text]["devices"]):
-					label = "%s - %s" % (device["deviceID"], device["description"])
+					label = "%s (%s)" % (device["description"], device["deviceID"])
 					self.allDevicesList[label] = device
 					keyoardRow.append (label)
 					keyboard.append(keyoardRow)
 					keyoardRow = []
+				keyboard.sort()
 				keyboard.append(["Back", "Start"])
 				try:
 					replyMsg = "command received"
