@@ -12,11 +12,11 @@
 	},
 	"TelegramBot": {
 		"telegramToken": "<your_bot_token>",
-		"allowedUserID": [<client_id>, <client_id>]
+		"allowedUserID": ["client_id", "client_id"]
 	},
 	"DropboxAgent": {
 		"remoteFolder": "/scanner",
-		"accessToken": <accessToken>
+		"accessToken": "accessToken"
 	},
 	"scanners": [
 		{
@@ -117,9 +117,11 @@
 					"thingspeakChannels": [
 						{
 							"measureType": "Temperature",
+							"readFeed": "http://api.thingspeak.com/channels/<channelID>/charts/1?days=2&dynamic=true&type=spline&api_key=<thingspeak_read_key>",
 							"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field1=%s&created_at=%s&offset=<integer depending on your timezone>"
 						},{
 							"measureType": "Humidity",
+							"readFeed": "http://api.thingspeak.com/channels/<channelID>/charts/2?days=2&dynamic=true&type=spline&api_key=<thingspeak_read_key>",
 							"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field2=%s&created_at=%s&offset=<integer depending on your timezone>"
 						}
 					]
@@ -177,9 +179,11 @@
 					"thingspeakChannels": [
 						{
 							"measureType": "Temperature",
+							"readFeed": "http://api.thingspeak.com/channels/<channelID>/charts/1?days=2&dynamic=true&type=spline&api_key=<thingspeak_read_key>",
 							"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field1=%s&created_at=%s&offset=<integer depending on your timezone>"
 						},{
 							"measureType": "Humidity",
+							"readFeed": "http://api.thingspeak.com/channels/<channelID>/charts/2?days=2&dynamic=true&type=spline&api_key=<thingspeak_read_key>",
 							"feed": "https://api.thingspeak.com/update?api_key=<thingspeak_write_key>&field2=%s&created_at=%s&offset=<integer depending on your timezone>"
 						}
 					]

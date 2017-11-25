@@ -167,17 +167,22 @@ class SmartHomeBot(AbstractServiceClass):
 		self.keyboards["Rules"] = keyboard
 
 	def retrieveDeviceInfo(self, deviceID):
+		replyMsg = ""
 		if (deviceID.lower().startswith("http://") or deviceID.lower().startswith("https://")):
 			deviceUri = deviceID
 		else:
 			deviceUri = self.allDevicesList[deviceID]["protocol"][0]["uri"]
 
+			if (len(self.allDevicesList[deviceID]["thingspeakChannels"]) > 0):
+				replyMsg += ("Thingspeak Channels:\n")
+				for tsfeed in self.allDevicesList[deviceID]["thingspeakChannels"]:
+					replyMsg += ("%s %s\n\n" % (tsfeed["measureType"], tsfeed["readFeed"]))
+
 		resp, isOk = self.invokeWebService (deviceUri)
-		replyMsg = ""
 		reply_markup = None
+		keyboard = []
 		if (isOk):
 			deviceInfo = json.loads (resp)
-			keyboard = []
 			for function in deviceInfo["functions"]:
 				if (function["configuredAs"].lower() == "switch"):
 					if (function["status"] == "0"):
@@ -206,10 +211,9 @@ class SmartHomeBot(AbstractServiceClass):
 				keyboard.append(["Back", "Start"])
 				#reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
 
-
 		else:
-			replyMsg = 'Devices %s is unreachable: %s' % (deviceID, resp)
-		
+			replyMsg += 'Devices %s is unreachable: %s' % (deviceID, resp)
+
 		return replyMsg, keyboard
 
 
@@ -457,7 +461,7 @@ class SmartHomeBot(AbstractServiceClass):
 					replyMsg = "command received"
 					backKeyboard = self.keybordForUsers[chat_id][-1]
 				else:
-					replyMsg = "Restoring first keyboard due to an internal error"
+					replyMsg = "Restoring keyboard due to an internal error"
 					backKeyboard= self.keyboards["start"]
 					self.keybordForUsers[chat_id] = [backKeyboard]
 				
@@ -473,7 +477,7 @@ class SmartHomeBot(AbstractServiceClass):
 					self.keybordForUsers[chat_id].append(self.keyboards[self.keyboards["start"][0][0]])
 					reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][0][0]], one_time_keyboard= False, selective=True)
 				except:
-					replyMsg = "Restoring first keyboard due to an internal error"
+					replyMsg = "Restoring keyboard due to an internal error"
 					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 				
@@ -484,7 +488,7 @@ class SmartHomeBot(AbstractServiceClass):
 					self.keybordForUsers[chat_id].append(self.keyboards[self.keyboards["start"][0][1]])
 					reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][0][1]], one_time_keyboard= False, selective=True)
 				except:
-					replyMsg = "Restoring first keyboard due to an internal error"
+					replyMsg = "Restoring keyboard due to an internal error"
 					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 				
@@ -506,7 +510,7 @@ class SmartHomeBot(AbstractServiceClass):
 #					self.keybordForUsers[chat_id].append(self.keyboards[self.keyboards["start"][1][1]])
 #					reply_markup = ReplyKeyboardMarkup.create(self.keyboards[self.keyboards["start"][1][1]], one_time_keyboard= False, selective=True)
 #				except:
-#					replyMsg = "Restoring first keyboard due to an internal error"
+#					replyMsg = "Restoring keyboard due to an internal error"
 #					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 #					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 
@@ -528,7 +532,7 @@ class SmartHomeBot(AbstractServiceClass):
 					self.keybordForUsers[chat_id].append(keyboard)
 					reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
 				except:
-					replyMsg = "Restoring first keyboard due to an internal error"
+					replyMsg = "Restoring keyboard due to an internal error"
 					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 				
@@ -543,7 +547,7 @@ class SmartHomeBot(AbstractServiceClass):
 					self.keybordForUsers[chat_id].append(keyboard)
 					reply_markup = ReplyKeyboardMarkup.create(keyboard, one_time_keyboard= False, selective=True)
 				except:
-					replyMsg = "Restoring first keyboard due to an internal error"
+					replyMsg = "Restoring keyboard due to an internal error"
 					self.keybordForUsers[chat_id] = [self.keyboards["start"]]
 					reply_markup = ReplyKeyboardMarkup.create(self.keyboards["start"], one_time_keyboard= False, selective=True)
 				
