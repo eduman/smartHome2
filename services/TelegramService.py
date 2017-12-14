@@ -167,7 +167,7 @@ class SmartHomeBot(AbstractServiceClass):
 		self.keyboards["Rules"] = keyboard
 
 	def retrieveDeviceInfo(self, deviceID):
-		replyMsg = ""
+		replyMsg = ("This is %s\n" % (deviceID))
 		if (deviceID.lower().startswith("http://") or deviceID.lower().startswith("https://")):
 			deviceUri = deviceID
 		else:
